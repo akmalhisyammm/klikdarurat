@@ -1,0 +1,7 @@
+{
+  "name": "klikdarurat",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
