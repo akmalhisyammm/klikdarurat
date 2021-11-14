@@ -12,7 +12,7 @@ import {
 import { emergencyCall } from 'assets';
 import { openOutline } from 'ionicons/icons';
 
-const Landing: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="ion-text-center">
@@ -69,4 +69,4 @@ const Landing: React.FC = () => {
   );
 };
 
-export default Landing;
+export default Home;
