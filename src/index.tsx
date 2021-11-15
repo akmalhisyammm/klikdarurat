@@ -3,10 +3,15 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { LoadScript } from '@react-google-maps/api';
+
+const googleMapsApiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LoadScript googleMapsApiKey={googleMapsApiKey}>
+      <App />
+    </LoadScript>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -46,7 +46,7 @@ http://ionicframework.com/docs/theming/ */
   /** danger **/
   --ion-color-danger: #e06c78;
   --ion-color-danger-rgb: 224, 108, 120;
-  --ion-color-danger-contrast: #000000;
+  --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 0, 0, 0;
   --ion-color-danger-shade: #c55f6a;
   --ion-color-danger-tint: #e37b86;
@@ -120,7 +120,7 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-color-danger: #e06c78;
     --ion-color-danger-rgb: 224, 108, 120;
-    --ion-color-danger-contrast: #000000;
+    --ion-color-danger-contrast: #ffffff;
     --ion-color-danger-contrast-rgb: 0, 0, 0;
     --ion-color-danger-shade: #c55f6a;
     --ion-color-danger-tint: #e37b86;
