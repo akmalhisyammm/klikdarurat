@@ -5,7 +5,7 @@ const EditProfile: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="danger">
           <IonTitle>Edit Profil</IonTitle>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/"/>
