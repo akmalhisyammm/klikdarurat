@@ -1,141 +1,237 @@
-import { 
-  IonPage,
+import {
+  IonButtons,
   IonCard,
-  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
   IonCol,
   IonContent,
   IonGrid,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonRow,
   IonHeader,
+  IonMenuButton,
+  IonPage,
+  IonRow,
+  IonTitle,
   IonToolbar,
-  IonCardTitle
 } from '@ionic/react';
-
-import { ellipsisVerticalOutline } from 'ionicons/icons';
-
-import 'assets/emergency-service/index';
-import { ambulans, basarnas, bnpb, callCenter, damkar, jasaMarga, pln, polisi } from 'assets/emergency-service/index';
+import {
+  ambulans,
+  basarnas,
+  bnpb,
+  callCenter,
+  damkar,
+  jasaMarga,
+  pln,
+  polisi,
+} from 'assets';
 
 const EmergencyService: React.FC = () => {
   const handleCallCenterClick = () => {
-    console.log("Call Center button clicked!");
+    console.log('Call Center button clicked!');
   };
+
   const handleAmbulanClick = () => {
-    console.log("Ambulan button clicked!");
+    console.log('Ambulan button clicked!');
   };
+
   const handlePolisiClick = () => {
-    console.log("Polisi button clicked!");
+    console.log('Polisi button clicked!');
   };
+
   const handleDamkarClick = () => {
-    console.log("Damkar button clicked!");
+    console.log('Damkar button clicked!');
   };
+
   const handleBasarnasClick = () => {
-    console.log("Basarnas button clicked!");
+    console.log('Basarnas button clicked!');
   };
+
   const handleBNPBClick = () => {
-    console.log("BNPB button clicked!");
+    console.log('BNPB button clicked!');
   };
+
   const handlePLNClick = () => {
-    console.log("PLN button clicked!");
+    console.log('PLN button clicked!');
   };
+
   const handleJasaMargaClick = () => {
-    console.log("Jasa Marga button clicked!");
+    console.log('Jasa Marga button clicked!');
   };
 
   return (
     <IonPage>
-      <IonContent>
-          <IonHeader>
-            <IonToolbar color="danger">
-              <IonItem color="danger">
-                <IonLabel><h1>Layanan Darurat</h1></IonLabel>
-                <IonIcon icon={ellipsisVerticalOutline}/>
-              </IonItem>
-            </IonToolbar>
-          </IonHeader>
+      <IonHeader>
+        <IonToolbar color="danger">
+          <IonTitle>Layanan Darurat</IonTitle>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
-          <IonGrid style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            height: '100%'
-          }}>
-            <IonRow>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleCallCenterClick}>
-                  <img src={callCenter}/>
-                  <IonCardContent>
-                    <IonCardTitle>Call Center</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleAmbulanClick}>
-                  <img src={ambulans}/>
-                  <IonCardContent>
-                    <IonCardTitle>Ambulan</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>                
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handlePolisiClick}>
-                  <img src={polisi}/>
-                  <IonCardContent>
-                    <IonCardTitle>Polisi</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleDamkarClick}>
-                  <img src={damkar}/>
-                  <IonCardContent>
-                    <IonCardTitle>Damkar</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleBasarnasClick}>
-                  <img src={basarnas}/>
-                  <IonCardContent>
-                    <IonCardTitle>Basarnas</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleBNPBClick}>
-                  <img src={bnpb}/>
-                  <IonCardContent>
-                    <IonCardTitle>BNPB</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handlePLNClick}>
-                  <img src={pln}/>
-                  <IonCardContent>
-                    <IonCardTitle>PLN</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-              <IonCol>
-                <IonCard className="ion-text-center" color="secondary" onClick={handleJasaMargaClick}>
-                  <img src={jasaMarga}/>
-                  <IonCardContent>
-                    <IonCardTitle>Jasa Marga</IonCardTitle>
-                  </IonCardContent>
-                </IonCard>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
+      <IonContent>
+        <IonGrid>
+          <IonRow>
+            <IonCol size="6">
+              <IonCard
+                color="secondary"
+                className="ion-text-center"
+                onClick={handleCallCenterClick}
+              >
+                <img
+                  src={callCenter}
+                  alt="Call Center"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Call Center</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                color="secondary"
+                className="ion-text-center"
+                onClick={handleAmbulanClick}
+              >
+                <img
+                  src={ambulans}
+                  alt="Ambulans"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Ambulans</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handlePolisiClick}
+              >
+                <img
+                  src={polisi}
+                  alt="Polisi"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Polisi</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handleDamkarClick}
+              >
+                <img
+                  src={damkar}
+                  alt="Damkar"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Damkar</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handleBasarnasClick}
+              >
+                <img
+                  src={basarnas}
+                  alt="Basarnas"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Basarnas</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handleBNPBClick}
+              >
+                <img
+                  src={bnpb}
+                  alt="BNPB"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>BNPB</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handlePLNClick}
+              >
+                <img
+                  src={pln}
+                  alt="PLN"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>PLN</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+
+            <IonCol size="6">
+              <IonCard
+                className="ion-text-center"
+                color="secondary"
+                onClick={handleJasaMargaClick}
+              >
+                <img
+                  src={jasaMarga}
+                  alt="Jasa Marga"
+                  width="60%"
+                  style={{
+                    margin: '32px 0',
+                  }}
+                />
+                <IonCardHeader color="primary">
+                  <IonCardSubtitle>Jasa Marga</IonCardSubtitle>
+                </IonCardHeader>
+              </IonCard>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );
