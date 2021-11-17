@@ -4,13 +4,11 @@ import {
   IonCardContent,
   IonCardHeader,
   IonCol,
-  IonContent,
   IonGrid,
   IonIcon,
   IonInput,
   IonItem,
   IonList,
-  IonPage,
   IonRouterLink,
   IonRow,
   IonText,
@@ -18,18 +16,22 @@ import {
 import { klikDarurat } from 'assets';
 import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
 
+import Layout from 'components/layout';
+
 const Register: React.FC = () => {
   const handleRegisterClick = () => {
     console.log('Register button clicked!');
   };
 
   return (
-    <IonPage>
-      <IonContent
-        className="ion-text-center"
+    <Layout>
+      <div
         style={{
-          '--background':
+          width: '100%',
+          height: '100%',
+          background:
             'linear-gradient(135deg, rgba(224,108,120,1) 35%, rgba(250,146,132,1) 100%)',
+          textAlign: 'center',
         }}
       >
         <IonGrid
@@ -149,8 +151,8 @@ const Register: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-      </IonContent>
-    </IonPage>
+      </div>
+    </Layout>
   );
 };
 

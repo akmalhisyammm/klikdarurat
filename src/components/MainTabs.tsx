@@ -6,10 +6,10 @@ import {
   IonTabButton,
   IonTabs,
 } from '@ionic/react';
-import { Redirect, Route } from 'react-router-dom';
 import { map, medical, peopleCircle, personCircle } from 'ionicons/icons';
+import { Redirect, Route } from 'react-router-dom';
 
-import PersonalService from 'pages/main/PersonalService';
+import PersonalContact from 'pages/main/PersonalContact';
 import EmergencyService from 'pages/main/EmergencyService';
 import EmergencyLocation from 'pages/main/EmergencyLocation';
 import Profile from 'pages/main/profile/Profile';
@@ -20,16 +20,17 @@ const MainTabs: React.FC = () => {
       <IonRouterOutlet>
         <Redirect exact from="/main" to="/main/emergency-service" />
         <Route path="/main/emergency-service" component={EmergencyService} />
-        <Route path="/main/personal-service" component={PersonalService} />
+        <Route path="/main/personal-contact" component={PersonalContact} />
         <Route path="/main/emergency-location" component={EmergencyLocation} />
         <Route path="/main/profile" component={Profile} />
       </IonRouterOutlet>
+
       <IonTabBar slot="bottom" color="secondary">
         <IonTabButton tab="service" href="/main/emergency-service">
           <IonIcon icon={medical} />
           <IonLabel>Layanan</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="personal" href="/main/personal-service">
+        <IonTabButton tab="personal" href="/main/personal-contact">
           <IonIcon icon={peopleCircle} />
           <IonLabel>Kontak</IonLabel>
         </IonTabButton>

@@ -1,21 +1,17 @@
-import { useEffect, useState } from 'react';
 import {
-  IonButtons,
   IonChip,
-  IonContent,
   IonFab,
   IonFabButton,
-  IonHeader,
   IonIcon,
-  IonMenuButton,
-  IonPage,
   IonSearchbar,
-  IonTitle,
   IonToolbar,
 } from '@ionic/react';
 import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap, Marker } from '@react-google-maps/api';
 import { locateOutline } from 'ionicons/icons';
+import { useEffect, useState } from 'react';
+
+import Layout from 'components/layout';
 
 interface Coordinates {
   lat: number;
@@ -44,65 +40,57 @@ const EmergencyLocation: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar color="danger">
-          <IonTitle>Lokasi Layanan Darurat</IonTitle>
-          <IonButtons slot="start">
-            <IonMenuButton />
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <IonToolbar color="primary">
-          <IonSearchbar
-            color="light"
-            placeholder="Cari Lokasi Layanan Darurat..."
-            style={{
-              '--border-radius': '24px',
-              '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
-              margin: '12px 0 8px',
-              padding: '0 6px',
-            }}
-          />
-          <div
-            style={{
-              marginBottom: '12px',
-              overflow: 'auto',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <IonChip outline style={{ borderColor: '#ffffff' }}>
-              Relevansi
-            </IonChip>
-            <IonChip outline style={{ borderColor: '#ffffff' }}>
-              Sedang Buka
-            </IonChip>
-            <IonChip outline style={{ borderColor: '#ffffff' }}>
-              Rating Tertinggi
-            </IonChip>
-          </div>
-        </IonToolbar>
-        <div style={{ width: '100%', height: '100%', paddingBottom: '112px' }}>
-          <GoogleMap
-            mapContainerStyle={{
-              width: '100%',
-              height: '100%',
-            }}
-            center={currentPosition}
-            zoom={14}
-          >
-            <Marker position={currentPosition} />
-          </GoogleMap>
-        </div>
+    <Layout title="Lokasi Layanan Darurat">
+      <IonToolbar color="primary">
+        <IonSearchbar
+          color="light"
+          placeholder="Cari Lokasi Layanan Darurat..."
+          style={{
+            '--border-radius': '24px',
+            '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
+            margin: '12px 0 8px',
+            padding: '0 6px',
+          }}
+        />
 
-        <IonFab horizontal="start" vertical="bottom" slot="fixed">
-          <IonFabButton color="primary" onClick={getCurrentPosition}>
-            <IonIcon icon={locateOutline} />
-          </IonFabButton>
-        </IonFab>
-      </IonContent>
-    </IonPage>
+        <div
+          style={{
+            marginBottom: '12px',
+            overflow: 'auto',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <IonChip outline style={{ borderColor: '#ffffff' }}>
+            Relevansi
+          </IonChip>
+          <IonChip outline style={{ borderColor: '#ffffff' }}>
+            Sedang Buka
+          </IonChip>
+          <IonChip outline style={{ borderColor: '#ffffff' }}>
+            Rating Tertinggi
+          </IonChip>
+        </div>
+      </IonToolbar>
+
+      <div style={{ width: '100%', height: '100%', paddingBottom: '112px' }}>
+        <GoogleMap
+          mapContainerStyle={{
+            width: '100%',
+            height: '100%',
+          }}
+          center={currentPosition}
+          zoom={14}
+        >
+          <Marker position={currentPosition} />
+        </GoogleMap>
+      </div>
+
+      <IonFab horizontal="start" vertical="bottom" slot="fixed">
+        <IonFabButton color="primary" onClick={getCurrentPosition}>
+          <IonIcon icon={locateOutline} />
+        </IonFabButton>
+      </IonFab>
+    </Layout>
   );
 };
 
