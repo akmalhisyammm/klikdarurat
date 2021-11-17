@@ -19,7 +19,7 @@ import {
 } from '@ionic/react';
 import { add, swapVertical } from 'ionicons/icons';
 
-const PersonalService: React.FC = () => {
+const PersonalContact: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -99,4 +99,4 @@ const PersonalService: React.FC = () => {
   );
 };
 
-export default PersonalService;
+export default PersonalContact;
