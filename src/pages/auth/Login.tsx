@@ -9,70 +9,140 @@ import {
   IonIcon,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
   IonPage,
   IonRouterLink,
   IonRow,
-  IonText
+  IonText,
 } from '@ionic/react';
+import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 
 const Login: React.FC = () => {
   const handleLoginClick = () => {
-    console.log("Login button clicked!");
+    console.log('Login button clicked!');
   };
 
   return (
     <IonPage>
-      <IonContent color="primary">
-        <IonGrid style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: '100%'
-        }}>
+      <IonContent
+        className="ion-text-center"
+        style={{
+          '--background':
+            'linear-gradient(135deg, rgba(224,108,120,1) 35%, rgba(250,146,132,1) 100%)',
+        }}
+      >
+        <IonGrid
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            height: '100%',
+          }}
+        >
+          <IonRow>
+            <IonCol>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <span style={{ paddingTop: '4px' }}>
+                  <img src={klikDarurat} alt="logo" width="40" />
+                </span>
+                &ensp;
+                <h1
+                  style={{
+                    margin: 'auto 0',
+                    fontWeight: 'bold',
+                    color: '#ffffff',
+                  }}
+                >
+                  KlikDarurat
+                </h1>
+              </div>
+            </IonCol>
+          </IonRow>
 
-          <IonCard className="ion-text-center">
-            <IonCardHeader>
-              <h1 style={{ fontWeight: 'bold' }}>
-                <IonText color="primary">Masuk</IonText>
-              </h1>
-            </IonCardHeader>
+          <IonRow>
+            <IonCol>
+              <IonCard style={{ margin: '8px 0', borderRadius: '18px' }}>
+                <IonCardHeader>
+                  <h1 style={{ fontWeight: 'bold' }}>
+                    <IonText color="dark">Masuk</IonText>
+                  </h1>
+                </IonCardHeader>
+                <IonCardContent>
+                  <IonRow>
+                    <IonCol>
+                      <IonList style={{ background: 'none' }}>
+                        <IonItem style={{ '--background': 'inherit' }}>
+                          <IonIcon
+                            icon={mailOutline}
+                            color="primary"
+                            slot="start"
+                          />
+                          <IonInput type="email" placeholder="Email" />
+                        </IonItem>
+                        <IonItem style={{ '--background': 'inherit' }}>
+                          <IonIcon
+                            icon={lockClosedOutline}
+                            color="primary"
+                            slot="start"
+                          />
+                          <IonInput type="password" placeholder="Kata Sandi" />
+                        </IonItem>
+                      </IonList>
+                    </IonCol>
+                  </IonRow>
 
-            <IonCardContent>
-              <IonRow>
-                <IonCol>
-                  <IonList>
-                    <IonItem>
-                      <IonIcon icon={mailOutline} color="primary" slot="start" />
-                      <IonInput placeholder="Masukkan email" />
-                    </IonItem>
-                    <IonItem>
-                      <IonIcon icon={lockClosedOutline} color="primary" slot="start" />
-                      <IonInput placeholder="Masukkan kata sandi" />
-                    </IonItem>
-                  </IonList>
-                </IonCol>
-              </IonRow>
+                  <IonRow>
+                    <IonCol>
+                      <IonButton
+                        color="primary"
+                        expand="block"
+                        shape="round"
+                        onClick={handleLoginClick}
+                      >
+                        Masuk
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
 
-              <IonRow>
-                <IonCol>
-                  <IonButton color="primary" expand="block" shape="round" onClick={handleLoginClick}>Masuk</IonButton>
-                </IonCol>
-              </IonRow>
+                  <IonRow className="ion-margin-vertical">
+                    <IonCol>
+                      <IonRouterLink
+                        color="dark"
+                        routerLink="/"
+                        style={{
+                          textDecoration: 'underline',
+                        }}
+                      >
+                        Lupa Kata Sandi?
+                      </IonRouterLink>
+                    </IonCol>
+                  </IonRow>
+                </IonCardContent>
+              </IonCard>
+            </IonCol>
+          </IonRow>
 
-              <IonRow>
-                <IonCol>
-                  <IonLabel>
-                    Tidak memiliki akun?
-                    <IonRouterLink color="primary" routerLink="/register" rel="noopener noreferrer"> Daftar sekarang.</IonRouterLink>
-                  </IonLabel>
-                </IonCol>
-              </IonRow>
-            </IonCardContent>
-          </IonCard>
-
+          <IonRow>
+            <IonCol>
+              <IonText style={{ color: '#ffffff' }}>
+                Belum memiliki akun?{' '}
+                <IonRouterLink
+                  color="secondary"
+                  routerLink="/register"
+                  style={{ fontWeight: 'bold', textDecoration: 'underline' }}
+                >
+                  Daftar
+                </IonRouterLink>
+              </IonText>
+            </IonCol>
+          </IonRow>
         </IonGrid>
       </IonContent>
     </IonPage>
