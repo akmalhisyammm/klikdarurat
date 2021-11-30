@@ -26,15 +26,15 @@ const MainTabs: React.FC = () => {
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom" color="secondary">
-        <IonTabButton tab="service" href="/main/emergency-service">
+        <IonTabButton tab="emergency-service" href="/main/emergency-service">
           <IonIcon icon={medical} />
           <IonLabel>Layanan</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="personal" href="/main/personal-contact">
+        <IonTabButton tab="personal-contact" href="/main/personal-contact">
           <IonIcon icon={peopleCircle} />
           <IonLabel>Kontak</IonLabel>
         </IonTabButton>
-        <IonTabButton tab="location" href="/main/emergency-location">
+        <IonTabButton tab="emergency-location" href="/main/emergency-location">
           <IonIcon icon={map} />
           <IonLabel>Lokasi</IonLabel>
         </IonTabButton>

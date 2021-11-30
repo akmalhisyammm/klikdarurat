@@ -1,86 +1,252 @@
 import {
+  IonButton,
+  IonCol,
+  IonContent,
   IonFab,
   IonFabButton,
+  IonGrid,
+  IonHeader,
   IonIcon,
+  IonInput,
   IonItem,
-  IonItemDivider,
-  IonItemGroup,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
   IonLabel,
   IonList,
-  IonNote,
+  IonModal,
+  IonRow,
   IonSearchbar,
+  IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { add, swapVertical } from 'ionicons/icons';
+import { add, create, trash } from 'ionicons/icons';
+import { useState, useContext, useRef } from 'react';
+import { CallNumber } from '@ionic-native/call-number';
 
+import { PersonalContactContext } from 'contexts/personalContact';
 import Layout from 'components/layout';
+import Toast from 'components/Toast';
+import Alert from 'components/Alert';
 
 const PersonalContact: React.FC = () => {
+  const [startDeleting, setStartDeleting] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string>('');
+  const [selectedContact, setSelectedContact] = useState<{
+    id: string;
+    name: string;
+    phoneNumber: string;
+  } | null>();
+
+  const contactsCtx = useContext(PersonalContactContext);
+
+  const slidingOptionsRef = useRef<HTMLIonItemSlidingElement>(null);
+  const nameRef = useRef<HTMLIonInputElement>(null);
+  const phoneNumberRef = useRef<HTMLIonInputElement>(null);
+
+  const callContactHandler = (phoneNumber: string) => {
+    try {
+      CallNumber.callNumber(phoneNumber, true);
+      console.log('Launched dialer!');
+    } catch (err) {
+      console.error('Error launching dialer', err);
+    }
+  };
+
+  const addContactHandler = (name: string, phoneNumber: string) => {
+    contactsCtx.addContact(name, phoneNumber);
+    setToastMessage('Added Contact!');
+  };
+
+  const editContactHandler = (name: string, phoneNumber: string) => {
+    if (selectedContact) {
+      contactsCtx.updateContact(selectedContact.id, name, phoneNumber);
+      setToastMessage('Edited Contact!');
+    }
+  };
+
+  const deleteContactHandler = () => {
+    if (selectedContact) {
+      contactsCtx.deleteContact(selectedContact.id);
+      setStartDeleting(false);
+      setToastMessage('Deleted Contact!');
+    }
+  };
+
+  const startAddContactHandler = () => {
+    console.log('Adding...');
+    setIsEditing(true);
+    setSelectedContact(null);
+  };
+
+  const startEditContactHandler = (contactId: string) => {
+    console.log('Editing...');
+    slidingOptionsRef.current?.closeOpened();
+
+    const contact = contactsCtx.contacts.find(
+      (contact) => contact.id === contactId
+    );
+
+    setSelectedContact(contact);
+    setIsEditing(true);
+  };
+
+  const startDeleteContactHandler = (contactId: string) => {
+    console.log('Deleting...');
+    slidingOptionsRef.current?.closeOpened();
+
+    const contact = contactsCtx.contacts.find(
+      (contact) => contact.id === contactId
+    );
+
+    setSelectedContact(contact);
+    setStartDeleting(true);
+  };
+
+  const cancelEditContactHandler = () => {
+    setIsEditing(false);
+  };
+
+  const saveContactHandler = () => {
+    const enteredName = nameRef.current?.value as string;
+    const enteredPhoneNumber = phoneNumberRef.current?.value as string;
+    if (!enteredName) return;
+
+    selectedContact
+      ? editContactHandler(enteredName, enteredPhoneNumber)
+      : addContactHandler(enteredName, enteredPhoneNumber);
+
+    setIsEditing(false);
+  };
+
   return (
-    <Layout title="Kontak Darurat">
-      <IonToolbar color="primary">
-        <IonSearchbar
-          color="light"
-          placeholder="Cari Kontak..."
-          style={{
-            '--border-radius': '24px',
-            '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
-            margin: '12px 0 8px',
-            padding: '0 6px',
-          }}
-        />
-      </IonToolbar>
+    <>
+      <Alert
+        isOpen={startDeleting}
+        header="Apakah Anda yakin?"
+        message="Apakah Anda ingin menghapus kontak ini?"
+        actionHandler={deleteContactHandler}
+        cancelHandler={setStartDeleting}
+      />
 
-      <IonList>
-        <IonItem>
-          <IonLabel>A-Z</IonLabel>
-          <IonIcon icon={swapVertical} slot="end" />
-        </IonItem>
-        <IonItemGroup>
-          <IonItemDivider>
-            <IonLabel>A</IonLabel>
-          </IonItemDivider>
-          <IonItem>
-            <IonLabel>Ade Kiswara</IonLabel>
-            <IonNote slot="end"> Note </IonNote>
-          </IonItem>
+      <Toast message={toastMessage} setMessage={setToastMessage} />
 
-          <IonItemDivider>
-            <IonLabel>D</IonLabel>
-          </IonItemDivider>
-          <IonItem lines="inset">
-            <IonLabel>Dimas Lesmana</IonLabel>
-            <IonNote slot="end"> Note </IonNote>
-          </IonItem>
+      <IonModal isOpen={isEditing}>
+        <IonHeader>
+          <IonToolbar color="secondary">
+            <IonTitle>
+              {selectedContact ? 'Edit Kontak' : 'Tambah Kontak'}
+            </IonTitle>
+          </IonToolbar>
+        </IonHeader>
 
-          <IonItemDivider>
-            <IonLabel>I</IonLabel>
-          </IonItemDivider>
-          <IonItem lines="full">
-            <IonLabel>Indra Prasetya Hadiwana</IonLabel>
-            <IonNote slot="end"> Note </IonNote>
-          </IonItem>
+        <IonContent>
+          <IonGrid>
+            <IonRow>
+              <IonCol>
+                <IonItem>
+                  <IonLabel position="floating">Nama</IonLabel>
+                  <IonInput
+                    type="text"
+                    ref={nameRef}
+                    value={selectedContact?.name}
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position="floating">Nomor Telepon</IonLabel>
+                  <IonInput
+                    type="tel"
+                    ref={phoneNumberRef}
+                    value={selectedContact?.phoneNumber}
+                  />
+                </IonItem>
+              </IonCol>
+            </IonRow>
 
-          <IonItemDivider>
-            <IonLabel>M</IonLabel>
-          </IonItemDivider>
-          <IonItem>
-            <IonLabel>Muhammad Akmal Hiyam</IonLabel>
-            <IonNote slot="end"> Note </IonNote>
-          </IonItem>
-          <IonItem>
-            <IonLabel>Muhammad Rezalutfi</IonLabel>
-            <IonNote slot="end"> Note </IonNote>
-          </IonItem>
-        </IonItemGroup>
-      </IonList>
+            <IonRow className="ion-text-center">
+              <IonCol>
+                <IonButton
+                  color="primary"
+                  expand="block"
+                  fill="solid"
+                  onClick={saveContactHandler}
+                >
+                  Simpan
+                </IonButton>
+              </IonCol>
+              <IonCol>
+                <IonButton
+                  color="danger"
+                  expand="block"
+                  fill="outline"
+                  onClick={cancelEditContactHandler}
+                >
+                  Batalkan
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+        </IonContent>
+      </IonModal>
 
-      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-        <IonFabButton>
-          <IonIcon icon={add} />
-        </IonFabButton>
-      </IonFab>
-    </Layout>
+      <Layout title="Kontak Darurat">
+        <IonToolbar color="primary">
+          <IonSearchbar
+            color="light"
+            placeholder="Cari Kontak..."
+            style={{
+              '--border-radius': '24px',
+              '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
+              margin: '12px 0 8px',
+              padding: '0 6px',
+            }}
+          />
+        </IonToolbar>
+
+        <IonList>
+          {contactsCtx.contacts.length ? (
+            contactsCtx.contacts.map((contact) => (
+              <IonItemSliding key={contact.id} ref={slidingOptionsRef}>
+                <IonItemOptions side="end">
+                  <IonItemOption
+                    color="warning"
+                    onClick={startEditContactHandler.bind(null, contact.id)}
+                  >
+                    <IonIcon icon={create} slot="icon-only" />
+                  </IonItemOption>
+
+                  <IonItemOption
+                    color="danger"
+                    onClick={startDeleteContactHandler.bind(null, contact.id)}
+                  >
+                    <IonIcon icon={trash} slot="icon-only" />
+                  </IonItemOption>
+                </IonItemOptions>
+
+                <IonItem
+                  lines="full"
+                  button
+                  onClick={() => callContactHandler(contact.phoneNumber)}
+                >
+                  <IonLabel>{contact.name}</IonLabel>
+                </IonItem>
+              </IonItemSliding>
+            ))
+          ) : (
+            <IonItem className="ion-text-center">
+              <IonLabel>Belum ada kontak.</IonLabel>
+            </IonItem>
+          )}
+        </IonList>
+
+        <IonFab vertical="bottom" horizontal="end" slot="fixed">
+          <IonFabButton onClick={startAddContactHandler}>
+            <IonIcon icon={add} />
+          </IonFabButton>
+        </IonFab>
+      </Layout>
+    </>
   );
 };
 
