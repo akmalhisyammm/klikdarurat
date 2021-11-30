@@ -4,13 +4,19 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { LoadScript } from '@react-google-maps/api';
+import { PersonalContactProvider } from 'contexts/personalContact';
+import { EmergencyServiceProvider } from 'contexts/emergencyService';
 
 const googleMapsApiKey = `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`;
 
 ReactDOM.render(
   <React.StrictMode>
-    <LoadScript googleMapsApiKey={googleMapsApiKey}>
-      <App />
+    <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={['places']}>
+      <EmergencyServiceProvider>
+        <PersonalContactProvider>
+          <App />
+        </PersonalContactProvider>
+      </EmergencyServiceProvider>
     </LoadScript>
   </React.StrictMode>,
   document.getElementById('root')
