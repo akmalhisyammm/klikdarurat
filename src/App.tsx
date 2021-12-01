@@ -1,14 +1,7 @@
-import { IonApp, IonRouterOutlet, IonSplitPane } from '@ionic/react';
+import { IonApp, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route } from 'react-router-dom';
 
-import Home from 'pages/Home';
-import Login from 'pages/auth/Login';
-import Register from 'pages/auth/Register';
-import About from 'pages/About';
-import EditProfile from 'pages/main/profile/EditProfile';
-
-import MainTabs from 'components/MainTabs';
+import Routes from 'components/routes/Routes';
 import SideMenu from 'components/SideMenu';
 
 /* Core CSS required for Ionic components to work properly */
@@ -36,14 +29,7 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonSplitPane contentId="main">
         <SideMenu />
-        <IonRouterOutlet id="main">
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/about" component={About} />
-          <Route path="/edit-profile" component={EditProfile} />
-          <Route path="/main" component={MainTabs} />
-        </IonRouterOutlet>
+        <Routes />
       </IonSplitPane>
     </IonReactRouter>
   </IonApp>
