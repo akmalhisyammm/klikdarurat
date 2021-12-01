@@ -18,12 +18,12 @@ import {
 import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 
-import { AuthContext } from '../../contexts/auth';
+import { AuthContext } from 'contexts/auth';
 
 import Layout from 'components/layout';
 
 const Login: React.FC = () => {
-  const [toastMessage, setToastMessage] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
@@ -39,34 +39,33 @@ const Login: React.FC = () => {
     }
 
     if (email.toString().trim().length === 0) {
-      setToastMessage("Email wajib diisi");
+      setToastMessage('Email wajib diisi');
       return;
     }
 
     if (password.toString().length === 0) {
-      setToastMessage("Kata sandi wajib diisi");
+      setToastMessage('Kata sandi wajib diisi');
       return;
     }
 
     try {
-      setToastMessage("");
+      setToastMessage('');
       setLoading(true);
 
       await authCtx.login(email.toString(), password.toString());
 
       //setLoading(false);
-      history.length > 0 ? history.goBack() : history.replace('/main');
-
+      history.replace('/main');
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === 'email_not_verified') {
           setLoading(false);
-          setToastMessage("Harap verifikasi email anda");
-          console.log("Harap verifikasi email anda");
+          setToastMessage('Harap verifikasi email anda');
+          console.log('Harap verifikasi email anda');
         }
         return;
       } else {
-        setToastMessage("Gagal untuk login");
+        setToastMessage('Gagal untuk login');
       }
     }
 
@@ -136,7 +135,13 @@ const Login: React.FC = () => {
                             color="primary"
                             slot="start"
                           />
-                          <IonInput type="email" inputMode="email" placeholder="Email" ref={emailRef} required />
+                          <IonInput
+                            type="email"
+                            inputMode="email"
+                            placeholder="Email"
+                            ref={emailRef}
+                            required
+                          />
                         </IonItem>
                         <IonItem style={{ '--background': 'inherit' }}>
                           <IonIcon
@@ -144,7 +149,12 @@ const Login: React.FC = () => {
                             color="primary"
                             slot="start"
                           />
-                          <IonInput type="password" placeholder="Kata Sandi" ref={passwordRef} required />
+                          <IonInput
+                            type="password"
+                            placeholder="Kata Sandi"
+                            ref={passwordRef}
+                            required
+                          />
                         </IonItem>
                       </IonList>
                     </IonCol>

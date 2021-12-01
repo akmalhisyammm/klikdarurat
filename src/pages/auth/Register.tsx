@@ -18,14 +18,21 @@ import {
   IonText,
 } from '@ionic/react';
 import { klikDarurat } from 'assets';
-import { personOutline, mailOutline, lockClosedOutline, callOutline, transgenderOutline, homeOutline } from 'ionicons/icons';
+import {
+  personOutline,
+  mailOutline,
+  lockClosedOutline,
+  callOutline,
+  transgenderOutline,
+  homeOutline,
+} from 'ionicons/icons';
 
-import { AuthContext } from '../../contexts/auth';
+import { AuthContext } from 'contexts/auth';
 
 import Layout from 'components/layout';
 
 const Register: React.FC = () => {
-  const [toastMessage, setToastMessage] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
   const fullNameRef = useRef<HTMLIonInputElement>(null);
@@ -51,47 +58,55 @@ const Register: React.FC = () => {
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
-    if (!fullName || !email || !phoneNumber || !address || !selectedGender || !password || !confirmPassword) {
+    if (
+      !fullName ||
+      !email ||
+      !phoneNumber ||
+      !address ||
+      !selectedGender ||
+      !password ||
+      !confirmPassword
+    ) {
       return;
     }
 
     if (fullName.toString().trim().length === 0) {
-      setToastMessage("Nama wajib diisi");
+      setToastMessage('Nama wajib diisi');
       return;
     }
 
     if (email.toString().trim().length === 0) {
-      setToastMessage("Email wajib diisi");
+      setToastMessage('Email wajib diisi');
       return;
     }
 
     if (phoneNumber.toString().trim().length === 0) {
-      setToastMessage("Nomor telepon wajib diisi");
+      setToastMessage('Nomor telepon wajib diisi');
       return;
     }
 
     if (address.toString().trim().length === 0) {
-      setToastMessage("Alamat wajib diisi");
+      setToastMessage('Alamat wajib diisi');
       return;
     }
 
     if (password.toString().length === 0) {
-      setToastMessage("Kata sandi wajib diisi");
+      setToastMessage('Kata sandi wajib diisi');
       return;
     }
 
     if (password.toString().length < 6) {
-      setToastMessage("Kata sandi minimal 6 karakter");
+      setToastMessage('Kata sandi minimal 6 karakter');
       return;
     }
 
     if (password.toString() !== confirmPassword.toString()) {
-      setToastMessage("Kata sandi tidak sesuai");
+      setToastMessage('Kata sandi tidak sesuai');
       return;
     }
 
     try {
-      setToastMessage("");
+      setToastMessage('');
       setLoading(true);
 
       await authCtx.register(
@@ -104,9 +119,9 @@ const Register: React.FC = () => {
       );
 
       setLoading(false);
-      history.length > 0 ? history.goBack() : history.replace('/login');
+      history.replace('/login');
     } catch (error) {
-      setToastMessage("Gagal membuat akun");
+      setToastMessage('Gagal membuat akun');
     }
 
     setLoading(false);
@@ -175,7 +190,13 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="text" inputMode="text" ref={fullNameRef} placeholder="Nama Lengkap" required />
+                          <IonInput
+                            type="text"
+                            inputMode="text"
+                            ref={fullNameRef}
+                            placeholder="Nama Lengkap"
+                            required
+                          />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -183,7 +204,13 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="email" inputMode="email" ref={emailRef} placeholder="Email" required />
+                          <IonInput
+                            type="email"
+                            inputMode="email"
+                            ref={emailRef}
+                            placeholder="Email"
+                            required
+                          />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -191,7 +218,13 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="tel" inputMode="tel" ref={phoneNumberRef} placeholder="Nomor Telepon" required />
+                          <IonInput
+                            type="tel"
+                            inputMode="tel"
+                            ref={phoneNumberRef}
+                            placeholder="Nomor Telepon"
+                            required
+                          />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -199,7 +232,13 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="text" inputMode="text" ref={addressRef} placeholder="Alamat" required />
+                          <IonInput
+                            type="text"
+                            inputMode="text"
+                            ref={addressRef}
+                            placeholder="Alamat"
+                            required
+                          />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -207,9 +246,17 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonSelect placeholder="Jenis Kelamin" onIonChange={handleSelectGender} interface="alert">
-                            <IonSelectOption value="male">Laki-laki</IonSelectOption>
-                            <IonSelectOption value="female">Perempuan</IonSelectOption>
+                          <IonSelect
+                            placeholder="Jenis Kelamin"
+                            onIonChange={handleSelectGender}
+                            interface="alert"
+                          >
+                            <IonSelectOption value="male">
+                              Laki-laki
+                            </IonSelectOption>
+                            <IonSelectOption value="female">
+                              Perempuan
+                            </IonSelectOption>
                           </IonSelect>
                         </IonItem>
                         <IonItem>
@@ -218,7 +265,12 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="password" ref={passwordRef} placeholder="Kata Sandi" required />
+                          <IonInput
+                            type="password"
+                            ref={passwordRef}
+                            placeholder="Kata Sandi"
+                            required
+                          />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -226,7 +278,12 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput type="password" ref={confirmPasswordRef} placeholder="Ulangi Kata Sandi" required />
+                          <IonInput
+                            type="password"
+                            ref={confirmPasswordRef}
+                            placeholder="Ulangi Kata Sandi"
+                            required
+                          />
                         </IonItem>
                       </IonList>
                     </IonCol>
