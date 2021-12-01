@@ -1,3 +1,5 @@
+import React, { useRef, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   IonButton,
   IonCard,
@@ -11,16 +13,103 @@ import {
   IonList,
   IonRouterLink,
   IonRow,
+  IonSelect,
+  IonSelectOption,
   IonText,
 } from '@ionic/react';
 import { klikDarurat } from 'assets';
-import { personOutline, mailOutline, lockClosedOutline } from 'ionicons/icons';
+import { personOutline, mailOutline, lockClosedOutline, callOutline, transgenderOutline, homeOutline } from 'ionicons/icons';
+
+import { AuthContext } from '../../contexts/auth';
 
 import Layout from 'components/layout';
 
 const Register: React.FC = () => {
-  const handleRegisterClick = () => {
-    console.log('Register button clicked!');
+  const [toastMessage, setToastMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
+  const fullNameRef = useRef<HTMLIonInputElement>(null);
+  const emailRef = useRef<HTMLIonInputElement>(null);
+  const phoneNumberRef = useRef<HTMLIonInputElement>(null);
+  const addressRef = useRef<HTMLIonInputElement>(null);
+  const passwordRef = useRef<HTMLIonInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
+  const authCtx = useContext(AuthContext);
+  const history = useHistory();
+
+  const handleSelectGender = (event: CustomEvent) => {
+    const gender = event.detail.value;
+
+    setSelectedGender(gender);
+  };
+
+  const handleRegisterClick = async () => {
+    const fullName = fullNameRef.current?.value;
+    const email = emailRef.current?.value;
+    const phoneNumber = phoneNumberRef.current?.value;
+    const address = addressRef.current?.value;
+    const password = passwordRef.current?.value;
+    const confirmPassword = confirmPasswordRef.current?.value;
+
+    if (!fullName || !email || !phoneNumber || !address || !selectedGender || !password || !confirmPassword) {
+      return;
+    }
+
+    if (fullName.toString().trim().length === 0) {
+      setToastMessage("Nama wajib diisi");
+      return;
+    }
+
+    if (email.toString().trim().length === 0) {
+      setToastMessage("Email wajib diisi");
+      return;
+    }
+
+    if (phoneNumber.toString().trim().length === 0) {
+      setToastMessage("Nomor telepon wajib diisi");
+      return;
+    }
+
+    if (address.toString().trim().length === 0) {
+      setToastMessage("Alamat wajib diisi");
+      return;
+    }
+
+    if (password.toString().length === 0) {
+      setToastMessage("Kata sandi wajib diisi");
+      return;
+    }
+
+    if (password.toString().length < 6) {
+      setToastMessage("Kata sandi minimal 6 karakter");
+      return;
+    }
+
+    if (password.toString() !== confirmPassword.toString()) {
+      setToastMessage("Kata sandi tidak sesuai");
+      return;
+    }
+
+    try {
+      setToastMessage("");
+      setLoading(true);
+
+      await authCtx.register(
+        email.toString(),
+        password.toString(),
+        fullName.toString().trim(),
+        phoneNumber.toString().trim(),
+        address.toString().trim(),
+        selectedGender
+      );
+
+      setLoading(false);
+      history.length > 0 ? history.goBack() : history.replace('/login');
+    } catch (error) {
+      setToastMessage("Gagal membuat akun");
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -86,7 +175,7 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput placeholder="Nama Lengkap" />
+                          <IonInput type="text" inputMode="text" ref={fullNameRef} placeholder="Nama Lengkap" required />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -94,7 +183,34 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput placeholder="Email" />
+                          <IonInput type="email" inputMode="email" ref={emailRef} placeholder="Email" required />
+                        </IonItem>
+                        <IonItem>
+                          <IonIcon
+                            icon={callOutline}
+                            color="secondary"
+                            slot="start"
+                          />
+                          <IonInput type="tel" inputMode="tel" ref={phoneNumberRef} placeholder="Nomor Telepon" required />
+                        </IonItem>
+                        <IonItem>
+                          <IonIcon
+                            icon={homeOutline}
+                            color="secondary"
+                            slot="start"
+                          />
+                          <IonInput type="text" inputMode="text" ref={addressRef} placeholder="Alamat" required />
+                        </IonItem>
+                        <IonItem>
+                          <IonIcon
+                            icon={transgenderOutline}
+                            color="secondary"
+                            slot="start"
+                          />
+                          <IonSelect placeholder="Jenis Kelamin" onIonChange={handleSelectGender} interface="alert">
+                            <IonSelectOption value="male">Laki-laki</IonSelectOption>
+                            <IonSelectOption value="female">Perempuan</IonSelectOption>
+                          </IonSelect>
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -102,7 +218,7 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput placeholder="Kata Sandi" />
+                          <IonInput type="password" ref={passwordRef} placeholder="Kata Sandi" required />
                         </IonItem>
                         <IonItem>
                           <IonIcon
@@ -110,7 +226,7 @@ const Register: React.FC = () => {
                             color="secondary"
                             slot="start"
                           />
-                          <IonInput placeholder="Ulangi Kata Sandi" />
+                          <IonInput type="password" ref={confirmPasswordRef} placeholder="Ulangi Kata Sandi" required />
                         </IonItem>
                       </IonList>
                     </IonCol>
@@ -123,6 +239,7 @@ const Register: React.FC = () => {
                         expand="block"
                         shape="round"
                         onClick={handleRegisterClick}
+                        disabled={loading}
                       >
                         Daftar
                       </IonButton>
