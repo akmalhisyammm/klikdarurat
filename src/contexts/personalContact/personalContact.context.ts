@@ -1,8 +1,8 @@
 import { createContext } from 'react';
-import { PersonalContact } from 'types/personalContact';
+import { PersonalContactData } from 'types/personalContact';
 
 interface Context {
-  contacts: PersonalContact[];
+  contacts: PersonalContactData[];
   addContact: (name: string, phoneNumber: string) => void;
   updateContact: (id: string, name: string, phoneNumber: string) => void;
   deleteContact: (id: string) => void;

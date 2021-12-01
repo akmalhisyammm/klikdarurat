@@ -1,8 +1,8 @@
 import { createContext } from 'react';
-import { EmergencyService } from 'types/emergencyService';
+import { EmergencyServiceData } from 'types/emergencyService';
 
 interface Context {
-  services: EmergencyService[];
+  services: EmergencyServiceData[];
 }
 
 export const EmergencyServiceContext = createContext<Context>({ services: [] });

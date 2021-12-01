@@ -21,10 +21,11 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { add, create, trash } from 'ionicons/icons';
-import { useState, useContext, useRef } from 'react';
+import { useState, useContext, useRef, useEffect } from 'react';
 import { CallNumber } from '@ionic-native/call-number';
 
 import { PersonalContactContext } from 'contexts/personalContact';
+import { PersonalContactData } from 'types/personalContact';
 import Layout from 'components/layout';
 import Toast from 'components/Toast';
 import Alert from 'components/Alert';
@@ -33,17 +34,28 @@ const PersonalContact: React.FC = () => {
   const [startDeleting, setStartDeleting] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string>('');
-  const [selectedContact, setSelectedContact] = useState<{
-    id: string;
-    name: string;
-    phoneNumber: string;
-  } | null>();
+  const [selectedContact, setSelectedContact] =
+    useState<PersonalContactData | null>();
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [filteredSearch, setFilteredSearch] = useState<PersonalContactData[]>(
+    []
+  );
 
   const contactsCtx = useContext(PersonalContactContext);
 
   const slidingOptionsRef = useRef<HTMLIonItemSlidingElement>(null);
   const nameRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
+
+  useEffect(() => {
+    const tempSearchResult = contactsCtx.contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    console.log(searchQuery);
+
+    setFilteredSearch([...tempSearchResult]);
+  }, [searchQuery, contactsCtx.contacts]);
 
   const callContactHandler = (phoneNumber: string) => {
     try {
@@ -126,8 +138,8 @@ const PersonalContact: React.FC = () => {
         isOpen={startDeleting}
         header="Apakah Anda yakin?"
         message="Apakah Anda ingin menghapus kontak ini?"
-        actionHandler={deleteContactHandler}
-        cancelHandler={setStartDeleting}
+        onActionClick={deleteContactHandler}
+        onCancelClick={setStartDeleting}
       />
 
       <Toast message={toastMessage} setMessage={setToastMessage} />
@@ -193,6 +205,7 @@ const PersonalContact: React.FC = () => {
       <Layout title="Kontak Darurat">
         <IonToolbar color="primary">
           <IonSearchbar
+            onIonChange={(e) => setSearchQuery(e.detail.value!)}
             color="light"
             placeholder="Cari Kontak..."
             style={{
@@ -206,7 +219,7 @@ const PersonalContact: React.FC = () => {
 
         <IonList>
           {contactsCtx.contacts.length ? (
-            contactsCtx.contacts.map((contact) => (
+            filteredSearch.map((contact) => (
               <IonItemSliding key={contact.id} ref={slidingOptionsRef}>
                 <IonItemOptions side="end">
                   <IonItemOption

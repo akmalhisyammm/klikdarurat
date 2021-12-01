@@ -1,16 +1,16 @@
 import { useState } from 'react';
-import { PersonalContact } from 'types/personalContact';
+import { PersonalContactData } from 'types/personalContact';
 import { PersonalContactContext } from './personalContact.context';
 
 export const PersonalContactProvider: React.FC = ({ children }) => {
-  const [contacts, setContacts] = useState<PersonalContact[]>([]);
+  const [contacts, setContacts] = useState<PersonalContactData[]>([]);
 
   const addContact = (name: string, phoneNumber: string) => {
     const currIdNumber = contacts.length
       ? contacts[contacts.length - 1].id.replace(/[^0-9]/g, '')
       : 0;
 
-    const newContact: PersonalContact = {
+    const newContact: PersonalContactData = {
       id: 'PC' + (+currIdNumber + 1),
       name: name,
       phoneNumber: phoneNumber,
@@ -22,7 +22,7 @@ export const PersonalContactProvider: React.FC = ({ children }) => {
   };
 
   const updateContact = (id: string, name: string, phoneNumber: string) => {
-    const updateContact: PersonalContact = {
+    const updateContact: PersonalContactData = {
       id: id,
       name: name,
       phoneNumber: phoneNumber,

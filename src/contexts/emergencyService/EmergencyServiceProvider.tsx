@@ -8,11 +8,11 @@ import {
   pln,
   polisi,
 } from 'assets';
-import { EmergencyService } from 'types/emergencyService';
+import { EmergencyServiceData } from 'types/emergencyService';
 import { EmergencyServiceContext } from './emergencyService.context';
 
 export const EmergencyServiceProvider: React.FC = ({ children }) => {
-  const services: EmergencyService[] = [
+  const services: EmergencyServiceData[] = [
     {
       id: 'ES01',
       name: 'Call Center',

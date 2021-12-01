@@ -5,16 +5,16 @@ type AlertProps = {
   isOpen: boolean;
   header: string;
   message: string;
-  actionHandler: () => void;
-  cancelHandler: (isCancel: boolean) => void;
+  onActionClick: () => void;
+  onCancelClick: (isCancel: boolean) => void;
 };
 
 const Alert: React.FC<AlertProps> = ({
   isOpen,
   header,
   message,
-  actionHandler,
-  cancelHandler,
+  onActionClick,
+  onCancelClick,
 }) => {
   return (
     <IonAlert
@@ -26,10 +26,10 @@ const Alert: React.FC<AlertProps> = ({
           text: 'No',
           role: 'cancel',
           handler: () => {
-            cancelHandler(false);
+            onCancelClick(false);
           },
         },
-        { text: 'Yes', handler: actionHandler },
+        { text: 'Yes', handler: onActionClick },
       ]}
     />
   );

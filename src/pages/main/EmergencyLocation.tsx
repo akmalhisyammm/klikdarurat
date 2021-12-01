@@ -108,13 +108,7 @@ const EmergencyLocation: React.FC = () => {
           }}
         >
           <IonChip outline style={{ borderColor: '#ffffff' }}>
-            Relevansi
-          </IonChip>
-          <IonChip outline style={{ borderColor: '#ffffff' }}>
-            Sedang Buka
-          </IonChip>
-          <IonChip outline style={{ borderColor: '#ffffff' }}>
-            Rating Tertinggi
+            Rumah Sakit
           </IonChip>
         </div>
       </IonToolbar>
