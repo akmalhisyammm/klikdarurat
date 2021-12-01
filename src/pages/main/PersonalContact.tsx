@@ -14,13 +14,13 @@ import {
   IonItemSliding,
   IonLabel,
   IonList,
+  IonListHeader,
   IonModal,
   IonRow,
-  IonSearchbar,
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
-import { add, create, trash } from 'ionicons/icons';
+import { add, create, swapVerticalOutline, trash } from 'ionicons/icons';
 import { useState, useContext, useRef, useEffect } from 'react';
 import { CallNumber } from '@ionic-native/call-number';
 
@@ -29,6 +29,7 @@ import { PersonalContactData } from 'types/personalContact';
 import Layout from 'components/layout';
 import Toast from 'components/Toast';
 import Alert from 'components/Alert';
+import SearchBar from 'components/SearchBar';
 
 const PersonalContact: React.FC = () => {
   const [startDeleting, setStartDeleting] = useState<boolean>(false);
@@ -40,6 +41,7 @@ const PersonalContact: React.FC = () => {
   const [filteredSearch, setFilteredSearch] = useState<PersonalContactData[]>(
     []
   );
+  const [sortOrder, setSortOrder] = useState<boolean>(true); // true: as
 
   const contactsCtx = useContext(PersonalContactContext);
 
@@ -52,10 +54,17 @@ const PersonalContact: React.FC = () => {
       contact.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    console.log(searchQuery);
+    const sortResult = tempSearchResult.sort((x, y) => {
+      const a = x.name;
+      const b = y.name;
 
-    setFilteredSearch([...tempSearchResult]);
-  }, [searchQuery, contactsCtx.contacts]);
+      if (a === b) return 0;
+
+      return sortOrder ? (a > b ? 1 : -1) : a < b ? 1 : -1;
+    });
+
+    setFilteredSearch(sortResult);
+  }, [searchQuery, contactsCtx.contacts, sortOrder]);
 
   const callContactHandler = (phoneNumber: string) => {
     try {
@@ -204,20 +213,21 @@ const PersonalContact: React.FC = () => {
 
       <Layout title="Kontak Darurat">
         <IonToolbar color="primary">
-          <IonSearchbar
-            onIonChange={(e) => setSearchQuery(e.detail.value!)}
-            color="light"
-            placeholder="Cari Kontak..."
-            style={{
-              '--border-radius': '24px',
-              '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
-              margin: '12px 0 8px',
-              padding: '0 6px',
-            }}
-          />
+          <SearchBar query={setSearchQuery} />
         </IonToolbar>
 
         <IonList>
+          <IonListHeader>
+            <IonLabel color="primary">{sortOrder ? 'A-Z' : 'Z-A'}</IonLabel>
+            <IonButton
+              fill="clear"
+              onClick={() =>
+                sortOrder ? setSortOrder(false) : setSortOrder(true)
+              }
+            >
+              <IonIcon icon={swapVerticalOutline} />
+            </IonButton>
+          </IonListHeader>
           {contactsCtx.contacts.length ? (
             filteredSearch.map((contact) => (
               <IonItemSliding key={contact.id} ref={slidingOptionsRef}>

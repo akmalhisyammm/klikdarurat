@@ -12,10 +12,12 @@ import {
   addDoc,
   doc,
   setDoc,
+  getDoc,
 } from 'firebase/firestore';
 import { getStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import firebaseConfig from 'config/firebase.config';
+import { UserData } from 'types/userData';
 
 const firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
@@ -90,4 +92,13 @@ const logoutUser = async () => {
   }
 };
 
-export { firebaseAuth, registerUser, loginUser, logoutUser };
+const getUserData = async (userId: string) => {
+  const usersDocRef = doc(firestore, 'users', userId);
+  const user = await getDoc(usersDocRef);
+
+  if (!user.exists()) return;
+
+  return { ...(user.data() as UserData), id: user.id };
+};
+
+export { firebaseAuth, registerUser, loginUser, logoutUser, getUserData };

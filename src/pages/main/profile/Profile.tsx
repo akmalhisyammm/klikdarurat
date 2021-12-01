@@ -19,8 +19,14 @@ import {
 } from 'ionicons/icons';
 
 import Layout from 'components/layout';
+import { useContext } from 'react';
+import { AuthContext } from 'contexts/auth';
 
 const Profile: React.FC = () => {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(currentUser?.fullName);
+
   return (
     <Layout title="Profil Saya">
       <IonGrid>
@@ -44,7 +50,7 @@ const Profile: React.FC = () => {
                 }}
               >
                 <h3 style={{ fontWeight: 'bold' }}>
-                  <IonText color="danger">John Doe</IonText>
+                  <IonText color="danger">{currentUser?.fullName}</IonText>
                 </h3>
                 <p>Hello World</p>
               </IonText>
@@ -70,22 +76,22 @@ const Profile: React.FC = () => {
             <IonList>
               <IonItem>
                 <IonIcon icon={maleOutline} slot="start" color="primary" />
-                <IonLabel>Laki-Laki</IonLabel>
+                <IonLabel>{currentUser?.gender}</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mailOutline} slot="start" color="primary" />
-                <IonLabel>john.doe@domain.com</IonLabel>
+                <IonLabel>{currentUser?.email}</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={callOutline} slot="start" color="primary" />
-                <IonLabel>08123456789</IonLabel>
+                <IonLabel>{currentUser?.phoneNumber}</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>Jl. Mawar No. 1</IonLabel>
+                <IonLabel>{currentUser?.address}</IonLabel>
               </IonItem>
             </IonList>
           </IonCol>

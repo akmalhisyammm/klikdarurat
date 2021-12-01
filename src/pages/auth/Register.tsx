@@ -16,6 +16,8 @@ import {
   IonSelect,
   IonSelectOption,
   IonText,
+  useIonLoading,
+  useIonToast,
 } from '@ionic/react';
 import { klikDarurat } from 'assets';
 import {
@@ -32,8 +34,8 @@ import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 
 const Register: React.FC = () => {
-  const [toastMessage, setToastMessage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
   const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
@@ -71,43 +73,70 @@ const Register: React.FC = () => {
     }
 
     if (fullName.toString().trim().length === 0) {
-      setToastMessage('Nama wajib diisi');
+      presentToast({
+        message: 'Nama wajib diisi!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (email.toString().trim().length === 0) {
-      setToastMessage('Email wajib diisi');
+      presentToast({
+        message: 'Email wajib diisi!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (phoneNumber.toString().trim().length === 0) {
-      setToastMessage('Nomor telepon wajib diisi');
+      presentToast({
+        message: 'Nomor telepon wajib diisi!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (address.toString().trim().length === 0) {
-      setToastMessage('Alamat wajib diisi');
+      presentToast({
+        message: 'Alamat wajib diisi!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (password.toString().length === 0) {
-      setToastMessage('Kata sandi wajib diisi');
+      presentToast({
+        message: 'Kata sandi wajib diisi!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (password.toString().length < 6) {
-      setToastMessage('Kata sandi minimal 6 karakter');
+      presentToast({
+        message: 'Kata sandi minimal 6 karakter!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     if (password.toString() !== confirmPassword.toString()) {
-      setToastMessage('Kata sandi tidak sesuai');
+      presentToast({
+        message: 'Kata sandi tidak sesuai!',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     try {
-      setToastMessage('');
-      setLoading(true);
+      presentLoading();
 
       await authCtx.register(
         email.toString(),
@@ -118,13 +147,17 @@ const Register: React.FC = () => {
         selectedGender
       );
 
-      setLoading(false);
+      dismissLoading();
       history.replace('/login');
     } catch (error) {
-      setToastMessage('Gagal membuat akun');
+      presentToast({
+        message: 'Gagal membuat akun!',
+        duration: 2000,
+        color: 'warning',
+      });
     }
 
-    setLoading(false);
+    dismissLoading();
   };
 
   return (
@@ -296,7 +329,6 @@ const Register: React.FC = () => {
                         expand="block"
                         shape="round"
                         onClick={handleRegisterClick}
-                        disabled={loading}
                       >
                         Daftar
                       </IonButton>

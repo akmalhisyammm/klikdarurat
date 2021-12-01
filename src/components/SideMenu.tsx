@@ -9,6 +9,8 @@ import {
   IonItem,
   IonIcon,
   IonLabel,
+  useIonToast,
+  useIonLoading,
 } from '@ionic/react';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -17,11 +19,23 @@ import { informationCircle, logIn, logOut, personAdd } from 'ionicons/icons';
 
 const SideMenu: React.FC = () => {
   const { currentUser, logout } = useContext(AuthContext);
+  const [presentLoading, dismissLoading] = useIonLoading();
+  const [presentToast] = useIonToast();
   const history = useHistory();
 
   const handleLogout = async () => {
     try {
+      presentLoading();
+
       await logout();
+
+      presentToast({
+        message: 'Anda telah keluar.',
+        duration: 2000,
+        color: 'danger',
+      });
+      dismissLoading();
+
       history.replace('/');
     } catch (error) {
       console.error(error);

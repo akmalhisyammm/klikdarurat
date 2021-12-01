@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import React, { useRef, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -14,6 +14,8 @@ import {
   IonRouterLink,
   IonRow,
   IonText,
+  useIonLoading,
+  useIonToast,
 } from '@ionic/react';
 import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
@@ -23,8 +25,9 @@ import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 
 const Login: React.FC = () => {
-  const [toastMessage, setToastMessage] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [presentLoading, dismissLoading] = useIonLoading();
+  const [presentToast] = useIonToast();
+
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const authCtx = useContext(AuthContext);
@@ -35,41 +38,46 @@ const Login: React.FC = () => {
     const password = passwordRef.current?.value;
 
     if (!email || !password) {
-      return;
-    }
-
-    if (email.toString().trim().length === 0) {
-      setToastMessage('Email wajib diisi');
-      return;
-    }
-
-    if (password.toString().length === 0) {
-      setToastMessage('Kata sandi wajib diisi');
+      presentToast({
+        message: 'Email dan kata sandi wajib diisi',
+        duration: 2000,
+        color: 'warning',
+      });
       return;
     }
 
     try {
-      setToastMessage('');
-      setLoading(true);
+      presentLoading();
 
       await authCtx.login(email.toString(), password.toString());
 
-      //setLoading(false);
       history.replace('/main');
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === 'email_not_verified') {
-          setLoading(false);
-          setToastMessage('Harap verifikasi email anda');
-          console.log('Harap verifikasi email anda');
+          dismissLoading();
+          presentToast({
+            message: 'Harap verifikasi email anda',
+            duration: 2000,
+            color: 'warning',
+          });
         }
         return;
       } else {
-        setToastMessage('Gagal untuk login');
+        presentToast({
+          message: 'Gagal untuk login',
+          duration: 2000,
+          color: 'warning',
+        });
       }
     }
 
-    setLoading(false);
+    dismissLoading();
+    presentToast({
+      message: 'Login sukses!',
+      duration: 2000,
+      color: 'success',
+    });
   };
 
   return (
@@ -167,7 +175,6 @@ const Login: React.FC = () => {
                         expand="block"
                         shape="round"
                         onClick={handleLoginClick}
-                        disabled={loading}
                       >
                         Masuk
                       </IonButton>
