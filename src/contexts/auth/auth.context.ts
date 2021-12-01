@@ -1,8 +1,9 @@
 import { createContext } from 'react';
+import { User } from 'firebase/auth';
 import { UserData } from 'types/userData';
 
 interface Context {
-  currentUser: UserData | null;
+  currentUser: User | null;
   register: (
     email: string,
     password: string,

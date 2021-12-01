@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { UserData } from 'types/userData';
 import { AuthContext } from './auth.context';
+import { User } from 'firebase/auth';
 import {
   firebaseAuth,
   registerUser,
@@ -9,7 +10,7 @@ import {
 } from 'services/firebase';
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<UserData | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged((user: any) => {

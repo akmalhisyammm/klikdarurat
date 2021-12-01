@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification,
   signOut,
+  User,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -92,13 +93,19 @@ const logoutUser = async () => {
   }
 };
 
-const getUserData = async (userId: string) => {
-  const usersDocRef = doc(firestore, 'users', userId);
-  const user = await getDoc(usersDocRef);
+const getUserData = async (currentUser: User | null) => {
+  if (currentUser) {
+    try {
+      const usersDocRef = doc(firestore, 'users', currentUser.uid);
+      const docSnap = await getDoc(usersDocRef);
 
-  if (!user.exists()) return;
-
-  return { ...(user.data() as UserData), id: user.id };
+      if (docSnap.exists()) {
+        return docSnap.data() as UserData;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 
 export { firebaseAuth, registerUser, loginUser, logoutUser, getUserData };

@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from 'react';
 import {
   IonAvatar,
   IonButton,
@@ -19,13 +20,29 @@ import {
 } from 'ionicons/icons';
 
 import Layout from 'components/layout';
-import { useContext } from 'react';
 import { AuthContext } from 'contexts/auth';
+import { getUserData } from 'services/firebase';
+import { UserData } from 'types/userData';
 
 const Profile: React.FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const [userData, setUserData] = useState<UserData>();
+  const [isFetchData, setIsFetchData] = useState<boolean>(false);
+  const authCtx = useContext(AuthContext);
 
-  console.log(currentUser?.fullName);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserData(authCtx.currentUser);
+
+        setUserData(data);
+        console.log(userData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   return (
     <Layout title="Profil Saya">
@@ -50,7 +67,7 @@ const Profile: React.FC = () => {
                 }}
               >
                 <h3 style={{ fontWeight: 'bold' }}>
-                  <IonText color="danger">{currentUser?.fullName}</IonText>
+                  <IonText color="danger">full name</IonText>
                 </h3>
                 <p>Hello World</p>
               </IonText>
@@ -76,22 +93,22 @@ const Profile: React.FC = () => {
             <IonList>
               <IonItem>
                 <IonIcon icon={maleOutline} slot="start" color="primary" />
-                <IonLabel>{currentUser?.gender}</IonLabel>
+                <IonLabel>gender</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mailOutline} slot="start" color="primary" />
-                <IonLabel>{currentUser?.email}</IonLabel>
+                <IonLabel>email</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={callOutline} slot="start" color="primary" />
-                <IonLabel>{currentUser?.phoneNumber}</IonLabel>
+                <IonLabel>nohp</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>{currentUser?.address}</IonLabel>
+                <IonLabel>address</IonLabel>
               </IonItem>
             </IonList>
           </IonCol>
