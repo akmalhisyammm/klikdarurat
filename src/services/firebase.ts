@@ -14,6 +14,7 @@ import {
   doc,
   setDoc,
   getDoc,
+  updateDoc,
 } from 'firebase/firestore';
 import { getStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
@@ -99,13 +100,44 @@ const getUserData = async (currentUser: User | null) => {
       const usersDocRef = doc(firestore, 'users', currentUser.uid);
       const docSnap = await getDoc(usersDocRef);
 
-      if (docSnap.exists()) {
-        return docSnap.data() as UserData;
+      if (!docSnap.exists()) {
+        return;
       }
+
+      return docSnap.data() as UserData;
     } catch (error) {
       console.error(error);
+      throw new Error('Oops! Something went wrong.');
     }
   }
 };
 
-export { firebaseAuth, registerUser, loginUser, logoutUser, getUserData };
+const updateUserData = async (
+  currentUser: User | null,
+  updatedUser: {
+    fullName: string;
+    gender: string;
+    email: string;
+    phoneNumber: string;
+    address: string;
+  }
+) => {
+  if (!currentUser) return;
+
+  try {
+    const usersDocRef = doc(firestore, 'users', currentUser.uid);
+    await updateDoc(usersDocRef, updatedUser);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
+export {
+  firebaseAuth,
+  registerUser,
+  loginUser,
+  logoutUser,
+  getUserData,
+  updateUserData,
+};

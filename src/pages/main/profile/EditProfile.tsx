@@ -13,39 +13,74 @@ import {
   IonSelectOption,
 } from '@ionic/react';
 import { folder } from 'ionicons/icons';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import Layout from 'components/layout';
+import { AuthContext } from 'contexts/auth';
+import { getUserData, updateUserData } from 'services/firebase';
+import { UserData } from 'types/userData';
+import { useHistory } from 'react-router';
 
-interface User {
-  name: string;
-  bio: string;
-  gender: string;
-  email: string;
-  phone: string;
-  address: string;
-}
+const initialData: UserData = {
+  id: '1',
+  fullName: 'John Doe',
+  gender: 'male',
+  email: 'example@domain.com',
+  phoneNumber: '12345',
+  address: 'USA',
+};
 
 const EditProfile: React.FC = () => {
-  const [userData, setUserData] = useState<User>({
-    name: 'John Doe',
-    bio: 'Hello World',
-    gender: 'male',
-    email: 'john.doe@domain.com',
-    phone: '08123456789',
-    address: 'Jl. Mawar No. 1',
-  });
+  const [userData, setUserData] = useState<UserData>(initialData);
+  const [gender, setGender] = useState<'male' | 'female'>('male');
+
+  const fullNameRef = useRef<HTMLIonInputElement>(null);
+  const emailRef = useRef<HTMLIonInputElement>(null);
+  const phoneNumberRef = useRef<HTMLIonInputElement>(null);
+  const addressRef = useRef<HTMLIonInputElement>(null);
+
+  const { currentUser } = useContext(AuthContext);
+
+  const history = useHistory();
 
   useEffect(() => {
-    setUserData({
-      name: 'John Doe',
-      bio: 'Hello World',
-      gender: 'male',
-      email: 'john.doe@domain.com',
-      phone: '08123456789',
-      address: 'Jl. Mawar No. 1',
-    });
-  }, []);
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserData(currentUser);
+
+        if (!data) return;
+
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUserData();
+  }, [currentUser]);
+
+  const handleEditUserData = async () => {
+    const fullName = fullNameRef.current?.value as string;
+    const email = emailRef.current?.value as string;
+    const phoneNumber = phoneNumberRef.current?.value as string;
+    const address = addressRef.current?.value as string;
+
+    const updatedUser = {
+      fullName: fullName ?? userData.fullName,
+      gender: gender ?? userData.gender,
+      email: email ?? userData.email,
+      phoneNumber: phoneNumber ?? userData.phoneNumber,
+      address: address ?? userData.address,
+    };
+
+    try {
+      await updateUserData(currentUser, updatedUser);
+
+      history.replace('/main/profile');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Layout title="Edit Profil">
@@ -76,14 +111,19 @@ const EditProfile: React.FC = () => {
                 <IonLabel position="fixed" color="primary">
                   Nama
                 </IonLabel>
-                <IonInput value={userData.name} inputMode="text" clearInput />
+                <IonInput
+                  ref={fullNameRef}
+                  value={userData.fullName}
+                  inputMode="text"
+                  clearInput
+                />
               </IonItem>
 
               <IonItem>
                 <IonLabel position="fixed" color="primary">
                   Bio
                 </IonLabel>
-                <IonInput value={userData.bio} inputMode="text" clearInput />
+                <IonInput value="Hello World" inputMode="text" clearInput />
               </IonItem>
 
               <IonItem>
@@ -92,7 +132,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonSelect
                   value={userData.gender}
-                  onIonChange={(e) => e.detail.value}
+                  onIonChange={(e: CustomEvent) => setGender(e.detail.value)}
                 >
                   <IonSelectOption value="male">Laki-Laki</IonSelectOption>
                   <IonSelectOption value="female">Perempuan</IonSelectOption>
@@ -103,7 +143,12 @@ const EditProfile: React.FC = () => {
                 <IonLabel position="fixed" color="primary">
                   E-mail
                 </IonLabel>
-                <IonInput value={userData.email} inputMode="email" clearInput />
+                <IonInput
+                  ref={emailRef}
+                  value={userData.email}
+                  inputMode="email"
+                  clearInput
+                />
               </IonItem>
 
               <IonItem>
@@ -111,7 +156,7 @@ const EditProfile: React.FC = () => {
                   No. Telp
                 </IonLabel>
                 <IonInput
-                  value={userData.phone}
+                  value={userData.phoneNumber}
                   inputMode="tel"
                   maxlength={12}
                   clearInput
@@ -123,6 +168,7 @@ const EditProfile: React.FC = () => {
                   Alamat
                 </IonLabel>
                 <IonInput
+                  ref={addressRef}
                   value={userData.address}
                   inputMode="text"
                   clearInput
@@ -138,7 +184,7 @@ const EditProfile: React.FC = () => {
               shape="round"
               expand="block"
               color="primary"
-              routerLink="/main/profile"
+              onClick={handleEditUserData}
             >
               Simpan
             </IonButton>

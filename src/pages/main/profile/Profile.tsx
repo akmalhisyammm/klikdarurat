@@ -10,6 +10,7 @@ import {
   IonList,
   IonRow,
   IonText,
+  useIonToast,
 } from '@ionic/react';
 import {
   callOutline,
@@ -23,26 +24,50 @@ import Layout from 'components/layout';
 import { AuthContext } from 'contexts/auth';
 import { getUserData } from 'services/firebase';
 import { UserData } from 'types/userData';
+import { useHistory } from 'react-router';
+
+const initialData: UserData = {
+  id: '1',
+  fullName: 'John Doe',
+  gender: 'male',
+  email: 'example@domain.com',
+  phoneNumber: '12345',
+  address: 'USA',
+};
 
 const Profile: React.FC = () => {
-  const [userData, setUserData] = useState<UserData>();
-  const [isFetchData, setIsFetchData] = useState<boolean>(false);
-  const authCtx = useContext(AuthContext);
+  const [userData, setUserData] = useState<UserData>(initialData);
+  const { currentUser, logout } = useContext(AuthContext);
+  const [presentToast] = useIonToast();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const data = await getUserData(authCtx.currentUser);
+        const data = await getUserData(currentUser);
+
+        if (!data) return;
 
         setUserData(data);
-        console.log(userData);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [currentUser]);
+
+  const handleLogout = async () => {
+    await logout();
+
+    presentToast({
+      message: 'Anda telah keluar.',
+      duration: 2000,
+      color: 'danger',
+    });
+
+    history.replace('/');
+  };
 
   return (
     <Layout title="Profil Saya">
@@ -67,7 +92,7 @@ const Profile: React.FC = () => {
                 }}
               >
                 <h3 style={{ fontWeight: 'bold' }}>
-                  <IonText color="danger">full name</IonText>
+                  <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
                 <p>Hello World</p>
               </IonText>
@@ -93,22 +118,24 @@ const Profile: React.FC = () => {
             <IonList>
               <IonItem>
                 <IonIcon icon={maleOutline} slot="start" color="primary" />
-                <IonLabel>gender</IonLabel>
+                <IonLabel>
+                  {userData.gender === 'male' ? 'Laki-Laki' : 'Perempuan'}
+                </IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mailOutline} slot="start" color="primary" />
-                <IonLabel>email</IonLabel>
+                <IonLabel>{userData.email}</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={callOutline} slot="start" color="primary" />
-                <IonLabel>nohp</IonLabel>
+                <IonLabel>{userData.phoneNumber}</IonLabel>
               </IonItem>
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>address</IonLabel>
+                <IonLabel>{userData.address}</IonLabel>
               </IonItem>
             </IonList>
           </IonCol>
@@ -121,7 +148,7 @@ const Profile: React.FC = () => {
               shape="round"
               expand="block"
               color="danger"
-              routerLink="/"
+              onClick={handleLogout}
             >
               <IonIcon icon={logOut} slot="start" />
               <IonLabel>Keluar</IonLabel>

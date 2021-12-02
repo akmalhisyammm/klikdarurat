@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { UserData } from 'types/userData';
 import { AuthContext } from './auth.context';
 import { User } from 'firebase/auth';
 import {

@@ -12,7 +12,11 @@ const PrivateRoute: React.FC<any> = ({
     <Route
       {...rest}
       render={(routeProps) =>
-        currentUser ? <RouteComponent {...routeProps} /> : <Redirect to="/" />
+        currentUser ? (
+          <RouteComponent {...routeProps} />
+        ) : (
+          <Redirect exact to="/" />
+        )
       }
     />
   );

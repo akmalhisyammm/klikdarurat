@@ -27,7 +27,7 @@ const Routes: React.FC = () => {
       {currentUser ? (
         <Redirect exact from="/" to="/main" />
       ) : (
-        <Redirect to="/" />
+        <Redirect exact to="/" />
       )}
     </IonRouterOutlet>
   );
