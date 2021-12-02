@@ -11,6 +11,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@capacitor/android": "3.3.2",
     "@capacitor/app": "1.0.6",
     "@capacitor/core": "^3.3.2",
     "@capacitor/geolocation": "^1.1.3",

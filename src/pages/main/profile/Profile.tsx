@@ -58,15 +58,19 @@ const Profile: React.FC = () => {
   }, [currentUser]);
 
   const handleLogout = async () => {
-    await logout();
+    try {
+      await logout();
 
-    presentToast({
-      message: 'Anda telah keluar.',
-      duration: 2000,
-      color: 'danger',
-    });
+      presentToast({
+        message: 'Anda telah keluar.',
+        duration: 2000,
+        color: 'danger',
+      });
 
-    history.replace('/');
+      history.replace('/login');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
