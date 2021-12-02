@@ -22,7 +22,6 @@ import {
 } from '@ionic/react';
 import { add, create, swapVerticalOutline, trash } from 'ionicons/icons';
 import { useState, useContext, useRef, useEffect } from 'react';
-import { CallNumber } from '@ionic-native/call-number';
 
 import { PersonalContactContext } from 'contexts/personalContact';
 import { PersonalContactData } from 'types/personalContact';
@@ -41,7 +40,7 @@ const PersonalContact: React.FC = () => {
   const [filteredSearch, setFilteredSearch] = useState<PersonalContactData[]>(
     []
   );
-  const [sortOrder, setSortOrder] = useState<boolean>(true); // true: as
+  const [sortOrder, setSortOrder] = useState<boolean>(true);
 
   const contactsCtx = useContext(PersonalContactContext);
 
@@ -65,15 +64,6 @@ const PersonalContact: React.FC = () => {
 
     setFilteredSearch(sortResult);
   }, [searchQuery, contactsCtx.contacts, sortOrder]);
-
-  const callContactHandler = (phoneNumber: string) => {
-    try {
-      CallNumber.callNumber(phoneNumber, true);
-      console.log('Launched dialer!');
-    } catch (err) {
-      console.error('Error launching dialer', err);
-    }
-  };
 
   const addContactHandler = (name: string, phoneNumber: string) => {
     contactsCtx.addContact(name, phoneNumber);
@@ -250,7 +240,7 @@ const PersonalContact: React.FC = () => {
                 <IonItem
                   lines="full"
                   button
-                  onClick={() => callContactHandler(contact.phoneNumber)}
+                  href={'tel:' + contact.phoneNumber}
                 >
                   <IonLabel>{contact.name}</IonLabel>
                 </IonItem>

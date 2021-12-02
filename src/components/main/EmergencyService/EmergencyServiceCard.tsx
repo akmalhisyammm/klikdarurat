@@ -3,16 +3,20 @@ import { IonCard, IonCardHeader, IonCardSubtitle } from '@ionic/react';
 type EmergencyServiceCardProps = {
   name: string;
   image: string;
-  onClick: () => void;
+  callNumber: string;
 };
 
 const EmergencyServiceCard: React.FC<EmergencyServiceCardProps> = ({
   name,
   image,
-  onClick,
+  callNumber,
 }) => {
   return (
-    <IonCard color="secondary" className="ion-text-center" onClick={onClick}>
+    <IonCard
+      color="secondary"
+      className="ion-text-center"
+      href={'tel:' + callNumber}
+    >
       <img
         src={image}
         alt={name}

@@ -1,5 +1,4 @@
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
-import { CallNumber } from '@ionic-native/call-number';
 import { useContext } from 'react';
 
 import { EmergencyServiceContext } from 'contexts/emergencyService';
@@ -8,15 +7,6 @@ import EmergencyServiceCard from 'components/main/EmergencyService/EmergencyServ
 
 const EmergencyService: React.FC = () => {
   const servicesCtx = useContext(EmergencyServiceContext);
-
-  const handleEmergencyServiceCardClick = (callNumber: string) => {
-    try {
-      CallNumber.callNumber(callNumber, true);
-      console.log('Launched dialer!');
-    } catch (err) {
-      console.error('Error launching dialer', err);
-    }
-  };
 
   return (
     <Layout title="Layanan Darurat">
@@ -27,9 +17,7 @@ const EmergencyService: React.FC = () => {
               <EmergencyServiceCard
                 name={service.name}
                 image={service.image}
-                onClick={() =>
-                  handleEmergencyServiceCardClick(service.callNumber)
-                }
+                callNumber={service.callNumber}
               />
             </IonCol>
           ))}
