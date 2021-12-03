@@ -6,6 +6,7 @@ import {
   sendEmailVerification,
   signOut,
   User,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -81,6 +82,7 @@ const loginUser = async (email: string, password: string) => {
     }
   } catch (err) {
     console.error(err);
+
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -133,6 +135,15 @@ const updateUserData = async (
   }
 };
 
+const requestPasswordReset = async (email: string) => {
+  try {
+    await sendPasswordResetEmail(firebaseAuth, email);
+  } catch (err) {
+    console.error(err);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
 export {
   firebaseAuth,
   registerUser,
@@ -140,4 +151,5 @@ export {
   logoutUser,
   getUserData,
   updateUserData,
+  requestPasswordReset,
 };

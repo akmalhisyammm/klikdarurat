@@ -30,7 +30,7 @@ http://ionicframework.com/docs/theming/ */
   /** success **/
   --ion-color-success: #6aab9c;
   --ion-color-success-rgb: 106, 171, 156;
-  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 0, 0, 0;
   --ion-color-success-shade: #5d9689;
   --ion-color-success-tint: #79b3a6;
@@ -106,7 +106,7 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-color-success: #6aab9c;
     --ion-color-success-rgb: 106, 171, 156;
-    --ion-color-success-contrast: #000000;
+    --ion-color-success-contrast: #ffffff;
     --ion-color-success-contrast-rgb: 0, 0, 0;
     --ion-color-success-shade: #5d9689;
     --ion-color-success-tint: #79b3a6;

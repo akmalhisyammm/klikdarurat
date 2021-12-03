@@ -24,11 +24,7 @@ const Routes: React.FC = () => {
       <PrivateRoute path="/main" component={MainTabs} />
       <PrivateRoute path="/edit-profile" component={EditProfile} />
 
-      {currentUser ? (
-        <Redirect exact from="/" to="/main" />
-      ) : (
-        <Redirect exact to="/" />
-      )}
+      {currentUser ? <Redirect exact to="/main" /> : <Redirect exact to="/" />}
     </IonRouterOutlet>
   );
 };

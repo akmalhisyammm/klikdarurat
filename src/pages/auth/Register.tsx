@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -65,7 +65,7 @@ const Register: React.FC = () => {
 
     if (!fullName || fullName.toString().trim().length === 0) {
       return presentToast({
-        message: 'Nama lengkap wajib diisi',
+        message: 'Nama lengkap wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -73,7 +73,7 @@ const Register: React.FC = () => {
 
     if (!email || email.toString().trim().length === 0) {
       return presentToast({
-        message: 'Email wajib diisi',
+        message: 'Email wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -81,7 +81,7 @@ const Register: React.FC = () => {
 
     if (!phoneNumber || phoneNumber.toString().trim().length === 0) {
       return presentToast({
-        message: 'Nomor telepon wajib diisi',
+        message: 'Nomor telepon wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -89,7 +89,7 @@ const Register: React.FC = () => {
 
     if (!address || address.toString().trim().length === 0) {
       return presentToast({
-        message: 'Alamat wajib diisi',
+        message: 'Alamat wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -97,7 +97,7 @@ const Register: React.FC = () => {
 
     if (!selectedGender) {
       return presentToast({
-        message: 'Jenis kelamin wajib diisi',
+        message: 'Jenis kelamin wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -105,7 +105,7 @@ const Register: React.FC = () => {
 
     if (!password || password.toString().length === 0) {
       return presentToast({
-        message: 'Kata sandi wajib diisi',
+        message: 'Kata sandi wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -113,7 +113,7 @@ const Register: React.FC = () => {
 
     if (password.toString().length < 6) {
       return presentToast({
-        message: 'Kata sandi minimal 6 karakter',
+        message: 'Kata sandi minimal 6 karakter.',
         duration: 2000,
         color: 'warning',
       });
@@ -124,7 +124,7 @@ const Register: React.FC = () => {
       password.toString() !== confirmPassword.toString()
     ) {
       return presentToast({
-        message: 'Kata sandi tidak sesuai',
+        message: 'Kata sandi tidak sesuai.',
         duration: 2000,
         color: 'warning',
       });
@@ -143,17 +143,17 @@ const Register: React.FC = () => {
       );
 
       presentToast({
-        message: 'Berhasil membuat akun, silakan verifikasi email Anda',
-        duration: 2000,
+        message: 'Berhasil membuat akun, silakan verifikasi email Anda.',
+        duration: 4000,
         color: 'success',
       });
 
       history.replace('/login');
     } catch (error) {
       presentToast({
-        message: 'Gagal membuat akun',
+        message: 'Gagal membuat akun.',
         duration: 2000,
-        color: 'warning',
+        color: 'danger',
       });
     }
 
