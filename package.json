@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "author": "Kelompok C",
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -54,6 +55,13 @@
   },
   "devDependencies": {
     "@capacitor/cli": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akmalhisyammm/klikdarurat"
+  },
+  "bugs": {
+    "url": "https://github.com/akmalhisyammm/klikdarurat/issues"
   },
   "eslintConfig": {
     "extends": [
