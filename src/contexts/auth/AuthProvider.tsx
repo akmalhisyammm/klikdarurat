@@ -7,18 +7,20 @@ import {
   loginUser,
   logoutUser,
 } from 'services/firebase';
+import Loader from 'components/Loader';
 
 export const AuthProvider: React.FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged((user: any) => {
       setCurrentUser(user);
-      console.log('onAuthStateChanged', currentUser);
+      setLoading(false);
     });
 
     return unsubscribe;
-  }, [currentUser]);
+  }, []);
 
   const register = async (
     email: string,
@@ -37,8 +39,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         address,
         gender
       );
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       throw new Error('Oops! Something went wrong.');
     }
   };
@@ -50,11 +52,11 @@ export const AuthProvider: React.FC = ({ children }) => {
       if (!result.status && result.message === 'email_not_verified') {
         throw new Error('email_not_verified');
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
 
-      if (error instanceof Error) {
-        if (error.message === 'email_not_verified') {
+      if (err instanceof Error) {
+        if (err.message === 'email_not_verified') {
           throw new Error('email_not_verified');
         }
         return;
@@ -67,14 +69,20 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logout = async () => {
     try {
       await logoutUser();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, register, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <>
+      {loading ? (
+        <Loader />
+      ) : (
+        <AuthContext.Provider value={{ currentUser, register, login, logout }}>
+          {children}
+        </AuthContext.Provider>
+      )}
+    </>
   );
 };

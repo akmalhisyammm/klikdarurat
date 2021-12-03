@@ -3,3 +3,10 @@ ion-app {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+ion-toast {
+  --max-width: 90%;
+  --border-radius: 8px;
+  top: -12px;
+  text-align: center;
+}

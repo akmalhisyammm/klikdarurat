@@ -30,20 +30,23 @@ import {
 } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
-
 import Layout from 'components/layout';
 
 const Register: React.FC = () => {
   const [presentToast] = useIonToast();
   const [presentLoading, dismissLoading] = useIonLoading();
+
   const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
+
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
   const addressRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
-  const authCtx = useContext(AuthContext);
+
+  const { register } = useContext(AuthContext);
+
   const history = useHistory();
 
   const handleSelectGender = (event: CustomEvent) => {
@@ -60,85 +63,77 @@ const Register: React.FC = () => {
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
-    if (
-      !fullName ||
-      !email ||
-      !phoneNumber ||
-      !address ||
-      !selectedGender ||
-      !password ||
-      !confirmPassword
-    ) {
-      return;
-    }
-
-    if (fullName.toString().trim().length === 0) {
-      presentToast({
-        message: 'Nama wajib diisi!',
+    if (!fullName || fullName.toString().trim().length === 0) {
+      return presentToast({
+        message: 'Nama lengkap wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    if (email.toString().trim().length === 0) {
-      presentToast({
-        message: 'Email wajib diisi!',
+    if (!email || email.toString().trim().length === 0) {
+      return presentToast({
+        message: 'Email wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    if (phoneNumber.toString().trim().length === 0) {
-      presentToast({
-        message: 'Nomor telepon wajib diisi!',
+    if (!phoneNumber || phoneNumber.toString().trim().length === 0) {
+      return presentToast({
+        message: 'Nomor telepon wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    if (address.toString().trim().length === 0) {
-      presentToast({
-        message: 'Alamat wajib diisi!',
+    if (!address || address.toString().trim().length === 0) {
+      return presentToast({
+        message: 'Alamat wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    if (password.toString().length === 0) {
-      presentToast({
-        message: 'Kata sandi wajib diisi!',
+    if (!selectedGender) {
+      return presentToast({
+        message: 'Jenis kelamin wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
+    }
+
+    if (!password || password.toString().length === 0) {
+      return presentToast({
+        message: 'Kata sandi wajib diisi',
+        duration: 2000,
+        color: 'warning',
+      });
     }
 
     if (password.toString().length < 6) {
-      presentToast({
-        message: 'Kata sandi minimal 6 karakter!',
+      return presentToast({
+        message: 'Kata sandi minimal 6 karakter',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    if (password.toString() !== confirmPassword.toString()) {
-      presentToast({
-        message: 'Kata sandi tidak sesuai!',
+    if (
+      !confirmPassword ||
+      password.toString() !== confirmPassword.toString()
+    ) {
+      return presentToast({
+        message: 'Kata sandi tidak sesuai',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
+
+    presentLoading();
 
     try {
-      presentLoading();
-
-      await authCtx.register(
+      await register(
         email.toString(),
         password.toString(),
         fullName.toString().trim(),
@@ -147,11 +142,16 @@ const Register: React.FC = () => {
         selectedGender
       );
 
-      dismissLoading();
+      presentToast({
+        message: 'Berhasil membuat akun, silakan verifikasi email Anda',
+        duration: 2000,
+        color: 'success',
+      });
+
       history.replace('/login');
     } catch (error) {
       presentToast({
-        message: 'Gagal membuat akun!',
+        message: 'Gagal membuat akun',
         duration: 2000,
         color: 'warning',
       });
@@ -167,7 +167,7 @@ const Register: React.FC = () => {
           width: '100%',
           height: '100%',
           background:
-            'linear-gradient(135deg, rgba(224,108,120,1) 35%, rgba(250,146,132,1) 100%)',
+            'linear-gradient(135deg, rgba(224,108,120,1) 0%, rgba(88,116,220,1) 60%, rgba(56,78,120,1) 100%)',
           textAlign: 'center',
         }}
       >
@@ -344,12 +344,9 @@ const Register: React.FC = () => {
               <IonText style={{ color: '#ffffff' }}>
                 Sudah memiliki akun?{' '}
                 <IonRouterLink
-                  color="primary"
+                  color="danger"
                   routerLink="/login"
-                  style={{
-                    fontWeight: 'bold',
-                    textDecoration: 'underline',
-                  }}
+                  style={{ textDecoration: 'underline' }}
                 >
                   Masuk
                 </IonRouterLink>

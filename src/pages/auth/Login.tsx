@@ -21,7 +21,6 @@ import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
-
 import Layout from 'components/layout';
 
 const Login: React.FC = () => {
@@ -30,7 +29,9 @@ const Login: React.FC = () => {
 
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
-  const authCtx = useContext(AuthContext);
+
+  const { login } = useContext(AuthContext);
+
   const history = useHistory();
 
   const handleLoginClick = async () => {
@@ -38,24 +39,24 @@ const Login: React.FC = () => {
     const password = passwordRef.current?.value;
 
     if (!email || !password) {
-      presentToast({
+      return presentToast({
         message: 'Email dan kata sandi wajib diisi',
         duration: 2000,
         color: 'warning',
       });
-      return;
     }
 
-    try {
-      presentLoading();
+    presentLoading();
 
-      await authCtx.login(email.toString(), password.toString());
+    try {
+      await login(email.toString(), password.toString());
 
       history.replace('/main');
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === 'email_not_verified') {
           dismissLoading();
+
           presentToast({
             message: 'Harap verifikasi email anda',
             duration: 2000,
@@ -64,8 +65,8 @@ const Login: React.FC = () => {
         }
         return;
       } else {
-        presentToast({
-          message: 'Gagal untuk login',
+        return presentToast({
+          message: 'Gagal untuk masuk',
           duration: 2000,
           color: 'warning',
         });
@@ -73,11 +74,6 @@ const Login: React.FC = () => {
     }
 
     dismissLoading();
-    presentToast({
-      message: 'Login sukses!',
-      duration: 2000,
-      color: 'success',
-    });
   };
 
   return (
@@ -87,7 +83,7 @@ const Login: React.FC = () => {
           width: '100%',
           height: '100%',
           background:
-            'linear-gradient(135deg, rgba(224,108,120,1) 35%, rgba(250,146,132,1) 100%)',
+            'linear-gradient(135deg, rgba(224,108,120,1) 0%, rgba(88,116,220,1) 60%, rgba(56,78,120,1) 100%)',
           textAlign: 'center',
         }}
       >
@@ -204,9 +200,9 @@ const Login: React.FC = () => {
               <IonText style={{ color: '#ffffff' }}>
                 Belum memiliki akun?{' '}
                 <IonRouterLink
-                  color="secondary"
+                  color="danger"
                   routerLink="/register"
-                  style={{ fontWeight: 'bold', textDecoration: 'underline' }}
+                  style={{ textDecoration: 'underline' }}
                 >
                   Daftar
                 </IonRouterLink>

@@ -22,15 +22,19 @@ const SideMenu: React.FC = () => {
   const history = useHistory();
 
   const handleLogout = async () => {
-    await logout();
+    try {
+      await logout();
 
-    presentToast({
-      message: 'Anda telah keluar.',
-      duration: 2000,
-      color: 'danger',
-    });
+      presentToast({
+        message: 'Anda telah keluar.',
+        duration: 2000,
+        color: 'danger',
+      });
 
-    history.replace('/');
+      history.replace('/login');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

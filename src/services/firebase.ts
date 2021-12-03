@@ -60,8 +60,8 @@ const registerUser = async (
     );
 
     await sendEmailVerification(user);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -79,8 +79,8 @@ const loginUser = async (email: string, password: string) => {
     } else {
       return { status: false, message: 'email_not_verified' };
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -88,8 +88,8 @@ const loginUser = async (email: string, password: string) => {
 const logoutUser = async () => {
   try {
     await signOut(firebaseAuth);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -105,8 +105,8 @@ const getUserData = async (currentUser: User | null) => {
       }
 
       return docSnap.data() as UserData;
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       throw new Error('Oops! Something went wrong.');
     }
   }
@@ -127,8 +127,8 @@ const updateUserData = async (
   try {
     const usersDocRef = doc(firestore, 'users', currentUser.uid);
     await updateDoc(usersDocRef, updatedUser);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };

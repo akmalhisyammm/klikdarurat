@@ -11,6 +11,8 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  useIonLoading,
+  useIonToast,
 } from '@ionic/react';
 import { folder } from 'ionicons/icons';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -34,6 +36,9 @@ const EditProfile: React.FC = () => {
   const [userData, setUserData] = useState<UserData>(initialData);
   const [gender, setGender] = useState<'male' | 'female'>('male');
 
+  const [presentLoading, dismissLoading] = useIonLoading();
+  const [presentToast] = useIonToast();
+
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
@@ -45,6 +50,7 @@ const EditProfile: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      presentLoading({ spinner: 'bubbles' });
       try {
         const data = await getUserData(currentUser);
 
@@ -54,10 +60,11 @@ const EditProfile: React.FC = () => {
       } catch (error) {
         console.log(error);
       }
+      dismissLoading();
     };
 
     fetchUserData();
-  }, [currentUser]);
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleEditUserData = async () => {
     const fullName = fullNameRef.current?.value as string;
@@ -76,9 +83,20 @@ const EditProfile: React.FC = () => {
     try {
       await updateUserData(currentUser, updatedUser);
 
+      presentToast({
+        message: 'Profil berhasil di ubah.',
+        duration: 2000,
+        color: 'success',
+      });
+
       history.replace('/main/profile');
     } catch (error) {
       console.error(error);
+      presentToast({
+        message: 'Profil gagal di ubah.',
+        duration: 2000,
+        color: 'danger',
+      });
     }
   };
 

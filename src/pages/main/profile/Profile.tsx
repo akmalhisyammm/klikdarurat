@@ -10,6 +10,7 @@ import {
   IonList,
   IonRow,
   IonText,
+  useIonLoading,
   useIonToast,
 } from '@ionic/react';
 import {
@@ -39,10 +40,12 @@ const Profile: React.FC = () => {
   const [userData, setUserData] = useState<UserData>(initialData);
   const { currentUser, logout } = useContext(AuthContext);
   const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
   const history = useHistory();
 
   useEffect(() => {
     const fetchUserData = async () => {
+      presentLoading({ spinner: 'bubbles' });
       try {
         const data = await getUserData(currentUser);
 
@@ -52,12 +55,14 @@ const Profile: React.FC = () => {
       } catch (error) {
         console.log(error);
       }
+      dismissLoading();
     };
 
     fetchUserData();
-  }, [currentUser]);
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleLogout = async () => {
+    console.log('start');
     try {
       await logout();
 
@@ -68,8 +73,8 @@ const Profile: React.FC = () => {
       });
 
       history.replace('/login');
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
