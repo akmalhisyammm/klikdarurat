@@ -29,12 +29,10 @@ import Layout from 'components/layout';
 import styles from 'styles/main/profile/Profile.module.scss';
 
 const Profile: React.FC = () => {
-  const [presentToast] = useIonToast();
-  const [presentLoading, dismissLoading] = useIonLoading();
-
   const { currentUser, logout } = useContext(AuthContext);
   const { userData, fetchUserData } = useContext(UserDataContext);
-
+  const [presentToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
   const history = useHistory();
 
   useEffect(() => {
@@ -51,7 +49,8 @@ const Profile: React.FC = () => {
     };
 
     getUserData();
-  }, [currentUser, presentLoading, dismissLoading, fetchUserData]);
+    console.log('hihih');
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleLogout = async () => {
     console.log('start');
@@ -77,20 +76,13 @@ const Profile: React.FC = () => {
           <IonCol>
             <div className={styles.contentHeader}>
               <IonAvatar className={styles.profileAvatar}>
-                <img
-                  src={
-                    userData.photoUrl
-                      ? userData.photoUrl
-                      : './assets/images/avatar-placeholder.png'
-                  }
-                  alt="avatar"
-                />
+                <img src={(userData.photoUrl) ? userData.photoUrl : './assets/images/avatar-placeholder.png'} alt="avatar" />
               </IonAvatar>
               <IonText className={styles.rightHeader}>
                 <h3 className={styles.profileName}>
                   <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
-                <p>{userData.bio ? userData.bio : 'Bio'}</p>
+                <p>{(userData.bio) ? userData.bio : 'Bio'}</p>
               </IonText>
             </div>
           </IonCol>
@@ -131,9 +123,7 @@ const Profile: React.FC = () => {
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>
-                  {userData.address ? userData.address : 'Alamat'}
-                </IonLabel>
+                <IonLabel>{(userData.address) ? userData.address : 'Alamat'}</IonLabel>
               </IonItem>
             </IonList>
           </IonCol>

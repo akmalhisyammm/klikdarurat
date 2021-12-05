@@ -6,7 +6,7 @@ import {
   registerUser,
   loginUser,
   logoutUser,
-} from 'services/firebase.service';
+} from 'services/firebase';
 import Loader from 'components/Loader';
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -30,7 +30,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     address: string,
     gender: 'male' | 'female',
     bio: string,
-    photoUrl: string
+    photoUrl: string,
   ) => {
     try {
       await registerUser(
@@ -41,7 +41,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         address,
         gender,
         bio,
-        photoUrl
+        photoUrl,
       );
     } catch (err) {
       console.error(err);

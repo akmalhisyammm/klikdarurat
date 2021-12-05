@@ -22,7 +22,7 @@ import { base64FromPath } from '@capacitor-community/filesystem-react';
 
 import { AuthContext } from 'contexts/auth';
 import { UserDataContext } from 'contexts/userData';
-import { updateUserData } from 'services/firebase.service';
+import { updateUserData } from 'services/firebase';
 import Layout from 'components/layout';
 
 import styles from 'styles/main/profile/EditProfile.module.scss';
@@ -59,7 +59,8 @@ const EditProfile: React.FC = () => {
     };
 
     getUserData();
-  }, [currentUser, presentLoading, dismissLoading, fetchUserData]);
+    console.log('hihih');
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleAddPhoto = async () => {
     try {
@@ -128,14 +129,7 @@ const EditProfile: React.FC = () => {
               {photo ? (
                 <img src={photo} alt="avatar" />
               ) : (
-                <img
-                  src={
-                    userData.photoUrl
-                      ? userData.photoUrl
-                      : './assets/images/avatar-placeholder.png'
-                  }
-                  alt="avatar"
-                />
+                <img src={(userData.photoUrl) ? userData.photoUrl : './assets/images/avatar-placeholder.png'} alt="avatar" />
               )}
             </IonAvatar>
             <IonButton fill="clear" color="danger" onClick={handleAddPhoto}>
@@ -154,9 +148,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={fullNameRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.fullName = e.detail.value)
-                  }
+                  onIonChange={(e: CustomEvent) => userData.fullName = e.detail.value}
                   value={userData.fullName}
                   placeholder="Nama Lengkap"
                   inputMode="text"
@@ -170,14 +162,11 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={bioRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.bio = e.detail.value)
-                  }
+                  onIonChange={(e: CustomEvent) => userData.bio = e.detail.value}
                   value={userData.bio}
                   placeholder="Bio"
                   inputMode="text"
-                  clearInput
-                />
+                  clearInput />
               </IonItem>
 
               <IonItem>
@@ -185,7 +174,7 @@ const EditProfile: React.FC = () => {
                   Gender
                 </IonLabel>
                 <IonSelect
-                  value={gender ? gender : userData.gender}
+                  value={(gender) ? gender : userData.gender}
                   onIonChange={(e: CustomEvent) => setGender(e.detail.value)}
                 >
                   <IonSelectOption value="male">Laki-Laki</IonSelectOption>
@@ -213,9 +202,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={phoneNumberRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.phoneNumber = e.detail.value)
-                  }
+                  onIonChange={(e: CustomEvent) => userData.phoneNumber = e.detail.value}
                   value={userData.phoneNumber}
                   placeholder="Nomor Telepon"
                   inputMode="tel"
@@ -230,9 +217,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={addressRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.address = e.detail.value)
-                  }
+                  onIonChange={(e: CustomEvent) => userData.address = e.detail.value}
                   value={userData.address}
                   placeholder="Alamat"
                   inputMode="text"
