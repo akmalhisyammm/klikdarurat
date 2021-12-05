@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { User } from 'firebase/auth';
 import { UserDataContext } from './userData.context';
 import { UserData } from 'types/userData';
-import { getUserData } from 'services/firebase';
+import { getUserData } from 'services/firebase.service';
 
 const initialData: UserData = {
   id: '1',
@@ -32,9 +32,7 @@ export const UserDataProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <UserDataContext.Provider
-      value={{ userData, fetchUserData }}
-    >
+    <UserDataContext.Provider value={{ userData, fetchUserData }}>
       {children}
     </UserDataContext.Provider>
   );
