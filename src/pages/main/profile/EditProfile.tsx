@@ -16,6 +16,7 @@ import {
   useIonToast,
 } from '@ionic/react';
 import { camera } from 'ionicons/icons';
+import { avatarPlaceholder } from 'assets';
 import { Camera, CameraResultType } from '@capacitor/camera';
 
 import { UserDataContext } from 'contexts/userData';
@@ -107,9 +108,7 @@ const EditProfile: React.FC = () => {
               ) : (
                 <img
                   src={
-                    userData.photoUrl
-                      ? userData.photoUrl
-                      : './assets/images/avatar-placeholder.png'
+                    userData.photoUrl ? userData.photoUrl : avatarPlaceholder
                   }
                   alt="avatar"
                 />
@@ -132,7 +131,6 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={fullNameRef}
                   value={userData.fullName}
-                  placeholder="Nama Lengkap"
                   inputMode="text"
                   clearInput
                 />
@@ -145,7 +143,6 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={bioRef}
                   value={userData.bio}
-                  placeholder="Bio"
                   inputMode="text"
                   clearInput
                 />
@@ -171,7 +168,6 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={emailRef}
                   value={userData.email}
-                  placeholder="Email"
                   inputMode="email"
                   clearInput
                   disabled
@@ -185,7 +181,6 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={phoneNumberRef}
                   value={userData.phoneNumber}
-                  placeholder="Nomor Telepon"
                   inputMode="tel"
                   maxlength={12}
                   clearInput
@@ -199,7 +194,6 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={addressRef}
                   value={userData.address}
-                  placeholder="Alamat"
                   inputMode="text"
                   clearInput
                 />

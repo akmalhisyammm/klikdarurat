@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, KeyboardEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -10,6 +10,7 @@ import {
   IonIcon,
   IonInput,
   IonItem,
+  IonLabel,
   IonList,
   IonRouterLink,
   IonRow,
@@ -19,14 +20,15 @@ import {
   useIonLoading,
   useIonToast,
 } from '@ionic/react';
-import { klikDarurat } from 'assets';
 import {
   personOutline,
   mailOutline,
   lockClosedOutline,
   callOutline,
   transgenderOutline,
+  keyOutline,
 } from 'ionicons/icons';
+import { klikDarurat } from 'assets';
 
 import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
@@ -59,9 +61,9 @@ const Register: React.FC = () => {
     const fullName = fullNameRef.current?.value;
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
-    const address = "";
-    const bio = "";
-    const photoUrl = "";
+    const address = '';
+    const bio = '';
+    const photoUrl = '';
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
@@ -135,7 +137,7 @@ const Register: React.FC = () => {
         address,
         selectedGender,
         bio,
-        photoUrl,
+        photoUrl
       );
 
       presentToast({
@@ -154,6 +156,14 @@ const Register: React.FC = () => {
     }
 
     dismissLoading();
+  };
+
+  const enterKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      handleRegister();
+    }
   };
 
   return (
@@ -195,6 +205,7 @@ const Register: React.FC = () => {
                             inputMode="text"
                             ref={fullNameRef}
                             placeholder="Nama Lengkap"
+                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
@@ -209,6 +220,7 @@ const Register: React.FC = () => {
                             inputMode="email"
                             ref={emailRef}
                             placeholder="Email"
+                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
@@ -223,10 +235,14 @@ const Register: React.FC = () => {
                             inputMode="tel"
                             ref={phoneNumberRef}
                             placeholder="Nomor Telepon"
+                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
+                          <IonLabel hidden color="primary">
+                            Gender
+                          </IonLabel>
                           <IonIcon
                             icon={transgenderOutline}
                             color="secondary"
@@ -255,12 +271,13 @@ const Register: React.FC = () => {
                             type="password"
                             ref={passwordRef}
                             placeholder="Kata Sandi"
+                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
                           <IonIcon
-                            icon={lockClosedOutline}
+                            icon={keyOutline}
                             color="secondary"
                             slot="start"
                           />
@@ -268,6 +285,7 @@ const Register: React.FC = () => {
                             type="password"
                             ref={confirmPasswordRef}
                             placeholder="Ulangi Kata Sandi"
+                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>

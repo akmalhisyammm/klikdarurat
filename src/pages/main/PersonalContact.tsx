@@ -1,3 +1,4 @@
+import { useState, useContext, useRef, useEffect } from 'react';
 import {
   IonButton,
   IonFab,
@@ -14,7 +15,6 @@ import {
   useIonToast,
 } from '@ionic/react';
 import { add, swapVerticalOutline, trash } from 'ionicons/icons';
-import { useState, useContext, useRef, useEffect } from 'react';
 
 import { PersonalContactContext } from 'contexts/personalContact';
 import { PersonalContactData } from 'types/personalContact';

@@ -20,13 +20,13 @@ import {
   maleOutline,
   mapOutline,
 } from 'ionicons/icons';
+import { avatarPlaceholder } from 'assets';
 
 import { AuthContext } from 'contexts/auth';
 import { UserDataContext } from 'contexts/userData';
 import Layout from 'components/layout';
 
 import styles from 'styles/main/profile/Profile.module.scss';
-import { avatarPlaceholder } from 'assets';
 
 const Profile: React.FC = () => {
   const [presentToast] = useIonToast();
@@ -71,7 +71,7 @@ const Profile: React.FC = () => {
                 <h3 className={styles.profileName}>
                   <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
-                <p>{userData.bio ? userData.bio : 'Bio'}</p>
+                <p>{userData.bio ? userData.bio : 'Tidak ada bio.'}</p>
               </IonText>
             </div>
           </IonCol>
@@ -112,8 +112,8 @@ const Profile: React.FC = () => {
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>
-                  {userData.address ? userData.address : 'Alamat'}
+                <IonLabel color={userData.address ? '' : 'medium'}>
+                  {userData.address ? userData.address : 'Belum mengisi alamat'}
                 </IonLabel>
               </IonItem>
             </IonList>

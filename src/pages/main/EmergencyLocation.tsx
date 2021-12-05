@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   IonChip,
   IonFab,
@@ -6,10 +7,9 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/react';
+import { locateOutline } from 'ionicons/icons';
 import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
-import { locateOutline } from 'ionicons/icons';
-import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Layout from 'components/layout';
 

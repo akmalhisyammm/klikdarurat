@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   IonMenu,
   IonHeader,
@@ -11,10 +13,8 @@ import {
   IonLabel,
   useIonToast,
 } from '@ionic/react';
-import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { AuthContext } from 'contexts/auth';
 import { informationCircle, logIn, logOut, personAdd } from 'ionicons/icons';
+import { AuthContext } from 'contexts/auth';
 
 const SideMenu: React.FC = () => {
   const { currentUser, logout } = useContext(AuthContext);

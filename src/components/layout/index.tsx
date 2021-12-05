@@ -1,5 +1,5 @@
-import { IonContent, IonPage } from '@ionic/react';
 import { ReactNode } from 'react';
+import { IonContent, IonPage } from '@ionic/react';
 
 import Header from './Header';
 

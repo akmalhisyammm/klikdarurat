@@ -1,3 +1,4 @@
+import { Redirect, Route } from 'react-router-dom';
 import {
   IonIcon,
   IonLabel,
@@ -7,7 +8,6 @@ import {
   IonTabs,
 } from '@ionic/react';
 import { map, medical, peopleCircle, personCircle } from 'ionicons/icons';
-import { Redirect, Route } from 'react-router-dom';
 
 import PersonalContact from 'pages/main/PersonalContact';
 import EmergencyService from 'pages/main/EmergencyService';

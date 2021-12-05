@@ -1,5 +1,5 @@
-import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import { useContext } from 'react';
+import { IonCol, IonGrid, IonRow } from '@ionic/react';
 
 import { EmergencyServiceContext } from 'contexts/emergencyService';
 import { EmergencyServiceCard } from 'components/main/EmergencyService';

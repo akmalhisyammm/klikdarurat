@@ -10,8 +10,8 @@ import {
   IonRow,
   IonText,
 } from '@ionic/react';
-import { ade, akmal, dimas, indra, klikDarurat, rezalutfi } from 'assets';
 import { logoGithub } from 'ionicons/icons';
+import { ade, akmal, dimas, indra, klikDarurat, rezalutfi } from 'assets';
 
 import Layout from 'components/layout';
 

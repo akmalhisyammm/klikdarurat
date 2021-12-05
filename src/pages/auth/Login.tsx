@@ -1,4 +1,4 @@
-import { useRef, useContext, useState } from 'react';
+import { useRef, useContext, useState, KeyboardEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -22,8 +22,8 @@ import {
   useIonLoading,
   useIonToast,
 } from '@ionic/react';
-import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
+import { klikDarurat } from 'assets';
 
 import { requestPasswordReset } from 'services/firebase.service';
 import { AuthContext } from 'contexts/auth';
@@ -138,6 +138,13 @@ const Login: React.FC = () => {
     dismissLoading();
   };
 
+  const enterKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleLogin();
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -178,6 +185,7 @@ const Login: React.FC = () => {
                               inputMode="email"
                               placeholder="Email"
                               ref={emailRef}
+                              onKeyDown={(e) => enterKeyDown(e)}
                               required
                             />
                           </IonItem>
@@ -191,6 +199,7 @@ const Login: React.FC = () => {
                               type="password"
                               placeholder="Kata Sandi"
                               ref={passwordRef}
+                              onKeyDown={(e) => enterKeyDown(e)}
                               required
                             />
                           </IonItem>

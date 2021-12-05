@@ -14,13 +14,15 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user: any) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user: User | null) => {
       setCurrentUser(user);
       setLoading(false);
     });
 
+    console.log(currentUser);
+
     return unsubscribe;
-  }, []);
+  }, [currentUser]);
 
   const register = async (
     email: string,
