@@ -23,35 +23,45 @@ import {
 } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
-import { UserDataContext } from 'contexts/userData';
+import { getUserData } from 'services/firebase';
+import { UserData } from 'types/userData';
 import Layout from 'components/layout';
 
 import styles from 'styles/main/profile/Profile.module.scss';
 
+const initialData: UserData = {
+  id: '1',
+  fullName: 'John Doe',
+  gender: 'male',
+  email: 'example@domain.com',
+  phoneNumber: '12345',
+  address: 'USA',
+};
+
 const Profile: React.FC = () => {
+  const [userData, setUserData] = useState<UserData>(initialData);
+  const { currentUser, logout } = useContext(AuthContext);
   const [presentToast] = useIonToast();
   const [presentLoading, dismissLoading] = useIonLoading();
-
-  const { currentUser, logout } = useContext(AuthContext);
-  const { userData, fetchUserData } = useContext(UserDataContext);
-
   const history = useHistory();
 
   useEffect(() => {
-    const getUserData = async () => {
+    const fetchUserData = async () => {
       presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
-
       try {
-        await fetchUserData(currentUser);
-      } catch (error) {
-        console.error(error);
-      }
+        const data = await getUserData(currentUser);
 
+        if (!data) return;
+
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
       dismissLoading();
     };
 
-    getUserData();
-  }, [currentUser, presentLoading, dismissLoading, fetchUserData]);
+    fetchUserData();
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleLogout = async () => {
     console.log('start');
@@ -77,20 +87,13 @@ const Profile: React.FC = () => {
           <IonCol>
             <div className={styles.contentHeader}>
               <IonAvatar className={styles.profileAvatar}>
-                <img
-                  src={
-                    userData.photoUrl
-                      ? userData.photoUrl
-                      : './assets/images/avatar-placeholder.png'
-                  }
-                  alt="avatar"
-                />
+                <img src="https://i.pravatar.cc/300?img=13" alt="avatar" />
               </IonAvatar>
               <IonText className={styles.rightHeader}>
                 <h3 className={styles.profileName}>
                   <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
-                <p>{userData.bio ? userData.bio : 'Bio'}</p>
+                <p>Hello World</p>
               </IonText>
             </div>
           </IonCol>
@@ -131,9 +134,7 @@ const Profile: React.FC = () => {
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>
-                  {userData.address ? userData.address : 'Alamat'}
-                </IonLabel>
+                <IonLabel>{userData.address}</IonLabel>
               </IonItem>
             </IonList>
           </IonCol>

@@ -6,7 +6,7 @@ import {
   registerUser,
   loginUser,
   logoutUser,
-} from 'services/firebase.service';
+} from 'services/firebase';
 import Loader from 'components/Loader';
 
 export const AuthProvider: React.FC = ({ children }) => {
@@ -28,9 +28,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     fullName: string,
     phoneNumber: string,
     address: string,
-    gender: 'male' | 'female',
-    bio: string,
-    photoUrl: string
+    gender: 'male' | 'female'
   ) => {
     try {
       await registerUser(
@@ -39,9 +37,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         fullName,
         phoneNumber,
         address,
-        gender,
-        bio,
-        photoUrl
+        gender
       );
     } catch (err) {
       console.error(err);
@@ -60,7 +56,10 @@ export const AuthProvider: React.FC = ({ children }) => {
       console.error(err);
 
       if (err instanceof Error) {
-        throw new Error(err.message);
+        if (err.message === 'email_not_verified') {
+          throw new Error('email_not_verified');
+        }
+        return;
       }
 
       throw new Error('Oops! Something went wrong.');

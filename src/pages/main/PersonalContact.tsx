@@ -147,7 +147,7 @@ const PersonalContact: React.FC = () => {
     <>
       <Layout title="Kontak Darurat">
         <IonToolbar color="primary">
-          <SearchBar query={setSearchQuery} placeholder="Cari Kontak..." />
+          <SearchBar query={setSearchQuery} />
         </IonToolbar>
 
         <IonList>
@@ -196,6 +196,7 @@ const PersonalContact: React.FC = () => {
           <IonLabel position="floating">Nama</IonLabel>
           <IonInput type="text" ref={nameRef} value={selectedContact?.name} />
         </IonItem>
+
         <IonItem>
           <IonLabel position="floating">Nomor Telepon</IonLabel>
           <IonInput

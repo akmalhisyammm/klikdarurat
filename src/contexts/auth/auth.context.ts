@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { User } from 'firebase/auth';
+import { UserData } from 'types/userData';
 
 interface Context {
   currentUser: User | null;
@@ -9,9 +10,7 @@ interface Context {
     fullName: string,
     phoneNumber: string,
     address: string,
-    gender: 'male' | 'female',
-    bio: string,
-    photoUrl: string,
+    gender: 'male' | 'female'
   ) => void;
   login: (email: string, password: string) => void;
   logout: () => void;
@@ -19,7 +18,7 @@ interface Context {
 
 export const AuthContext = createContext<Context>({
   currentUser: null,
-  register: () => { },
-  login: () => { },
-  logout: () => { },
+  register: () => {},
+  login: () => {},
+  logout: () => {},
 });

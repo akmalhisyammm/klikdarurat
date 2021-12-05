@@ -16,20 +16,27 @@ import {
   useIonLoading,
   useIonToast,
 } from '@ionic/react';
-import { camera } from 'ionicons/icons';
-import { Camera, CameraResultType } from '@capacitor/camera';
-import { base64FromPath } from '@capacitor-community/filesystem-react';
+import { folder } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
-import { UserDataContext } from 'contexts/userData';
-import { updateUserData } from 'services/firebase.service';
+import { getUserData, updateUserData } from 'services/firebase';
+import { UserData } from 'types/userData';
 import Layout from 'components/layout';
 
 import styles from 'styles/main/profile/EditProfile.module.scss';
 
+const initialData: UserData = {
+  id: '1',
+  fullName: 'John Doe',
+  gender: 'male',
+  email: 'example@domain.com',
+  phoneNumber: '12345',
+  address: 'USA',
+};
+
 const EditProfile: React.FC = () => {
-  const [gender, setGender] = useState<'male' | 'female'>();
-  const [photo, setPhoto] = useState<string>('');
+  const [userData, setUserData] = useState<UserData>(initialData);
+  const [gender, setGender] = useState<'male' | 'female'>('male');
 
   const [presentLoading, dismissLoading] = useIonLoading();
   const [presentToast] = useIonToast();
@@ -38,54 +45,34 @@ const EditProfile: React.FC = () => {
   const emailRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
   const addressRef = useRef<HTMLIonInputElement>(null);
-  const bioRef = useRef<HTMLIonInputElement>(null);
 
   const { currentUser } = useContext(AuthContext);
-  const { userData, fetchUserData } = useContext(UserDataContext);
 
   const history = useHistory();
 
   useEffect(() => {
-    const getUserData = async () => {
+    const fetchUserData = async () => {
       presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
-
       try {
-        await fetchUserData(currentUser);
-      } catch (error) {
-        console.error(error);
-      }
+        const data = await getUserData(currentUser);
 
+        if (!data) return;
+
+        setUserData(data);
+      } catch (error) {
+        console.log(error);
+      }
       dismissLoading();
     };
 
-    getUserData();
-  }, [currentUser, presentLoading, dismissLoading, fetchUserData]);
-
-  const handleAddPhoto = async () => {
-    try {
-      const photo = await Camera.getPhoto({
-        quality: 80,
-        allowEditing: false,
-        resultType: CameraResultType.Uri,
-      });
-
-      if (!photo || !photo.webPath) {
-        return;
-      }
-
-      setPhoto(photo.webPath);
-    } catch (error) {
-      console.error(error);
-      setPhoto('');
-    }
-  };
+    fetchUserData();
+  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleEditUserData = async () => {
     const fullName = fullNameRef.current?.value as string;
     const email = emailRef.current?.value as string;
     const phoneNumber = phoneNumberRef.current?.value as string;
     const address = addressRef.current?.value as string;
-    const bio = bioRef.current?.value as string;
 
     const updatedUser = {
       fullName: fullName ?? userData.fullName,
@@ -93,14 +80,10 @@ const EditProfile: React.FC = () => {
       email: email ?? userData.email,
       phoneNumber: phoneNumber ?? userData.phoneNumber,
       address: address ?? userData.address,
-      bio: bio ?? userData.bio,
-      photoUrl: userData.photoUrl,
     };
 
     try {
-      const base64 = await base64FromPath(photo!);
-
-      await updateUserData(currentUser, updatedUser, base64, photo);
+      await updateUserData(currentUser, updatedUser);
 
       presentToast({
         message: 'Profil berhasil di ubah.',
@@ -125,21 +108,10 @@ const EditProfile: React.FC = () => {
         <IonRow className="ion-margin-vertical">
           <IonCol>
             <IonAvatar className={styles.editProfileAvatar}>
-              {photo ? (
-                <img src={photo} alt="avatar" />
-              ) : (
-                <img
-                  src={
-                    userData.photoUrl
-                      ? userData.photoUrl
-                      : './assets/images/avatar-placeholder.png'
-                  }
-                  alt="avatar"
-                />
-              )}
+              <img src="https://i.pravatar.cc/300?img=13" alt="avatar" />
             </IonAvatar>
-            <IonButton fill="clear" color="danger" onClick={handleAddPhoto}>
-              <IonIcon slot="start" icon={camera} />
+            <IonButton fill="clear" color="danger">
+              <IonIcon slot="start" icon={folder} />
               <IonLabel>Pilih Foto</IonLabel>
             </IonButton>
           </IonCol>
@@ -154,11 +126,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={fullNameRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.fullName = e.detail.value)
-                  }
                   value={userData.fullName}
-                  placeholder="Nama Lengkap"
                   inputMode="text"
                   clearInput
                 />
@@ -168,16 +136,7 @@ const EditProfile: React.FC = () => {
                 <IonLabel position="fixed" color="primary">
                   Bio
                 </IonLabel>
-                <IonInput
-                  ref={bioRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.bio = e.detail.value)
-                  }
-                  value={userData.bio}
-                  placeholder="Bio"
-                  inputMode="text"
-                  clearInput
-                />
+                <IonInput value="Hello World" inputMode="text" clearInput />
               </IonItem>
 
               <IonItem>
@@ -185,7 +144,7 @@ const EditProfile: React.FC = () => {
                   Gender
                 </IonLabel>
                 <IonSelect
-                  value={gender ? gender : userData.gender}
+                  value={userData.gender}
                   onIonChange={(e: CustomEvent) => setGender(e.detail.value)}
                 >
                   <IonSelectOption value="male">Laki-Laki</IonSelectOption>
@@ -200,10 +159,8 @@ const EditProfile: React.FC = () => {
                 <IonInput
                   ref={emailRef}
                   value={userData.email}
-                  placeholder="Email"
                   inputMode="email"
                   clearInput
-                  disabled
                 />
               </IonItem>
 
@@ -212,12 +169,7 @@ const EditProfile: React.FC = () => {
                   No. Telp
                 </IonLabel>
                 <IonInput
-                  ref={phoneNumberRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.phoneNumber = e.detail.value)
-                  }
                   value={userData.phoneNumber}
-                  placeholder="Nomor Telepon"
                   inputMode="tel"
                   maxlength={12}
                   clearInput
@@ -230,11 +182,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonInput
                   ref={addressRef}
-                  onIonChange={(e: CustomEvent) =>
-                    (userData.address = e.detail.value)
-                  }
                   value={userData.address}
-                  placeholder="Alamat"
                   inputMode="text"
                   clearInput
                 />

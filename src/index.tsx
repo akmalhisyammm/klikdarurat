@@ -1,26 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { defineCustomElements } from '@ionic/pwa-elements/loader';
-
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-
 import { AuthProvider } from 'contexts/auth';
-import { UserDataProvider } from 'contexts/userData';
 import { PersonalContactProvider } from 'contexts/personalContact';
 import { EmergencyServiceProvider } from 'contexts/emergencyService';
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <UserDataProvider>
-        <EmergencyServiceProvider>
-          <PersonalContactProvider>
-            <App />
-          </PersonalContactProvider>
-        </EmergencyServiceProvider>
-      </UserDataProvider>
+      <EmergencyServiceProvider>
+        <PersonalContactProvider>
+          <App />
+        </PersonalContactProvider>
+      </EmergencyServiceProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
@@ -35,6 +29,3 @@ serviceWorkerRegistration.register();
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-
-// Call the element loader after the app has been rendered the first time
-defineCustomElements(window);

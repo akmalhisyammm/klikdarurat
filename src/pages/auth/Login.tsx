@@ -1,4 +1,4 @@
-import { useRef, useContext, useState, KeyboardEvent } from 'react';
+import { useRef, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -25,7 +25,7 @@ import {
 import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 
-import { requestPasswordReset } from 'services/firebase.service';
+import { requestPasswordReset } from 'services/firebase';
 import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 
@@ -73,38 +73,14 @@ const Login: React.FC = () => {
             duration: 2000,
             color: 'warning',
           });
-        } else if (err.message === 'auth/user-not-found') {
-          dismissLoading();
-
-          return presentToast({
-            message: 'Email atau kata sandi salah.',
-            duration: 2000,
-            color: 'danger',
-          });
-        } else if (err.message === 'auth/wrong-password') {
-          dismissLoading();
-
-          return presentToast({
-            message: 'Email atau kata sandi salah.',
-            duration: 2000,
-            color: 'danger',
-          });
-        } else if (err.message === 'auth/invalid-email') {
-          dismissLoading();
-
-          return presentToast({
-            message: 'Email tidak valid.',
-            duration: 2000,
-            color: 'danger',
-          });
         }
-      }
 
-      presentToast({
-        message: 'Gagal untuk masuk.',
-        duration: 2000,
-        color: 'danger',
-      });
+        presentToast({
+          message: 'Gagal untuk masuk.',
+          duration: 2000,
+          color: 'danger',
+        });
+      }
     }
 
     dismissLoading();
@@ -136,14 +112,6 @@ const Login: React.FC = () => {
     }
 
     dismissLoading();
-  };
-
-  const enterKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
-      handleLogin();
-    }
   };
 
   return (
@@ -186,7 +154,6 @@ const Login: React.FC = () => {
                               inputMode="email"
                               placeholder="Email"
                               ref={emailRef}
-                              onKeyDown={(e) => enterKeyDown(e)}
                               required
                             />
                           </IonItem>
@@ -200,7 +167,6 @@ const Login: React.FC = () => {
                               type="password"
                               placeholder="Kata Sandi"
                               ref={passwordRef}
-                              onKeyDown={(e) => enterKeyDown(e)}
                               required
                             />
                           </IonItem>

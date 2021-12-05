@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, KeyboardEvent } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonButton,
@@ -26,7 +26,7 @@ import {
   lockClosedOutline,
   callOutline,
   transgenderOutline,
-  keyOutline,
+  homeOutline,
 } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
@@ -43,6 +43,7 @@ const Register: React.FC = () => {
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
+  const addressRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
@@ -60,9 +61,7 @@ const Register: React.FC = () => {
     const fullName = fullNameRef.current?.value;
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
-    const address = '';
-    const bio = '';
-    const photoUrl = '';
+    const address = addressRef.current?.value;
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
@@ -85,6 +84,14 @@ const Register: React.FC = () => {
     if (!phoneNumber || phoneNumber.toString().trim().length === 0) {
       return presentToast({
         message: 'Nomor telepon wajib diisi.',
+        duration: 2000,
+        color: 'warning',
+      });
+    }
+
+    if (!address || address.toString().trim().length === 0) {
+      return presentToast({
+        message: 'Alamat wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -133,10 +140,8 @@ const Register: React.FC = () => {
         password.toString(),
         fullName.toString().trim(),
         phoneNumber.toString().trim(),
-        address,
-        selectedGender,
-        bio,
-        photoUrl
+        address.toString().trim(),
+        selectedGender
       );
 
       presentToast({
@@ -155,14 +160,6 @@ const Register: React.FC = () => {
     }
 
     dismissLoading();
-  };
-
-  const enterKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      e.stopPropagation();
-      handleRegister();
-    }
   };
 
   return (
@@ -204,11 +201,9 @@ const Register: React.FC = () => {
                             inputMode="text"
                             ref={fullNameRef}
                             placeholder="Nama Lengkap"
-                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
-
                         <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={mailOutline}
@@ -220,7 +215,6 @@ const Register: React.FC = () => {
                             inputMode="email"
                             ref={emailRef}
                             placeholder="Email"
-                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
@@ -235,7 +229,20 @@ const Register: React.FC = () => {
                             inputMode="tel"
                             ref={phoneNumberRef}
                             placeholder="Nomor Telepon"
-                            onKeyDown={(e) => enterKeyDown(e)}
+                            required
+                          />
+                        </IonItem>
+                        <IonItem className={styles.registerCardItem}>
+                          <IonIcon
+                            icon={homeOutline}
+                            color="secondary"
+                            slot="start"
+                          />
+                          <IonInput
+                            type="text"
+                            inputMode="text"
+                            ref={addressRef}
+                            placeholder="Alamat"
                             required
                           />
                         </IonItem>
@@ -268,13 +275,12 @@ const Register: React.FC = () => {
                             type="password"
                             ref={passwordRef}
                             placeholder="Kata Sandi"
-                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
                           <IonIcon
-                            icon={keyOutline}
+                            icon={lockClosedOutline}
                             color="secondary"
                             slot="start"
                           />
@@ -282,7 +288,6 @@ const Register: React.FC = () => {
                             type="password"
                             ref={confirmPasswordRef}
                             placeholder="Ulangi Kata Sandi"
-                            onKeyDown={(e) => enterKeyDown(e)}
                             required
                           />
                         </IonItem>
