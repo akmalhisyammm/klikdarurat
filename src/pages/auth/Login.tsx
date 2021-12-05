@@ -12,7 +12,6 @@ import {
   IonIcon,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
   IonModal,
   IonRouterLink,

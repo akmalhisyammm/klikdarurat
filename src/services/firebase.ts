@@ -11,15 +11,20 @@ import {
 import {
   getFirestore,
   collection,
-  addDoc,
   doc,
+  addDoc,
+  updateDoc,
   setDoc,
   getDoc,
-  updateDoc,
+  getDocs,
+  deleteDoc,
+  query,
+  where,
 } from 'firebase/firestore';
 import { getStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import firebaseConfig from 'config/firebase.config';
+import { PersonalContactData } from 'types/personalContact';
 import { UserData } from 'types/userData';
 
 const firebaseApp = getApps().length ? getApp() : initializeApp(firebaseConfig);
@@ -144,6 +149,97 @@ const requestPasswordReset = async (email: string) => {
   }
 };
 
+const getPersonalContacts = async (currentUser: User | null) => {
+  if (!currentUser) return;
+
+  try {
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
+    const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
+    const qSnap = await getDocs(q);
+
+    return qSnap.docs.map((doc) => (
+      {
+        ...doc.data() as PersonalContactData,
+      }
+    ));
+  } catch (error) {
+    console.error(error);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
+const addPersonalContact = async (currentUser: User | null, name: string, phoneNumber: string) => {
+  if (!currentUser) throw new Error('Current user is null.');
+
+  try {
+    const docRef = doc(collection(firestore, 'users', currentUser.uid, 'contacts'));
+    const newContact = {
+      id: docRef.id,
+      name,
+      phoneNumber,
+    };
+
+    await setDoc(docRef, newContact);
+
+    return newContact as PersonalContactData;
+  } catch (error) {
+    console.error(error);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
+const editPersonalContact = async (currentUser: User | null, id: string, name: string, phoneNumber: string) => {
+  if (!currentUser) throw new Error('Current user is null.');
+
+  try {
+    const updatedContact = {
+      id,
+      name,
+      phoneNumber,
+    };
+
+    await updateDoc(doc(firestore, 'users', currentUser.uid, 'contacts', id), updatedContact);
+
+    // Get all documents from contacts subcollection
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
+    const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
+    const qSnap = await getDocs(q);
+
+    return qSnap.docs.map((doc) => (
+      {
+        ...doc.data() as PersonalContactData,
+      }
+    ));
+  } catch (error) {
+    console.error(error);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
+const deletePersonalContact = async (currentUser: User | null, id: string) => {
+  if (!currentUser) throw new Error('Current user is null.');
+
+  try {
+    // Delete document in contacts subcollection
+    const docRef = doc(firestore, 'users', currentUser.uid, 'contacts', id);
+    await deleteDoc(docRef);
+
+    // Get all documents from contacts subcollection
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
+    const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
+    const qSnap = await getDocs(q);
+
+    return qSnap.docs.map((doc) => (
+      {
+        ...doc.data() as PersonalContactData,
+      }
+    ));
+  } catch (error) {
+    console.error(error);
+    throw new Error('Oops! Something went wrong.');
+  }
+};
+
 export {
   firebaseAuth,
   registerUser,
@@ -152,4 +248,8 @@ export {
   getUserData,
   updateUserData,
   requestPasswordReset,
+  getPersonalContacts,
+  addPersonalContact,
+  editPersonalContact,
+  deletePersonalContact,
 };
