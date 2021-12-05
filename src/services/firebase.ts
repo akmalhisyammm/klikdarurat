@@ -1,4 +1,4 @@
-import { getApp, getApps, initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp, FirebaseError } from 'firebase/app';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -89,8 +89,12 @@ const loginUser = async (email: string, password: string) => {
     } else {
       return { status: false, message: 'email_not_verified' };
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
+
+    if (error instanceof FirebaseError) {
+      throw new Error(error.code);
+    }
 
     throw new Error('Oops! Something went wrong.');
   }

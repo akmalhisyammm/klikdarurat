@@ -60,10 +60,16 @@ export const AuthProvider: React.FC = ({ children }) => {
       console.error(err);
 
       if (err instanceof Error) {
-        if (err.message === 'email_not_verified') {
-          throw new Error('email_not_verified');
-        }
-        return;
+        throw new Error(err.message);
+        // if (err.message === 'email_not_verified') {
+        //   throw new Error('email_not_verified');
+        // } else if (err.message === 'auth/user-not-found') {
+        //   throw new Error('auth/user-not-found');
+        // } else if (err.message === 'auth/wrong-password') {
+        //   throw new Error('auth/wrong-password');
+        // } else if (err.message === 'auth/invalid-email') {
+        //   throw new Error('auth/invalid-email');
+        // }
       }
 
       throw new Error('Oops! Something went wrong.');

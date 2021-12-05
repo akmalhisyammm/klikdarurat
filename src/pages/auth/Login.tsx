@@ -73,6 +73,30 @@ const Login: React.FC = () => {
             duration: 2000,
             color: 'warning',
           });
+        } else if (err.message === 'auth/user-not-found') {
+          dismissLoading();
+
+          return presentToast({
+            message: 'Email atau kata sandi salah.',
+            duration: 2000,
+            color: 'danger',
+          });
+        } else if (err.message === 'auth/wrong-password') {
+          dismissLoading();
+
+          return presentToast({
+            message: 'Email atau kata sandi salah.',
+            duration: 2000,
+            color: 'danger',
+          });
+        } else if (err.message === 'auth/invalid-email') {
+          dismissLoading();
+
+          return presentToast({
+            message: 'Email tidak valid.',
+            duration: 2000,
+            color: 'danger',
+          });
         }
 
         presentToast({
