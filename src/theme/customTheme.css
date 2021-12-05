@@ -17,3 +17,10 @@ ion-loading.loading {
   --min-height: 100%;
   --spinner-color: #ffffff;
 }
+
+ion-searchbar {
+  --border-radius: 24px !important;
+  --box-shadow: 0 0 0 1px var(--ion-color-dark) !important;
+  margin: 12px 0 8px !important;
+  padding: 0 6px !important;
+}
