@@ -3,10 +3,10 @@ import { ReactNode } from 'react';
 
 import Header from './Header';
 
-interface LayoutProps {
+type LayoutProps = {
   title?: string;
   children: ReactNode;
-}
+};
 
 const Layout: React.FC<LayoutProps> = ({ title, children }) => {
   return (

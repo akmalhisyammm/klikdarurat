@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   IonAvatar,
   IonButton,
@@ -21,11 +22,12 @@ import {
   mapOutline,
 } from 'ionicons/icons';
 
-import Layout from 'components/layout';
 import { AuthContext } from 'contexts/auth';
 import { getUserData } from 'services/firebase';
 import { UserData } from 'types/userData';
-import { useHistory } from 'react-router';
+import Layout from 'components/layout';
+
+import styles from 'styles/main/profile/Profile.module.scss';
 
 const initialData: UserData = {
   id: '1',
@@ -45,7 +47,7 @@ const Profile: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      presentLoading({ spinner: 'bubbles' });
+      presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
       try {
         const data = await getUserData(currentUser);
 
@@ -83,24 +85,12 @@ const Profile: React.FC = () => {
       <IonGrid>
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <IonAvatar
-                style={{
-                  width: '100px',
-                  height: '100px',
-                  margin: '0 18px',
-                  border: '2px solid var(--ion-color-danger)',
-                }}
-              >
+            <div className={styles.contentHeader}>
+              <IonAvatar className={styles.profileAvatar}>
                 <img src="https://i.pravatar.cc/300?img=13" alt="avatar" />
               </IonAvatar>
-              <IonText
-                style={{
-                  borderLeft: '2px solid var(--ion-color-dark)',
-                  paddingLeft: '18px',
-                }}
-              >
-                <h3 style={{ fontWeight: 'bold' }}>
+              <IonText className={styles.rightHeader}>
+                <h3 className={styles.profileName}>
                   <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
                 <p>Hello World</p>

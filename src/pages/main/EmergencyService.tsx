@@ -2,8 +2,8 @@ import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import { useContext } from 'react';
 
 import { EmergencyServiceContext } from 'contexts/emergencyService';
+import { EmergencyServiceCard } from 'components/main/EmergencyService';
 import Layout from 'components/layout';
-import EmergencyServiceCard from 'components/main/EmergencyService/EmergencyServiceCard';
 
 const EmergencyService: React.FC = () => {
   const servicesCtx = useContext(EmergencyServiceContext);

@@ -1,0 +1,40 @@
+.sectionDivider {
+  border-bottom: 1px solid;
+  margin-bottom: 24px;
+}
+
+.infoSection {
+  margin-top: 32px;
+}
+
+.referenceSection {
+  text-align: left;
+}
+
+.teamCard {
+  border-radius: 18px;
+  padding: 8px;
+  margin: 0 8px 12px;
+
+  .teamCardImage {
+    border: 3px solid var(--ion-color-danger);
+    border-radius: 12px;
+  }
+
+  .teamCardHeader {
+    padding: 16px 8px 0;
+  }
+
+  .teamCardContent {
+    padding: 0 8px 8px;
+
+    .teamCardContentDivider {
+      border-bottom: 2px solid var(--ion-color-danger);
+      margin: 18px 0 12px;
+    }
+
+    .teamCardContentIcon {
+      font-size: 2em;
+    }
+  }
+}

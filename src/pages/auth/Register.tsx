@@ -32,6 +32,8 @@ import {
 import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 
+import styles from 'styles/auth/Register.module.scss';
+
 const Register: React.FC = () => {
   const [presentToast] = useIonToast();
   const [presentLoading, dismissLoading] = useIonLoading();
@@ -55,7 +57,7 @@ const Register: React.FC = () => {
     setSelectedGender(gender);
   };
 
-  const handleRegisterClick = async () => {
+  const handleRegister = async () => {
     const fullName = fullNameRef.current?.value;
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
@@ -130,7 +132,7 @@ const Register: React.FC = () => {
       });
     }
 
-    presentLoading();
+    presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
 
     try {
       await register(
@@ -162,62 +164,33 @@ const Register: React.FC = () => {
 
   return (
     <Layout>
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          background:
-            'linear-gradient(135deg, rgba(224,108,120,1) 0%, rgba(88,116,220,1) 60%, rgba(56,78,120,1) 100%)',
-          textAlign: 'center',
-        }}
-      >
-        <IonGrid
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            height: '100%',
-          }}
-        >
+      <div className={styles.contentBackground}>
+        <IonGrid className={styles.contentWrapper}>
           <IonRow>
             <IonCol>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <span style={{ paddingTop: '4px' }}>
+              <div className={styles.contentHeader}>
+                <span className={styles.logo}>
                   <img src={klikDarurat} alt="logo" width="40" />
                 </span>
                 &ensp;
-                <h1
-                  style={{
-                    margin: 'auto 0',
-                    fontWeight: 'bold',
-                    color: '#ffffff',
-                  }}
-                >
-                  KlikDarurat
-                </h1>
+                <h1 className={styles.title}>KlikDarurat</h1>
               </div>
             </IonCol>
           </IonRow>
 
           <IonRow>
             <IonCol>
-              <IonCard style={{ margin: '8px 0', borderRadius: '18px' }}>
+              <IonCard className={styles.registerCard}>
                 <IonCardHeader>
-                  <h1 style={{ fontWeight: 'bold' }}>
+                  <h1 className={styles.registerCardHeader}>
                     <IonText color="dark">Daftar</IonText>
                   </h1>
                 </IonCardHeader>
                 <IonCardContent>
                   <IonRow>
                     <IonCol>
-                      <IonList>
-                        <IonItem>
+                      <IonList className={styles.registerCardList}>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={personOutline}
                             color="secondary"
@@ -231,7 +204,7 @@ const Register: React.FC = () => {
                             required
                           />
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={mailOutline}
                             color="secondary"
@@ -245,7 +218,7 @@ const Register: React.FC = () => {
                             required
                           />
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={callOutline}
                             color="secondary"
@@ -259,7 +232,7 @@ const Register: React.FC = () => {
                             required
                           />
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={homeOutline}
                             color="secondary"
@@ -273,7 +246,7 @@ const Register: React.FC = () => {
                             required
                           />
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={transgenderOutline}
                             color="secondary"
@@ -292,7 +265,7 @@ const Register: React.FC = () => {
                             </IonSelectOption>
                           </IonSelect>
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={lockClosedOutline}
                             color="secondary"
@@ -305,7 +278,7 @@ const Register: React.FC = () => {
                             required
                           />
                         </IonItem>
-                        <IonItem>
+                        <IonItem className={styles.registerCardItem}>
                           <IonIcon
                             icon={lockClosedOutline}
                             color="secondary"
@@ -328,7 +301,7 @@ const Register: React.FC = () => {
                         color="secondary"
                         expand="block"
                         shape="round"
-                        onClick={handleRegisterClick}
+                        onClick={handleRegister}
                       >
                         Daftar
                       </IonButton>
@@ -341,12 +314,12 @@ const Register: React.FC = () => {
 
           <IonRow>
             <IonCol>
-              <IonText style={{ color: '#ffffff' }}>
+              <IonText className={styles.contentFooter}>
                 Sudah memiliki akun?{' '}
                 <IonRouterLink
                   color="danger"
                   routerLink="/login"
-                  style={{ textDecoration: 'underline' }}
+                  className={styles.loginLink}
                 >
                   Masuk
                 </IonRouterLink>

@@ -8,9 +8,9 @@ import {
 } from '@ionic/react';
 import React from 'react';
 
-interface HeaderProps {
+type HeaderProps = {
   title: string;
-}
+};
 
 const Header: React.FC<HeaderProps> = ({ title }) => {
   return (

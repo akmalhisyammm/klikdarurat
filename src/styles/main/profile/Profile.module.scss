@@ -1,0 +1,20 @@
+.contentHeader {
+  display: flex;
+  align-items: center;
+
+  .profileAvatar {
+    min-width: 100px;
+    min-height: 100px;
+    margin: 0 18px;
+    border: 2px solid var(--ion-color-danger);
+  }
+
+  .rightHeader {
+    border-left: 2px solid var(--ion-color-dark);
+    padding-left: 18px;
+
+    .profileName {
+      font-weight: bold;
+    }
+  }
+}

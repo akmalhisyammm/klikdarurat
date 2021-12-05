@@ -10,3 +10,10 @@ ion-toast {
   top: -12px;
   text-align: center;
 }
+
+ion-loading.loading {
+  --background: none;
+  --min-width: 100%;
+  --min-height: 100%;
+  --spinner-color: #ffffff;
+}

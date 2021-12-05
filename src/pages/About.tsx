@@ -15,11 +15,13 @@ import { logoGithub } from 'ionicons/icons';
 
 import Layout from 'components/layout';
 
+import styles from 'styles/About.module.scss';
+
 const About: React.FC = () => {
   return (
     <Layout title="Tentang">
       <IonGrid className="ion-text-center">
-        <IonRow style={{ marginTop: '32px' }}>
+        <IonRow className={styles.infoSection}>
           <IonCol size="12">
             <img src={klikDarurat} alt="klikdarurat" width="50%" />
           </IonCol>
@@ -34,14 +36,9 @@ const About: React.FC = () => {
 
         <IonRow>
           <IonCol>
-            <hr
-              style={{
-                borderBottom: '1px solid var(--ion-color-danger)',
-                marginBottom: '24px',
-              }}
-            />
+            <hr className={styles.sectionDivider} />
             <h2>Referensi Gambar</h2>
-            <ul style={{ textAlign: 'left' }}>
+            <ul className={styles.referenceSection}>
               <li>Freepik</li>
               <li>Wikipedia</li>
             </ul>
@@ -50,43 +47,23 @@ const About: React.FC = () => {
 
         <IonRow className="ion-justify-content-center">
           <IonCol size="12">
-            <hr
-              style={{
-                borderBottom: '1px solid var(--ion-color-danger)',
-                marginBottom: '24px',
-              }}
-            />
+            <hr className={styles.sectionDivider} />
             <h2>Tim Kami</h2>
           </IonCol>
 
           <IonCol sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-            <IonCard
-              color="secondary"
-              style={{
-                borderRadius: '18px',
-                padding: '8px',
-                margin: '0 8px 12px',
-              }}
-            >
+            <IonCard color="secondary" className={styles.teamCard}>
               <img
                 src={akmal}
                 alt="Muhammad Akmal Hisyam"
-                style={{
-                  border: '3px solid var(--ion-color-danger)',
-                  borderRadius: '12px',
-                }}
+                className={styles.teamCardImage}
               />
-              <IonCardHeader style={{ padding: '16px 8px 0' }}>
+              <IonCardHeader className={styles.teamCardHeader}>
                 <IonCardTitle>Muhammad Akmal Hisyam</IonCardTitle>
                 <p>00000040027</p>
               </IonCardHeader>
-              <IonCardContent style={{ padding: '0 8px 8px' }}>
-                <hr
-                  style={{
-                    borderBottom: '2px solid var(--ion-color-danger)',
-                    margin: '18px 0 12px',
-                  }}
-                />
+              <IonCardContent className={styles.teamCardContent}>
+                <hr className={styles.teamCardContentDivider} />
                 <IonButton
                   fill="clear"
                   href="https://github.com/akmalhisyammm"
@@ -96,7 +73,7 @@ const About: React.FC = () => {
                   <IonIcon
                     icon={logoGithub}
                     color="danger"
-                    style={{ fontSize: '2em' }}
+                    className={styles.teamCardContentIcon}
                   />
                 </IonButton>
               </IonCardContent>
@@ -104,33 +81,18 @@ const About: React.FC = () => {
           </IonCol>
 
           <IonCol sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-            <IonCard
-              color="secondary"
-              style={{
-                borderRadius: '18px',
-                padding: '8px',
-                margin: '0 8px 12px',
-              }}
-            >
+            <IonCard color="secondary" className={styles.teamCard}>
               <img
                 src={ade}
                 alt="Ade Kiswara"
-                style={{
-                  border: '3px solid var(--ion-color-danger)',
-                  borderRadius: '12px',
-                }}
+                className={styles.teamCardImage}
               />
-              <IonCardHeader style={{ padding: '16px 8px 0' }}>
+              <IonCardHeader className={styles.teamCardHeader}>
                 <IonCardTitle>Ade Kiswara</IonCardTitle>
                 <p>00000040037</p>
               </IonCardHeader>
-              <IonCardContent style={{ padding: '0 8px 8px' }}>
-                <hr
-                  style={{
-                    borderBottom: '2px solid var(--ion-color-danger)',
-                    margin: '18px 0 12px',
-                  }}
-                />
+              <IonCardContent className={styles.teamCardContent}>
+                <hr className={styles.teamCardContentDivider} />
                 <IonButton
                   fill="clear"
                   href="https://github.com/adekiswara"
@@ -140,7 +102,7 @@ const About: React.FC = () => {
                   <IonIcon
                     icon={logoGithub}
                     color="danger"
-                    style={{ fontSize: '2em' }}
+                    className={styles.teamCardContentIcon}
                   />
                 </IonButton>
               </IonCardContent>
@@ -148,33 +110,18 @@ const About: React.FC = () => {
           </IonCol>
 
           <IonCol sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-            <IonCard
-              color="secondary"
-              style={{
-                borderRadius: '18px',
-                padding: '8px',
-                margin: '0 8px 12px',
-              }}
-            >
+            <IonCard color="secondary" className={styles.teamCard}>
               <img
                 src={dimas}
                 alt="Dimas Lesmana"
-                style={{
-                  border: '3px solid var(--ion-color-danger)',
-                  borderRadius: '12px',
-                }}
+                className={styles.teamCardImage}
               />
-              <IonCardHeader style={{ padding: '16px 8px 0' }}>
+              <IonCardHeader className={styles.teamCardHeader}>
                 <IonCardTitle>Dimas Lesmana</IonCardTitle>
                 <p>00000041281</p>
               </IonCardHeader>
-              <IonCardContent style={{ padding: '0 8px 8px' }}>
-                <hr
-                  style={{
-                    borderBottom: '2px solid var(--ion-color-danger)',
-                    margin: '18px 0 12px',
-                  }}
-                />
+              <IonCardContent className={styles.teamCardContent}>
+                <hr className={styles.teamCardContentDivider} />
                 <IonButton
                   fill="clear"
                   href="https://github.com/dimaslesmana"
@@ -184,7 +131,7 @@ const About: React.FC = () => {
                   <IonIcon
                     icon={logoGithub}
                     color="danger"
-                    style={{ fontSize: '2em' }}
+                    className={styles.teamCardContentIcon}
                   />
                 </IonButton>
               </IonCardContent>
@@ -192,33 +139,18 @@ const About: React.FC = () => {
           </IonCol>
 
           <IonCol sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-            <IonCard
-              color="secondary"
-              style={{
-                borderRadius: '18px',
-                padding: '8px',
-                margin: '0 8px 12px',
-              }}
-            >
+            <IonCard color="secondary" className={styles.teamCard}>
               <img
                 src={indra}
                 alt="Indra Prasetya Hadiwana"
-                style={{
-                  border: '3px solid var(--ion-color-danger)',
-                  borderRadius: '12px',
-                }}
+                className={styles.teamCardImage}
               />
-              <IonCardHeader style={{ padding: '16px 8px 0' }}>
+              <IonCardHeader className={styles.teamCardHeader}>
                 <IonCardTitle>Indra Prasetya Hadiwana</IonCardTitle>
                 <p>00000028935</p>
               </IonCardHeader>
-              <IonCardContent style={{ padding: '0 8px 8px' }}>
-                <hr
-                  style={{
-                    borderBottom: '2px solid var(--ion-color-danger)',
-                    margin: '18px 0 12px',
-                  }}
-                />
+              <IonCardContent className={styles.teamCardContent}>
+                <hr className={styles.teamCardContentDivider} />
                 <IonButton
                   fill="clear"
                   href="https://github.com/indrasb"
@@ -228,7 +160,7 @@ const About: React.FC = () => {
                   <IonIcon
                     icon={logoGithub}
                     color="danger"
-                    style={{ fontSize: '2em' }}
+                    className={styles.teamCardContentIcon}
                   />
                 </IonButton>
               </IonCardContent>
@@ -236,33 +168,18 @@ const About: React.FC = () => {
           </IonCol>
 
           <IonCol sizeLg="6" sizeMd="6" sizeSm="6" sizeXs="12">
-            <IonCard
-              color="secondary"
-              style={{
-                borderRadius: '18px',
-                padding: '8px',
-                margin: '0 8px 12px',
-              }}
-            >
+            <IonCard color="secondary" className={styles.teamCard}>
               <img
                 src={rezalutfi}
                 alt="Muhammad Rezalutfi"
-                style={{
-                  border: '3px solid var(--ion-color-danger)',
-                  borderRadius: '12px',
-                }}
+                className={styles.teamCardImage}
               />
-              <IonCardHeader style={{ padding: '16px 8px 0' }}>
+              <IonCardHeader className={styles.teamCardHeader}>
                 <IonCardTitle>Muhammad Rezalutfi</IonCardTitle>
                 <p>00000028098</p>
               </IonCardHeader>
-              <IonCardContent style={{ padding: '0 8px 8px' }}>
-                <hr
-                  style={{
-                    borderBottom: '2px solid var(--ion-color-danger)',
-                    margin: '18px 0 12px',
-                  }}
-                />
+              <IonCardContent className={styles.teamCardContent}>
+                <hr className={styles.teamCardContentDivider} />
                 <IonButton
                   fill="clear"
                   href="https://github.com/Rezalutfi22"
@@ -272,7 +189,7 @@ const About: React.FC = () => {
                   <IonIcon
                     icon={logoGithub}
                     color="danger"
-                    style={{ fontSize: '2em' }}
+                    className={styles.teamCardContentIcon}
                   />
                 </IonButton>
               </IonCardContent>

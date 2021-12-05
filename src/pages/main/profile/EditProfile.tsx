@@ -1,3 +1,5 @@
+import { useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   IonAvatar,
   IonButton,
@@ -15,13 +17,13 @@ import {
   useIonToast,
 } from '@ionic/react';
 import { folder } from 'ionicons/icons';
-import { useContext, useEffect, useRef, useState } from 'react';
 
-import Layout from 'components/layout';
 import { AuthContext } from 'contexts/auth';
 import { getUserData, updateUserData } from 'services/firebase';
 import { UserData } from 'types/userData';
-import { useHistory } from 'react-router';
+import Layout from 'components/layout';
+
+import styles from 'styles/main/profile/EditProfile.module.scss';
 
 const initialData: UserData = {
   id: '1',
@@ -50,7 +52,7 @@ const EditProfile: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      presentLoading({ spinner: 'bubbles' });
+      presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
       try {
         const data = await getUserData(currentUser);
 
@@ -105,14 +107,7 @@ const EditProfile: React.FC = () => {
       <IonGrid className="ion-text-center">
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <IonAvatar
-              style={{
-                width: '160px',
-                height: '160px',
-                margin: '4px auto',
-                border: '2px solid var(--ion-color-danger)',
-              }}
-            >
+            <IonAvatar className={styles.editProfileAvatar}>
               <img src="https://i.pravatar.cc/300?img=13" alt="avatar" />
             </IonAvatar>
             <IonButton fill="clear" color="danger">

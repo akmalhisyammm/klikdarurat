@@ -12,7 +12,6 @@ import {
   IonIcon,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
   IonModal,
   IonRouterLink,
@@ -29,6 +28,8 @@ import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { requestPasswordReset } from 'services/firebase';
 import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
+
+import styles from 'styles/auth/Login.module.scss';
 
 const Login: React.FC = () => {
   const [presentLoading, dismissLoading] = useIonLoading();
@@ -56,7 +57,7 @@ const Login: React.FC = () => {
       });
     }
 
-    presentLoading();
+    presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
 
     try {
       await login(email.toString(), password.toString());
@@ -88,7 +89,7 @@ const Login: React.FC = () => {
   const handleRequestPasswordReset = async () => {
     const forgotPasswordEmail = forgotPasswordEmailRef.current?.value as string;
 
-    presentLoading();
+    presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
 
     try {
       await requestPasswordReset(forgotPasswordEmail);
@@ -116,62 +117,33 @@ const Login: React.FC = () => {
   return (
     <>
       <Layout>
-        <div
-          style={{
-            width: '100%',
-            height: '100%',
-            background:
-              'linear-gradient(135deg, rgba(224,108,120,1) 0%, rgba(88,116,220,1) 60%, rgba(56,78,120,1) 100%)',
-            textAlign: 'center',
-          }}
-        >
-          <IonGrid
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              height: '100%',
-            }}
-          >
+        <div className={styles.contentBackground}>
+          <IonGrid className={styles.contentWrapper}>
             <IonRow>
               <IonCol>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <span style={{ paddingTop: '4px' }}>
+                <div className={styles.contentHeader}>
+                  <span className={styles.logo}>
                     <img src={klikDarurat} alt="logo" width="40" />
                   </span>
                   &ensp;
-                  <h1
-                    style={{
-                      margin: 'auto 0',
-                      fontWeight: 'bold',
-                      color: '#ffffff',
-                    }}
-                  >
-                    KlikDarurat
-                  </h1>
+                  <h1 className={styles.title}>KlikDarurat</h1>
                 </div>
               </IonCol>
             </IonRow>
 
             <IonRow>
               <IonCol>
-                <IonCard style={{ margin: '8px 0', borderRadius: '18px' }}>
+                <IonCard className={styles.loginCard}>
                   <IonCardHeader>
-                    <h1 style={{ fontWeight: 'bold' }}>
+                    <h1 className={styles.loginCardHeader}>
                       <IonText color="dark">Masuk</IonText>
                     </h1>
                   </IonCardHeader>
                   <IonCardContent>
                     <IonRow>
                       <IonCol>
-                        <IonList style={{ background: 'none' }}>
-                          <IonItem style={{ '--background': 'inherit' }}>
+                        <IonList className={styles.loginCardList}>
+                          <IonItem className={styles.loginCardItem}>
                             <IonIcon
                               icon={mailOutline}
                               color="primary"
@@ -185,7 +157,7 @@ const Login: React.FC = () => {
                               required
                             />
                           </IonItem>
-                          <IonItem style={{ '--background': 'inherit' }}>
+                          <IonItem className={styles.loginCardItem}>
                             <IonIcon
                               icon={lockClosedOutline}
                               color="primary"
@@ -220,10 +192,7 @@ const Login: React.FC = () => {
                         <IonText
                           color="dark"
                           onClick={() => setIsForgotPassword(true)}
-                          style={{
-                            textDecoration: 'underline',
-                            cursor: 'pointer',
-                          }}
+                          className={styles.loginCardForgotPassword}
                         >
                           Lupa Kata Sandi?
                         </IonText>
@@ -236,12 +205,12 @@ const Login: React.FC = () => {
 
             <IonRow>
               <IonCol>
-                <IonText style={{ color: '#ffffff' }}>
+                <IonText className={styles.contentFooter}>
                   Belum memiliki akun?{' '}
                   <IonRouterLink
                     color="danger"
                     routerLink="/register"
-                    style={{ textDecoration: 'underline' }}
+                    className={styles.registerLink}
                   >
                     Daftar
                   </IonRouterLink>

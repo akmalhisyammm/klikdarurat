@@ -12,21 +12,15 @@ import { openOutline } from 'ionicons/icons';
 
 import Layout from 'components/layout';
 
+import styles from 'styles/Home.module.scss';
+
 const Home: React.FC = () => {
   return (
     <Layout>
-      <IonGrid
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: '100%',
-          textAlign: 'center',
-        }}
-      >
+      <IonGrid className={styles.contentWrapper}>
         <IonRow>
           <IonCol>
-            <h1 style={{ fontWeight: 'bold' }}>
+            <h1 className={styles.title}>
               Selamat Datang di <IonText color="danger">KlikDarurat</IonText>
             </h1>
           </IonCol>
@@ -34,7 +28,11 @@ const Home: React.FC = () => {
 
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <img src={emergencyCall} alt="emergency call" width="70%" />
+            <img
+              src={emergencyCall}
+              alt="emergency call"
+              className={styles.illustration}
+            />
           </IonCol>
         </IonRow>
 
