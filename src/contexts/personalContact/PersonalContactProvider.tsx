@@ -1,44 +1,63 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { PersonalContactData } from 'types/personalContact';
 import { PersonalContactContext } from './personalContact.context';
+import { getPersonalContacts, addPersonalContact, editPersonalContact, deletePersonalContact } from 'services/firebase';
+import { AuthContext } from 'contexts/auth';
 
 export const PersonalContactProvider: React.FC = ({ children }) => {
   const [contacts, setContacts] = useState<PersonalContactData[]>([]);
+  const { currentUser } = useContext(AuthContext);
 
-  const addContact = (name: string, phoneNumber: string) => {
-    const currIdNumber = contacts.length
-      ? contacts[contacts.length - 1].id.replace(/[^0-9]/g, '')
-      : 0;
+  useEffect(() => {
+    const fetchPersonalContacts = async () => {
+      try {
+        const data = await getPersonalContacts(currentUser);
 
-    const newContact: PersonalContactData = {
-      id: 'PC' + (+currIdNumber + 1),
-      name: name,
-      phoneNumber: phoneNumber,
+        if (!data) return;
+
+        console.table(data);
+        setContacts(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-    const updatedContacts = [...contacts, newContact];
+    fetchPersonalContacts();
+  }, []);
 
-    setContacts(updatedContacts);
+  const addContact = async (name: string, phoneNumber: string) => {
+    try {
+      const newContact = await addPersonalContact(currentUser, name, phoneNumber);
+
+      const updatedContacts = [...contacts, newContact];
+
+      setContacts(updatedContacts);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to add new personal contact.');
+    }
   };
 
-  const updateContact = (id: string, name: string, phoneNumber: string) => {
-    const updateContact: PersonalContactData = {
-      id: id,
-      name: name,
-      phoneNumber: phoneNumber,
-    };
+  const updateContact = async (id: string, name: string, phoneNumber: string) => {
+    try {
+      const updatedContacts = await editPersonalContact(currentUser, id, name, phoneNumber);
 
-    const updatedContacts = contacts.map((contact) =>
-      contact.id === id ? updateContact : contact
-    );
-
-    setContacts(updatedContacts);
+      setContacts(updatedContacts);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to edit personal contact.');
+    }
   };
 
-  const deleteContact = (id: string) => {
-    const updatedContacts = contacts.filter((contact) => contact.id !== id);
+  const deleteContact = async (id: string) => {
+    try {
+      const updatedContacts = await deletePersonalContact(currentUser, id);
 
-    setContacts(updatedContacts);
+      setContacts(updatedContacts);
+    } catch (error) {
+      console.error(error);
+      throw new Error('Failed to delete personal contact.');
+    }
   };
 
   return (
