@@ -98,13 +98,13 @@ const Login: React.FC = () => {
             color: 'danger',
           });
         }
-
-        presentToast({
-          message: 'Gagal untuk masuk.',
-          duration: 2000,
-          color: 'danger',
-        });
       }
+
+      presentToast({
+        message: 'Gagal untuk masuk.',
+        duration: 2000,
+        color: 'danger',
+      });
     }
 
     dismissLoading();
