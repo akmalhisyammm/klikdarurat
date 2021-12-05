@@ -61,7 +61,7 @@ const PersonalContact: React.FC = () => {
   const addContactHandler = (name: string, phoneNumber: string) => {
     contactsCtx.addContact(name, phoneNumber);
     presentToast({
-      message: 'Berhasil menambahkan kontak.',
+      message: 'Kontak berhasil ditambahkan.',
       duration: 2000,
       color: 'success',
     });
@@ -71,9 +71,9 @@ const PersonalContact: React.FC = () => {
     if (selectedContact) {
       contactsCtx.updateContact(selectedContact.id, name, phoneNumber);
       presentToast({
-        message: 'Berhasil mengubah kontak.',
+        message: 'Kontak berhasil diubah.',
         duration: 2000,
-        color: 'success',
+        color: 'warning',
       });
     }
   };
@@ -81,9 +81,9 @@ const PersonalContact: React.FC = () => {
   const deleteContactHandler = (selectedContact: PersonalContactData) => {
     contactsCtx.deleteContact(selectedContact.id);
     presentToast({
-      message: 'Berhasil menghapus kontak.',
+      message: 'Kontak telah dihapus.',
       duration: 2000,
-      color: 'success',
+      color: 'danger',
     });
   };
 

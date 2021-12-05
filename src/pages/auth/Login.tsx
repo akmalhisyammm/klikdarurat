@@ -25,7 +25,7 @@ import {
 import { klikDarurat } from 'assets';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 
-import { requestPasswordReset } from 'services/firebase';
+import { requestPasswordReset } from 'services/firebase.service';
 import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 

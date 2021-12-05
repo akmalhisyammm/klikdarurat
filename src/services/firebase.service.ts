@@ -12,7 +12,6 @@ import {
   getFirestore,
   collection,
   doc,
-  addDoc,
   updateDoc,
   setDoc,
   getDoc,
@@ -131,7 +130,7 @@ const updateUserData = async (
   currentUser: User | null,
   updatedUser: {
     fullName: string;
-    gender: string;
+    gender: 'male' | 'female';
     email: string;
     phoneNumber: string;
     address: string;

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   IonAvatar,
@@ -11,7 +11,6 @@ import {
   IonList,
   IonRow,
   IonText,
-  useIonLoading,
   useIonToast,
 } from '@ionic/react';
 import {
@@ -27,30 +26,15 @@ import { UserDataContext } from 'contexts/userData';
 import Layout from 'components/layout';
 
 import styles from 'styles/main/profile/Profile.module.scss';
+import { avatarPlaceholder } from 'assets';
 
 const Profile: React.FC = () => {
-  const { currentUser, logout } = useContext(AuthContext);
-  const { userData, fetchUserData } = useContext(UserDataContext);
   const [presentToast] = useIonToast();
-  const [presentLoading, dismissLoading] = useIonLoading();
+  const { logout } = useContext(AuthContext);
+
+  const { userData } = useContext(UserDataContext);
+
   const history = useHistory();
-
-  useEffect(() => {
-    const getUserData = async () => {
-      presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
-
-      try {
-        await fetchUserData(currentUser);
-      } catch (error) {
-        console.error(error);
-      }
-
-      dismissLoading();
-    };
-
-    getUserData();
-    console.log('hihih');
-  }, [currentUser, presentLoading, dismissLoading]);
 
   const handleLogout = async () => {
     console.log('start');
@@ -76,13 +60,18 @@ const Profile: React.FC = () => {
           <IonCol>
             <div className={styles.contentHeader}>
               <IonAvatar className={styles.profileAvatar}>
-                <img src={(userData.photoUrl) ? userData.photoUrl : './assets/images/avatar-placeholder.png'} alt="avatar" />
+                <img
+                  src={
+                    userData.photoUrl ? userData.photoUrl : avatarPlaceholder
+                  }
+                  alt="avatar"
+                />
               </IonAvatar>
               <IonText className={styles.rightHeader}>
                 <h3 className={styles.profileName}>
                   <IonText color="danger">{userData.fullName}</IonText>
                 </h3>
-                <p>{(userData.bio) ? userData.bio : 'Bio'}</p>
+                <p>{userData.bio ? userData.bio : 'Bio'}</p>
               </IonText>
             </div>
           </IonCol>
@@ -123,7 +112,9 @@ const Profile: React.FC = () => {
 
               <IonItem>
                 <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel>{(userData.address) ? userData.address : 'Alamat'}</IonLabel>
+                <IonLabel>
+                  {userData.address ? userData.address : 'Alamat'}
+                </IonLabel>
               </IonItem>
             </IonList>
           </IonCol>

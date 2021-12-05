@@ -7,4 +7,4 @@ export interface UserData {
   gender: 'male' | 'female';
   bio: string;
   photoUrl: string;
-};
+}

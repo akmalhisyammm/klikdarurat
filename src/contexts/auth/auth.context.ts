@@ -11,7 +11,7 @@ interface Context {
     address: string,
     gender: 'male' | 'female',
     bio: string,
-    photoUrl: string,
+    photoUrl: string
   ) => void;
   login: (email: string, password: string) => void;
   logout: () => void;
@@ -19,7 +19,7 @@ interface Context {
 
 export const AuthContext = createContext<Context>({
   currentUser: null,
-  register: () => { },
-  login: () => { },
-  logout: () => { },
+  register: () => {},
+  login: () => {},
+  logout: () => {},
 });
