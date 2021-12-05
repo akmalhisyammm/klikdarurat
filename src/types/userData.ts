@@ -5,4 +5,6 @@ export interface UserData {
   phoneNumber: string;
   address: string;
   gender: 'male' | 'female';
+  bio: string;
+  photoUrl: string;
 };

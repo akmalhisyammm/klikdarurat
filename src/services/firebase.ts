@@ -40,7 +40,9 @@ const registerUser = async (
   fullName: string,
   phoneNumber: string,
   address: string,
-  gender: 'male' | 'female'
+  gender: 'male' | 'female',
+  bio: string,
+  photoUrl: string,
 ) => {
   try {
     const { user } = await createUserWithEmailAndPassword(
@@ -56,6 +58,8 @@ const registerUser = async (
       phoneNumber,
       address,
       gender,
+      bio,
+      photoUrl,
     });
 
     await setDoc(
@@ -127,11 +131,27 @@ const updateUserData = async (
     email: string;
     phoneNumber: string;
     address: string;
-  }
+    bio: string;
+    photoUrl: string;
+  },
+  base64: string,
+  photo: string,
 ) => {
-  if (!currentUser) return;
+  if (!currentUser) throw new Error('Current user is null.');
+
+  const photoName = currentUser.uid + '.jpeg';
+  const storageRef = ref(storage, `assets/profile-pictures/${photoName}`);
 
   try {
+    if (photo) {
+      const photoBlob = await (await fetch(base64)).blob();
+
+      await uploadBytes(storageRef, photoBlob);
+
+      const photoUrl = await getDownloadURL(storageRef);
+      updatedUser.photoUrl = photoUrl;
+    }
+
     const usersDocRef = doc(firestore, 'users', currentUser.uid);
     await updateDoc(usersDocRef, updatedUser);
   } catch (err) {

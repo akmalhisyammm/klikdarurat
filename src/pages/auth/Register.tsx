@@ -26,7 +26,6 @@ import {
   lockClosedOutline,
   callOutline,
   transgenderOutline,
-  homeOutline,
 } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
@@ -43,7 +42,6 @@ const Register: React.FC = () => {
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
   const phoneNumberRef = useRef<HTMLIonInputElement>(null);
-  const addressRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
@@ -61,7 +59,9 @@ const Register: React.FC = () => {
     const fullName = fullNameRef.current?.value;
     const email = emailRef.current?.value;
     const phoneNumber = phoneNumberRef.current?.value;
-    const address = addressRef.current?.value;
+    const address = "";
+    const bio = "";
+    const photoUrl = "";
     const password = passwordRef.current?.value;
     const confirmPassword = confirmPasswordRef.current?.value;
 
@@ -84,14 +84,6 @@ const Register: React.FC = () => {
     if (!phoneNumber || phoneNumber.toString().trim().length === 0) {
       return presentToast({
         message: 'Nomor telepon wajib diisi.',
-        duration: 2000,
-        color: 'warning',
-      });
-    }
-
-    if (!address || address.toString().trim().length === 0) {
-      return presentToast({
-        message: 'Alamat wajib diisi.',
         duration: 2000,
         color: 'warning',
       });
@@ -140,8 +132,10 @@ const Register: React.FC = () => {
         password.toString(),
         fullName.toString().trim(),
         phoneNumber.toString().trim(),
-        address.toString().trim(),
-        selectedGender
+        address,
+        selectedGender,
+        bio,
+        photoUrl,
       );
 
       presentToast({
@@ -229,20 +223,6 @@ const Register: React.FC = () => {
                             inputMode="tel"
                             ref={phoneNumberRef}
                             placeholder="Nomor Telepon"
-                            required
-                          />
-                        </IonItem>
-                        <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={homeOutline}
-                            color="secondary"
-                            slot="start"
-                          />
-                          <IonInput
-                            type="text"
-                            inputMode="text"
-                            ref={addressRef}
-                            placeholder="Alamat"
                             required
                           />
                         </IonItem>

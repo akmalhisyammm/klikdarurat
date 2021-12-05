@@ -28,7 +28,9 @@ export const AuthProvider: React.FC = ({ children }) => {
     fullName: string,
     phoneNumber: string,
     address: string,
-    gender: 'male' | 'female'
+    gender: 'male' | 'female',
+    bio: string,
+    photoUrl: string,
   ) => {
     try {
       await registerUser(
@@ -37,7 +39,9 @@ export const AuthProvider: React.FC = ({ children }) => {
         fullName,
         phoneNumber,
         address,
-        gender
+        gender,
+        bio,
+        photoUrl,
       );
     } catch (err) {
       console.error(err);
