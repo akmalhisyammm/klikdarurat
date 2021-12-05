@@ -1,7 +1,7 @@
-import { IonRouterOutlet } from '@ionic/react';
-import { AuthContext } from 'contexts/auth';
 import { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { IonRouterOutlet } from '@ionic/react';
+import { AuthContext } from 'contexts/auth';
 import PrivateRoute from './PrivateRoute';
 
 import Home from 'pages/Home';
@@ -24,7 +24,11 @@ const Routes: React.FC = () => {
       <PrivateRoute path="/main" component={MainTabs} />
       <PrivateRoute path="/edit-profile" component={EditProfile} />
 
-      {currentUser ? <Redirect exact to="/main" /> : <Redirect exact to="/" />}
+      {currentUser ? (
+        <Redirect exact from="/" to="/main" />
+      ) : (
+        <Redirect exact to="/" />
+      )}
     </IonRouterOutlet>
   );
 };
