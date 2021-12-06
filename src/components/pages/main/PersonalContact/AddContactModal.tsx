@@ -27,7 +27,7 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader>
-        <IonToolbar color="danger">
+        <IonToolbar color="secondary">
           <IonTitle>{type ? 'Edit Kontak' : 'Tambah Kontak'}</IonTitle>
         </IonToolbar>
       </IonHeader>
