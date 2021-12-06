@@ -1,0 +1,10 @@
+.emergencyServiceCard {
+  border: 2px solid var(--ion-color-primary);
+  border-radius: 14px;
+  text-align: center;
+
+  .emergencyServiceCardImage {
+    margin: 32px 0;
+    width: 60%;
+  }
+}
