@@ -1,38 +1,23 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  IonAvatar,
   IonButton,
   IonCol,
   IonGrid,
   IonIcon,
-  IonItem,
   IonLabel,
-  IonList,
   IonRow,
-  IonText,
   useIonToast,
 } from '@ionic/react';
-import {
-  callOutline,
-  logOut,
-  mailOutline,
-  maleOutline,
-  mapOutline,
-} from 'ionicons/icons';
-import { avatarPlaceholder } from 'assets';
+import { logOut } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
-import { UserDataContext } from 'contexts/userData';
+import { ProfileDetail, ProfileHighlight } from 'components/pages/main/Profile';
 import Layout from 'components/layout';
-
-import styles from 'styles/main/profile/Profile.module.scss';
 
 const Profile: React.FC = () => {
   const [presentToast] = useIonToast();
   const { logout } = useContext(AuthContext);
-
-  const { userData } = useContext(UserDataContext);
 
   const history = useHistory();
 
@@ -58,22 +43,7 @@ const Profile: React.FC = () => {
       <IonGrid>
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <div className={styles.contentHeader}>
-              <IonAvatar className={styles.profileAvatar}>
-                <img
-                  src={
-                    userData.photoUrl ? userData.photoUrl : avatarPlaceholder
-                  }
-                  alt="avatar"
-                />
-              </IonAvatar>
-              <IonText className={styles.rightHeader}>
-                <h3 className={styles.profileName}>
-                  <IonText color="danger">{userData.fullName}</IonText>
-                </h3>
-                <p>{userData.bio ? userData.bio : 'Tidak ada bio.'}</p>
-              </IonText>
-            </div>
+            <ProfileHighlight />
           </IonCol>
         </IonRow>
 
@@ -92,31 +62,7 @@ const Profile: React.FC = () => {
 
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <IonList>
-              <IonItem>
-                <IonIcon icon={maleOutline} slot="start" color="primary" />
-                <IonLabel>
-                  {userData.gender === 'male' ? 'Laki-Laki' : 'Perempuan'}
-                </IonLabel>
-              </IonItem>
-
-              <IonItem>
-                <IonIcon icon={mailOutline} slot="start" color="primary" />
-                <IonLabel>{userData.email}</IonLabel>
-              </IonItem>
-
-              <IonItem>
-                <IonIcon icon={callOutline} slot="start" color="primary" />
-                <IonLabel>{userData.phoneNumber}</IonLabel>
-              </IonItem>
-
-              <IonItem>
-                <IonIcon icon={mapOutline} slot="start" color="primary" />
-                <IonLabel color={userData.address ? '' : 'medium'}>
-                  {userData.address ? userData.address : 'Belum mengisi alamat'}
-                </IonLabel>
-              </IonItem>
-            </IonList>
+            <ProfileDetail />
           </IonCol>
         </IonRow>
 

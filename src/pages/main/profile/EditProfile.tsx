@@ -1,11 +1,9 @@
 import { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
-  IonAvatar,
   IonButton,
   IonCol,
   IonGrid,
-  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -15,14 +13,11 @@ import {
   IonSelectOption,
   useIonToast,
 } from '@ionic/react';
-import { camera } from 'ionicons/icons';
-import { avatarPlaceholder } from 'assets';
 import { Camera, CameraResultType } from '@capacitor/camera';
 
 import { UserDataContext } from 'contexts/userData';
+import { EditProfilePhoto } from 'components/pages/main/EditProfile';
 import Layout from 'components/layout';
-
-import styles from 'styles/main/profile/EditProfile.module.scss';
 
 const EditProfile: React.FC = () => {
   const [gender, setGender] = useState<'male' | 'female'>();
@@ -81,7 +76,7 @@ const EditProfile: React.FC = () => {
       await editUserData(updatedUser, photo);
 
       presentToast({
-        message: 'Profil berhasil di ubah.',
+        message: 'Profil berhasil diubah.',
         duration: 2000,
         color: 'success',
       });
@@ -90,7 +85,7 @@ const EditProfile: React.FC = () => {
     } catch (err) {
       console.error(err);
       presentToast({
-        message: 'Profil gagal di ubah.',
+        message: 'Profil gagal diubah.',
         duration: 2000,
         color: 'danger',
       });
@@ -102,22 +97,7 @@ const EditProfile: React.FC = () => {
       <IonGrid className="ion-text-center">
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <IonAvatar className={styles.editProfileAvatar}>
-              {photo ? (
-                <img src={photo} alt="avatar" />
-              ) : (
-                <img
-                  src={
-                    userData.photoUrl ? userData.photoUrl : avatarPlaceholder
-                  }
-                  alt="avatar"
-                />
-              )}
-            </IonAvatar>
-            <IonButton fill="clear" color="danger" onClick={handleTakePhoto}>
-              <IonIcon slot="start" icon={camera} />
-              <IonLabel>Pilih Foto</IonLabel>
-            </IonButton>
+            <EditProfilePhoto photo={photo} handleTakePhoto={handleTakePhoto} />
           </IonCol>
         </IonRow>
 
@@ -125,7 +105,7 @@ const EditProfile: React.FC = () => {
           <IonCol>
             <IonList>
               <IonItem>
-                <IonLabel position="fixed" color="primary">
+                <IonLabel position="floating" color="primary">
                   Nama
                 </IonLabel>
                 <IonInput
@@ -137,7 +117,7 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="fixed" color="primary">
+                <IonLabel position="floating" color="primary">
                   Bio
                 </IonLabel>
                 <IonInput
@@ -149,8 +129,8 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="fixed" color="primary">
-                  Gender
+                <IonLabel position="floating" color="primary">
+                  Jenis Kelamin
                 </IonLabel>
                 <IonSelect
                   value={gender ?? userData.gender}
@@ -162,7 +142,7 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="fixed" color="primary">
+                <IonLabel position="floating" color="primary">
                   E-mail
                 </IonLabel>
                 <IonInput
@@ -175,8 +155,8 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="fixed" color="primary">
-                  No. Telp
+                <IonLabel position="floating" color="primary">
+                  Nomor Telepon
                 </IonLabel>
                 <IonInput
                   ref={phoneNumberRef}
@@ -188,7 +168,7 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="fixed" color="primary">
+                <IonLabel position="floating" color="primary">
                   Alamat
                 </IonLabel>
                 <IonInput

@@ -1,5 +1,4 @@
 import {
-  IonButton,
   IonCol,
   IonGrid,
   IonIcon,
@@ -10,6 +9,7 @@ import {
 import { emergencyCall } from 'assets';
 import { openOutline } from 'ionicons/icons';
 
+import { AuthButton } from 'components/pages/Home';
 import Layout from 'components/layout';
 
 import styles from 'styles/Home.module.scss';
@@ -38,22 +38,7 @@ const Home: React.FC = () => {
 
         <IonRow>
           <IonCol>
-            <IonButton
-              shape="round"
-              expand="block"
-              color="primary"
-              routerLink="/login"
-            >
-              Masuk
-            </IonButton>
-            <IonButton
-              shape="round"
-              expand="block"
-              color="secondary"
-              routerLink="/register"
-            >
-              Daftar
-            </IonButton>
+            <AuthButton />
           </IonCol>
         </IonRow>
 

@@ -11,40 +11,26 @@ import {
 } from '@ionic/react';
 import { locateOutline, navigateOutline } from 'ionicons/icons';
 import { Geolocation } from '@capacitor/geolocation';
-import {
-  GoogleMap,
-  InfoWindow,
-  Marker,
-  useLoadScript,
-} from '@react-google-maps/api';
 
+import { Map } from 'components/pages/main/EmergencyLocation';
 import Layout from 'components/layout';
-import { klikDarurat } from 'assets';
+
+import styles from 'styles/main/EmergencyLocation.module.scss';
 
 type Coordinates = {
   lat: number;
   lng: number;
 };
 
-const options: google.maps.MapOptions = {
-  disableDefaultUI: true,
-  zoomControl: true,
-};
-
-const center: Coordinates = {
+// Initial Center: Multimedia Nusantara University
+const initialCenter: Coordinates = {
   lat: -6.257377926995551,
   lng: 106.61829861017398,
 };
 
-const libraries: any = ['places'];
-
-const icon: any = {
-  url: klikDarurat,
-  scaledSize: { width: 32, height: 32 },
-};
-
 const EmergencyLocation: React.FC = () => {
-  const [currentPosition, setCurrentPosition] = useState<Coordinates>(center);
+  const [currentPosition, setCurrentPosition] =
+    useState<Coordinates>(initialCenter);
   const [emergencyKeyword, setEmergencyKeyword] = useState<
     'hospital' | 'police' | 'fire_station'
   >();
@@ -53,12 +39,6 @@ const EmergencyLocation: React.FC = () => {
   >([]);
   const [placeDetail, setPlaceDetail] =
     useState<google.maps.places.PlaceResult | null>(null);
-
-  const { isLoaded, loadError } = useLoadScript({
-    id: 'map',
-    googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
-    libraries,
-  });
 
   const mapRef = useRef<google.maps.Map>();
 
@@ -78,7 +58,6 @@ const EmergencyLocation: React.FC = () => {
 
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-          console.log(results);
           setNearbyPlaces(results);
         } else {
           setNearbyPlaces(null);
@@ -106,14 +85,8 @@ const EmergencyLocation: React.FC = () => {
   return (
     <Layout title="Lokasi Layanan Darurat">
       <IonToolbar color="primary">
-        <IonItem
-          style={{
-            '--border-radius': '24px',
-            margin: '12px 0',
-            padding: '0 6px',
-          }}
-        >
-          <IonLabel>Layanan Darurat</IonLabel>
+        <IonItem className={styles.selectItem}>
+          <IonLabel>Lokasi</IonLabel>
           <IonSelect
             value={emergencyKeyword}
             placeholder="Pilih Lokasi Layanan Darurat"
@@ -128,49 +101,13 @@ const EmergencyLocation: React.FC = () => {
         </IonItem>
       </IonToolbar>
 
-      {isLoaded && (
-        <div style={{ width: '100%', height: '100%', paddingBottom: '70px' }}>
-          <GoogleMap
-            id="map"
-            onLoad={onMapLoad}
-            mapContainerStyle={{
-              width: '100%',
-              height: '100%',
-            }}
-            center={currentPosition}
-            zoom={15}
-            options={options}
-          >
-            <Marker position={currentPosition} />
-
-            {nearbyPlaces &&
-              nearbyPlaces.map(
-                (place: google.maps.places.PlaceResult, i: number) => (
-                  <Marker
-                    key={i}
-                    position={place.geometry?.location as google.maps.LatLng}
-                    icon={icon}
-                    onClick={() => setPlaceDetail(place)}
-                  />
-                )
-              )}
-
-            {placeDetail && (
-              <InfoWindow
-                position={placeDetail.geometry?.location}
-                onCloseClick={() => setPlaceDetail(null)}
-              >
-                <div style={{ color: 'black' }}>
-                  <h2>{placeDetail.name}</h2>
-                  <p>{placeDetail.vicinity}</p>
-                </div>
-              </InfoWindow>
-            )}
-          </GoogleMap>
-        </div>
-      )}
-
-      {loadError && <h1>Google maps Error!</h1>}
+      <Map
+        onLoad={onMapLoad}
+        currentPosition={currentPosition}
+        nearbyPlaces={nearbyPlaces}
+        placeDetail={placeDetail}
+        setPlaceDetail={setPlaceDetail}
+      />
 
       <IonFab horizontal="start" vertical="bottom" slot="fixed">
         {placeDetail && (
@@ -184,7 +121,7 @@ const EmergencyLocation: React.FC = () => {
                   placeDetail.geometry?.location?.lng()
               )
             }
-            style={{ marginBottom: '8px' }}
+            className={styles.navigateButton}
           >
             <IonIcon icon={navigateOutline} />
           </IonFabButton>

@@ -1,11 +1,8 @@
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import { ade, akmal, dimas, indra, rezalutfi } from 'assets';
 
+import { AppInfo, AppReference, DeveloperCard } from 'components/pages/About';
 import Layout from 'components/layout';
-
-import AppInfo from 'components/about/AppInfo';
-import AppReference from 'components/about/AppReference';
-import DeveloperCard from 'components/about/DeveloperCard';
 
 import styles from 'styles/About.module.scss';
 

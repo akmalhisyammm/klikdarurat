@@ -18,7 +18,10 @@ import { add, swapVerticalOutline, trash } from 'ionicons/icons';
 
 import { PersonalContactContext } from 'contexts/personalContact';
 import { PersonalContactData } from 'types/personalContact';
-import { AddContactModal, ContactItem } from 'components/main/PersonalContact';
+import {
+  AddContactModal,
+  ContactItem,
+} from 'components/pages/main/PersonalContact';
 import Layout from 'components/layout';
 import SearchBar from 'components/SearchBar';
 

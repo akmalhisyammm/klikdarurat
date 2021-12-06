@@ -22,10 +22,10 @@ import { klikDarurat } from 'assets';
 
 import { requestPasswordReset } from 'services/firebase.service';
 import { AuthContext } from 'contexts/auth';
+import { ForgotPasswordModal } from 'components/pages/auth/Login';
 import Layout from 'components/layout';
 
 import styles from 'styles/auth/Login.module.scss';
-import ForgotPasswordModal from 'components/auth/login/ForgotPasswordModal';
 
 const Login: React.FC = () => {
   const [presentLoading, dismissLoading] = useIonLoading();

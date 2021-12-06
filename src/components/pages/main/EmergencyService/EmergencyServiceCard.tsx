@@ -1,5 +1,7 @@
 import { IonCard, IonCardHeader, IonCardSubtitle } from '@ionic/react';
 
+import styles from 'styles/main/EmergencyService.module.scss';
+
 type EmergencyServiceCardProps = {
   name: string;
   image: string;
@@ -12,18 +14,11 @@ const EmergencyServiceCard: React.FC<EmergencyServiceCardProps> = ({
   callNumber,
 }) => {
   return (
-    <IonCard
-      style={{ border: '2px solid var(--ion-color-primary)' }}
-      className="ion-text-center"
-      href={'tel:' + callNumber}
-    >
+    <IonCard className={styles.emergencyServiceCard} href={'tel:' + callNumber}>
       <img
         src={image}
         alt={name}
-        width="60%"
-        style={{
-          margin: '32px 0',
-        }}
+        className={styles.emergencyServiceCardImage}
       />
       <IonCardHeader color="primary">
         <IonCardSubtitle>{name}</IonCardSubtitle>
