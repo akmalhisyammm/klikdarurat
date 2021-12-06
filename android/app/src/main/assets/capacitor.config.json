@@ -1,0 +1,6 @@
+{
+	"appId": "id.ac.umn.ionic.klikdarurat",
+	"appName": "KlikDarurat",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

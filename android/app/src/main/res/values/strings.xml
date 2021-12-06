@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KlikDarurat</string>
+    <string name="title_activity_main">KlikDarurat</string>
+    <string name="package_name">id.ac.umn.ionic.klikdarurat</string>
+    <string name="custom_url_scheme">id.ac.umn.ionic.klikdarurat</string>
+</resources>
