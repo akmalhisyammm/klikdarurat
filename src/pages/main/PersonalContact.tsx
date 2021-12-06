@@ -19,7 +19,7 @@ import { add, swapVerticalOutline, trash } from 'ionicons/icons';
 import { PersonalContactContext } from 'contexts/personalContact';
 import { PersonalContactData } from 'types/personalContact';
 import {
-  AddContactModal,
+  ContactModal,
   ContactItem,
 } from 'components/pages/main/PersonalContact';
 import Layout from 'components/layout';
@@ -189,7 +189,7 @@ const PersonalContact: React.FC = () => {
         </IonFab>
       </Layout>
 
-      <AddContactModal
+      <ContactModal
         isOpen={isEditing}
         onDismiss={setIsEditing}
         type={!!selectedContact}
@@ -208,7 +208,7 @@ const PersonalContact: React.FC = () => {
             value={selectedContact?.phoneNumber}
           />
         </IonItem>
-      </AddContactModal>
+      </ContactModal>
     </>
   );
 };

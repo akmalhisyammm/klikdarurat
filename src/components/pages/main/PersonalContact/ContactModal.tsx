@@ -10,14 +10,14 @@ import {
   IonButton,
 } from '@ionic/react';
 
-type AddContactModalProps = {
+type ContactModalProps = {
   isOpen: boolean;
   onDismiss: (dismiss: boolean) => void;
   type: boolean;
   handleSaveContact: () => void;
 };
 
-const AddContactModal: React.FC<AddContactModalProps> = ({
+const ContactModal: React.FC<ContactModalProps> = ({
   isOpen,
   onDismiss,
   type,
@@ -68,4 +68,4 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
   );
 };
 
-export default AddContactModal;
+export default ContactModal;
