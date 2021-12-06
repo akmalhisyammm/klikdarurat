@@ -14,12 +14,10 @@ export const AuthProvider: React.FC = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user: User | null) => {
-      setCurrentUser(user);
+    const unsubscribe = firebaseAuth.onIdTokenChanged((user: User | null) => {
+      setCurrentUser(user?.emailVerified ? user : null);
       setLoading(false);
     });
-
-    console.log(currentUser);
 
     return unsubscribe;
   }, [currentUser]);

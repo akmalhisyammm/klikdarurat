@@ -1,5 +1,5 @@
 import { useRef, useState, useContext, KeyboardEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import {
   IonButton,
   IonCard,
@@ -47,9 +47,13 @@ const Register: React.FC = () => {
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const confirmPasswordRef = useRef<HTMLIonInputElement>(null);
 
-  const { register } = useContext(AuthContext);
+  const { currentUser, register } = useContext(AuthContext);
 
   const history = useHistory();
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   const handleRegister = async () => {
     const fullName = fullNameRef.current?.value;

@@ -1,24 +1,19 @@
 import { useRef, useContext, useState, KeyboardEvent } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import {
   IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCol,
-  IonContent,
   IonGrid,
-  IonHeader,
   IonIcon,
   IonInput,
   IonItem,
   IonList,
-  IonModal,
   IonRouterLink,
   IonRow,
   IonText,
-  IonTitle,
-  IonToolbar,
   useIonLoading,
   useIonToast,
 } from '@ionic/react';
@@ -30,6 +25,7 @@ import { AuthContext } from 'contexts/auth';
 import Layout from 'components/layout';
 
 import styles from 'styles/auth/Login.module.scss';
+import ForgotPasswordModal from 'components/auth/login/ForgotPasswordModal';
 
 const Login: React.FC = () => {
   const [presentLoading, dismissLoading] = useIonLoading();
@@ -41,9 +37,13 @@ const Login: React.FC = () => {
   const passwordRef = useRef<HTMLIonInputElement>(null);
   const forgotPasswordEmailRef = useRef<HTMLIonInputElement>(null);
 
-  const { login } = useContext(AuthContext);
+  const { currentUser, login } = useContext(AuthContext);
 
   const history = useHistory();
+
+  if (currentUser) {
+    return <Redirect to="/" />;
+  }
 
   const handleLogin = async () => {
     const email = emailRef.current?.value;
@@ -254,56 +254,21 @@ const Login: React.FC = () => {
         </div>
       </Layout>
 
-      <IonModal isOpen={isForgotPassword}>
-        <IonHeader>
-          <IonToolbar color="secondary">
-            <IonTitle>Atur Ulang Kata Sandi</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
-        <IonContent>
-          <IonGrid>
-            <IonRow>
-              <IonCol>
-                <IonItem>
-                  <IonIcon icon={mailOutline} color="primary" slot="start" />
-                  <IonInput
-                    type="text"
-                    placeholder="Masukkan email Anda"
-                    ref={forgotPasswordEmailRef}
-                    required
-                  />
-                </IonItem>
-              </IonCol>
-            </IonRow>
-
-            <IonRow className="ion-text-center">
-              <IonCol>
-                <IonButton
-                  color="primary"
-                  expand="block"
-                  fill="solid"
-                  shape="round"
-                  onClick={handleRequestPasswordReset}
-                >
-                  Kirim
-                </IonButton>
-              </IonCol>
-              <IonCol>
-                <IonButton
-                  color="danger"
-                  expand="block"
-                  fill="outline"
-                  shape="round"
-                  onClick={() => setIsForgotPassword(false)}
-                >
-                  Batal
-                </IonButton>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-        </IonContent>
-      </IonModal>
+      <ForgotPasswordModal
+        isOpen={isForgotPassword}
+        handleSendRequest={handleRequestPasswordReset}
+        onDismiss={setIsForgotPassword}
+      >
+        <IonItem>
+          <IonIcon icon={mailOutline} color="primary" slot="start" />
+          <IonInput
+            type="text"
+            placeholder="Masukkan email Anda"
+            ref={forgotPasswordEmailRef}
+            required
+          />
+        </IonItem>
+      </ForgotPasswordModal>
     </>
   );
 };
