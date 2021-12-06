@@ -51,12 +51,6 @@ const Register: React.FC = () => {
 
   const history = useHistory();
 
-  const handleSelectGender = (event: CustomEvent) => {
-    const gender = event.detail.value;
-
-    setSelectedGender(gender);
-  };
-
   const handleRegister = async () => {
     const fullName = fullNameRef.current?.value;
     const email = emailRef.current?.value;
@@ -250,8 +244,14 @@ const Register: React.FC = () => {
                           />
                           <IonSelect
                             placeholder="Jenis Kelamin"
-                            onIonChange={handleSelectGender}
+                            onIonChange={(e) =>
+                              setSelectedGender(e.detail.value)
+                            }
                             interface="alert"
+                            style={{
+                              paddingLeft: 0,
+                              maxWidth: '100%',
+                            }}
                           >
                             <IonSelectOption value="male">
                               Laki-laki

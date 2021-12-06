@@ -13,7 +13,7 @@ const EmergencyServiceCard: React.FC<EmergencyServiceCardProps> = ({
 }) => {
   return (
     <IonCard
-      color="secondary"
+      style={{ border: '2px solid var(--ion-color-primary)' }}
       className="ion-text-center"
       href={'tel:' + callNumber}
     >

@@ -15,6 +15,7 @@ const Loader: React.FC = () => {
               style={{
                 display: 'block',
                 margin: 'auto',
+                color: 'white',
               }}
               name="dots"
             />

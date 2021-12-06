@@ -147,7 +147,7 @@ const PersonalContact: React.FC = () => {
     <>
       <Layout title="Kontak Darurat">
         <IonToolbar color="primary">
-          <SearchBar query={setSearchQuery} />
+          <SearchBar query={setSearchQuery} placeholder="Cari Kontak..." />
         </IonToolbar>
 
         <IonList>

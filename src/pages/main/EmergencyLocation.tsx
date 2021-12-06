@@ -109,7 +109,6 @@ const EmergencyLocation: React.FC = () => {
         <IonItem
           style={{
             '--border-radius': '24px',
-            '--box-shadow': '0 0 0 1px var(--ion-color-dark)',
             margin: '12px 0',
             padding: '0 6px',
           }}

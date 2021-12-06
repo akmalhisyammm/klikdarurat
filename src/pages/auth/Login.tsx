@@ -283,6 +283,7 @@ const Login: React.FC = () => {
                   color="primary"
                   expand="block"
                   fill="solid"
+                  shape="round"
                   onClick={handleRequestPasswordReset}
                 >
                   Kirim
@@ -293,6 +294,7 @@ const Login: React.FC = () => {
                   color="danger"
                   expand="block"
                   fill="outline"
+                  shape="round"
                   onClick={() => setIsForgotPassword(false)}
                 >
                   Batal

@@ -27,7 +27,7 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader>
-        <IonToolbar color="secondary">
+        <IonToolbar color="danger">
           <IonTitle>{type ? 'Edit Kontak' : 'Tambah Kontak'}</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -44,6 +44,7 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
                 color="primary"
                 expand="block"
                 fill="solid"
+                shape="round"
                 onClick={handleSaveContact}
               >
                 Simpan
@@ -54,6 +55,7 @@ const AddContactModal: React.FC<AddContactModalProps> = ({
                 color="danger"
                 expand="block"
                 fill="outline"
+                shape="round"
                 onClick={() => onDismiss(false)}
               >
                 Batalkan
