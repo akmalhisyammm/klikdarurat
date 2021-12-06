@@ -27,6 +27,8 @@ import {
   callOutline,
   transgenderOutline,
   keyOutline,
+  eye,
+  eyeOff,
 } from 'ionicons/icons';
 import { klikDarurat } from 'assets';
 
@@ -40,6 +42,9 @@ const Register: React.FC = () => {
   const [presentLoading, dismissLoading] = useIonLoading();
 
   const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] =
+    useState<boolean>(false);
 
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
@@ -272,11 +277,19 @@ const Register: React.FC = () => {
                             slot="start"
                           />
                           <IonInput
-                            type="password"
+                            type={isShowPassword ? 'text' : 'password'}
                             ref={passwordRef}
                             placeholder="Kata Sandi"
                             onKeyDown={(e) => enterKeyDown(e)}
                             required
+                          />
+                          <IonIcon
+                            slot="end"
+                            icon={isShowPassword ? eyeOff : eye}
+                            onClick={() =>
+                              setIsShowPassword(isShowPassword ? false : true)
+                            }
+                            className={styles.toggleShowPassword}
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
@@ -286,11 +299,21 @@ const Register: React.FC = () => {
                             slot="start"
                           />
                           <IonInput
-                            type="password"
+                            type={isShowConfirmPassword ? 'text' : 'password'}
                             ref={confirmPasswordRef}
                             placeholder="Ulangi Kata Sandi"
                             onKeyDown={(e) => enterKeyDown(e)}
                             required
+                          />
+                          <IonIcon
+                            slot="end"
+                            icon={isShowConfirmPassword ? eyeOff : eye}
+                            onClick={() =>
+                              setIsShowConfirmPassword(
+                                isShowConfirmPassword ? false : true
+                              )
+                            }
+                            className={styles.toggleShowConfirmPassword}
                           />
                         </IonItem>
                       </IonList>

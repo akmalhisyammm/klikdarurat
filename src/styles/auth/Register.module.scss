@@ -50,6 +50,18 @@
 
         .registerCardItem {
           --background: inherit;
+
+          .toggleShowPassword {
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          .toggleShowConfirmPassword {
+            &:hover {
+              cursor: pointer;
+            }
+          }
         }
       }
 

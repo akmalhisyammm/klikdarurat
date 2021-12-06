@@ -17,7 +17,7 @@ import {
   useIonLoading,
   useIonToast,
 } from '@ionic/react';
-import { mailOutline, lockClosedOutline } from 'ionicons/icons';
+import { mailOutline, lockClosedOutline, eye, eyeOff } from 'ionicons/icons';
 import { klikDarurat } from 'assets';
 
 import { requestPasswordReset } from 'services/firebase.service';
@@ -32,6 +32,7 @@ const Login: React.FC = () => {
   const [presentToast] = useIonToast();
 
   const [isForgotPassword, setIsForgotPassword] = useState<boolean>(false);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const emailRef = useRef<HTMLIonInputElement>(null);
   const passwordRef = useRef<HTMLIonInputElement>(null);
@@ -196,11 +197,19 @@ const Login: React.FC = () => {
                               slot="start"
                             />
                             <IonInput
-                              type="password"
+                              type={isShowPassword ? 'text' : 'password'}
                               placeholder="Kata Sandi"
                               ref={passwordRef}
                               onKeyDown={(e) => enterKeyDown(e)}
                               required
+                            />
+                            <IonIcon
+                              slot="end"
+                              icon={isShowPassword ? eyeOff : eye}
+                              onClick={() =>
+                                setIsShowPassword(isShowPassword ? false : true)
+                              }
+                              className={styles.toggleShowPassword}
                             />
                           </IonItem>
                         </IonList>
