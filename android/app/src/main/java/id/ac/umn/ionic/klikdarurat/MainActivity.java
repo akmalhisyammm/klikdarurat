@@ -4,6 +4,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.webkit.WebSettings;
 
+import com.capacitorjs.plugins.app.AppPlugin;
 import com.capacitorjs.plugins.camera.CameraPlugin;
 import com.capacitorjs.plugins.geolocation.GeolocationPlugin;
 import com.capacitorjs.plugins.splashscreen.SplashScreenPlugin;
@@ -53,6 +54,7 @@ public class MainActivity extends BridgeActivity {
         this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
             // Additional plugins you've installed go here
             // Ex: add(TotallyAwesomePlugin.class);
+            add(AppPlugin.class);
             add(CameraPlugin.class);
             add(GeolocationPlugin.class);
             add(SplashScreenPlugin.class);

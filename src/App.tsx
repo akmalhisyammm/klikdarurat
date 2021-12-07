@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { IonApp, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { SplashScreen } from '@capacitor/splash-screen';
+import { App as CapacitorApp } from '@capacitor/app';
 
 import Routes from 'components/routes/Routes';
 import SideMenu from 'components/SideMenu';
@@ -25,6 +26,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import 'theme/variables.css';
 import 'theme/customTheme.css';
+
+CapacitorApp.addListener('backButton', ({ canGoBack }) => {
+  !canGoBack ? CapacitorApp.exitApp() : window.history.back();
+});
 
 const App: React.FC = () => {
   useEffect(() => {
