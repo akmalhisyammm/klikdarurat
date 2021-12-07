@@ -2,5 +2,15 @@
 	"appId": "id.ac.umn.ionic.klikdarurat",
 	"appName": "KlikDarurat",
 	"webDir": "build",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchAutoHide": false,
+			"androidSplashResourceName": "splash",
+			"androidScaleType": "CENTER_CROP",
+			"splashFullScreen": true,
+			"splashImmersive": false,
+			"backgroundColor": "#384e78"
+		}
+	}
 }
