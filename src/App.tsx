@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { IonApp, IonSplitPane } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 import Routes from 'components/routes/Routes';
 import SideMenu from 'components/SideMenu';
@@ -24,15 +26,23 @@ import '@ionic/react/css/display.css';
 import 'theme/variables.css';
 import 'theme/customTheme.css';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonSplitPane contentId="main">
-        <SideMenu />
-        <Routes />
-      </IonSplitPane>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide({ fadeOutDuration: 300 });
+    }, 100);
+  }, []);
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <SideMenu />
+          <Routes />
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;

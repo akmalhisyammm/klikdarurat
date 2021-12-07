@@ -5,6 +5,16 @@ const config: CapacitorConfig = {
   appName: 'KlikDarurat',
   webDir: 'build',
   bundledWebRuntime: false,
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: false,
+      androidSplashResourceName: 'splash',
+      androidScaleType: 'CENTER_CROP',
+      splashFullScreen: true,
+      splashImmersive: false,
+      backgroundColor: '#384e78',
+    },
+  },
 };
 
 export default config;
