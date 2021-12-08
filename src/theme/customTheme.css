@@ -6,6 +6,8 @@ ion-app {
 
 ion-toast {
   --border-radius: 8px;
+  --max-width: 90%;
+  top: -12px;
   text-align: center;
 }
 

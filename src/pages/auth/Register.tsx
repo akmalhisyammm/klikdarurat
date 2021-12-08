@@ -244,7 +244,7 @@ const Register: React.FC = () => {
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
                           <IonLabel hidden color="primary">
-                            Gender
+                            Jenis Kelamin
                           </IonLabel>
                           <IonIcon
                             icon={transgenderOutline}

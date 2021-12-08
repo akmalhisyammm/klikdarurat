@@ -56,7 +56,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 shape="round"
                 onClick={() => onDismiss(false)}
               >
-                Batal
+                Batalkan
               </IonButton>
             </IonCol>
           </IonRow>
