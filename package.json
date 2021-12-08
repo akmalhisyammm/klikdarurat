@@ -9,7 +9,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint src --fix && npm run format",
+    "format": "prettier --write src"
   },
   "dependencies": {
     "@capacitor-community/filesystem-react": "^0.1.0",
@@ -59,7 +62,11 @@
     "workbox-streams": "^5.1.4"
   },
   "devDependencies": {
-    "@capacitor/cli": "^3.3.2"
+    "@capacitor/cli": "^3.3.2",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1"
   },
   "repository": {
     "type": "git",
