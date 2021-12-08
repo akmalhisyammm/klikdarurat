@@ -8,14 +8,13 @@ const Loader: React.FC = () => {
           <div
             style={{
               paddingTop: '45vh',
-              textAlign: 'center',
-            }}
-          >
+              textAlign: 'center'
+            }}>
             <IonSpinner
               style={{
                 display: 'block',
                 margin: 'auto',
-                color: 'white',
+                color: 'white'
               }}
               name="dots"
             />

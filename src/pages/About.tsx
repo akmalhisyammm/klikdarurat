@@ -12,36 +12,36 @@ const developerData = [
     name: 'Muhammad Akmal Hisyam',
     nim: '00000040027',
     photo: akmal,
-    githubLink: 'https://github.com/akmalhisyammm',
+    githubLink: 'https://github.com/akmalhisyammm'
   },
   {
     id: 'D02',
     name: 'Ade Kiswara',
     nim: '00000040037',
     photo: ade,
-    githubLink: 'https://github.com/adekiswara',
+    githubLink: 'https://github.com/adekiswara'
   },
   {
     id: 'D03',
     name: 'Dimas Lesmana',
     nim: '00000041281',
     photo: dimas,
-    githubLink: 'https://github.com/dimaslesmana',
+    githubLink: 'https://github.com/dimaslesmana'
   },
   {
     id: 'D04',
     name: 'Indra Prasetya Hadiwana',
     nim: '00000028935',
     photo: indra,
-    githubLink: 'https://github.com/indrasb',
+    githubLink: 'https://github.com/indrasb'
   },
   {
     id: 'D05',
     name: 'Muhammad Rezalutfi',
     nim: '00000028098',
     photo: rezalutfi,
-    githubLink: 'https://github.com/Rezalutfi22',
-  },
+    githubLink: 'https://github.com/Rezalutfi22'
+  }
 ];
 
 const About: React.FC = () => {

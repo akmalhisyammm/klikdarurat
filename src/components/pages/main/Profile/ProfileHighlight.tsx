@@ -12,10 +12,7 @@ const ProfileHighlight: React.FC = () => {
   return (
     <div className={styles.contentHeader}>
       <IonAvatar className={styles.profileAvatar}>
-        <img
-          src={userData.photoUrl ? userData.photoUrl : avatarPlaceholder}
-          alt="avatar"
-        />
+        <img src={userData.photoUrl ? userData.photoUrl : avatarPlaceholder} alt="avatar" />
       </IonAvatar>
       <IonText className={styles.rightHeader}>
         <h3 className={styles.profileName}>

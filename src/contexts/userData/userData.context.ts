@@ -9,7 +9,7 @@ const initialUser: UserData = {
   phoneNumber: '12345',
   address: 'USA',
   bio: '',
-  photoUrl: '',
+  photoUrl: ''
 };
 
 interface Context {
@@ -19,5 +19,5 @@ interface Context {
 
 export const UserDataContext = createContext<Context>({
   userData: initialUser,
-  editUserData: () => {},
+  editUserData: () => null
 });

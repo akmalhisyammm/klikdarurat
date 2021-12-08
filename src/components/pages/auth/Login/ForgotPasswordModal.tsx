@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   IonModal,
   IonHeader,
@@ -7,21 +8,22 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButton,
+  IonButton
 } from '@ionic/react';
 
 type ForgotPasswordModalProps = {
   isOpen: boolean;
   handleSendRequest: () => void;
   onDismiss: (dismiss: boolean) => void;
+  children: ReactNode;
 };
 
 const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
   isOpen,
   handleSendRequest,
   onDismiss,
-  children,
-}) => {
+  children
+}: ForgotPasswordModalProps) => {
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader>
@@ -43,8 +45,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 expand="block"
                 fill="solid"
                 shape="round"
-                onClick={handleSendRequest}
-              >
+                onClick={handleSendRequest}>
                 Kirim
               </IonButton>
             </IonCol>
@@ -54,8 +55,7 @@ const ForgotPasswordModal: React.FC<ForgotPasswordModalProps> = ({
                 expand="block"
                 fill="outline"
                 shape="round"
-                onClick={() => onDismiss(false)}
-              >
+                onClick={() => onDismiss(false)}>
                 Batalkan
               </IonButton>
             </IonCol>

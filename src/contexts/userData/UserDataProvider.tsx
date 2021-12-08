@@ -1,10 +1,14 @@
-import { useContext, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import { useIonLoading } from '@ionic/react';
 import { base64FromPath } from '@capacitor-community/filesystem-react';
 import { UserData } from 'types/userData';
 import { AuthContext } from 'contexts/auth';
 import { getUserData, updateUserData } from 'services/firebase.service';
 import { UserDataContext } from './userData.context';
+
+type UserDataProviderProps = {
+  children: ReactNode;
+};
 
 const initialUser: UserData = {
   id: '1',
@@ -14,10 +18,12 @@ const initialUser: UserData = {
   phoneNumber: '12345',
   address: 'USA',
   bio: '',
-  photoUrl: '',
+  photoUrl: ''
 };
 
-export const UserDataProvider: React.FC = ({ children }) => {
+export const UserDataProvider: React.FC<UserDataProviderProps> = ({
+  children
+}: UserDataProviderProps) => {
   const [userData, setUserData] = useState<UserData>(initialUser);
   const [startFetchData, setStartFetchData] = useState<boolean>(true);
 
@@ -47,7 +53,7 @@ export const UserDataProvider: React.FC = ({ children }) => {
     presentLoading({ spinner: 'bubbles', cssClass: 'loading' });
 
     try {
-      const base64 = await base64FromPath(photo!);
+      const base64 = await base64FromPath(photo);
       await updateUserData(currentUser, updatedUser, base64, photo);
 
       setStartFetchData(true);

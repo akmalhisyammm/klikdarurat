@@ -10,9 +10,8 @@ const AppInfo: React.FC = () => {
       </IonCol>
       <IonCol size="12">
         <p>
-          <IonText color="danger">KlikDarurat</IonText> merupakan aplikasi
-          layanan darurat yang dibangun untuk membantu masyarakat dalam
-          menghadapi situasi darurat.
+          <IonText color="danger">KlikDarurat</IonText> merupakan aplikasi layanan darurat yang
+          dibangun untuk membantu masyarakat dalam menghadapi situasi darurat.
         </p>
       </IonCol>
     </IonRow>

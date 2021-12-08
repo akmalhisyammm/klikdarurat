@@ -5,7 +5,7 @@ type SearchBarProps = {
   placeholder?: string;
 };
 
-const SearchBar: React.FC<SearchBarProps> = ({ query, placeholder }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ query, placeholder }: SearchBarProps) => {
   return (
     <IonSearchbar
       onIonChange={(e) => query(e.detail.value!)}

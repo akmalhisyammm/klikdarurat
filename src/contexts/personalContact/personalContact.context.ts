@@ -10,7 +10,7 @@ interface Context {
 
 export const PersonalContactContext = createContext<Context>({
   contacts: [],
-  addContact: () => {},
-  updateContact: () => {},
-  deleteContact: () => {},
+  addContact: () => null,
+  updateContact: () => null,
+  deleteContact: () => null
 });

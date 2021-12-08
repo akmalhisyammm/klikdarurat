@@ -1,14 +1,6 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  IonButton,
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonLabel,
-  IonRow,
-  useIonToast,
-} from '@ionic/react';
+import { IonButton, IonCol, IonGrid, IonIcon, IonLabel, IonRow, useIonToast } from '@ionic/react';
 import { logOut } from 'ionicons/icons';
 
 import { AuthContext } from 'contexts/auth';
@@ -29,7 +21,7 @@ const Profile: React.FC = () => {
       presentToast({
         message: 'Anda telah keluar.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
 
       history.replace('/login');
@@ -49,12 +41,7 @@ const Profile: React.FC = () => {
 
         <IonRow>
           <IonCol>
-            <IonButton
-              shape="round"
-              expand="block"
-              color="primary"
-              routerLink="/edit-profile"
-            >
+            <IonButton shape="round" expand="block" color="primary" routerLink="/edit-profile">
               Edit Profil
             </IonButton>
           </IonCol>
@@ -73,8 +60,7 @@ const Profile: React.FC = () => {
               shape="round"
               expand="block"
               color="danger"
-              onClick={handleLogout}
-            >
+              onClick={handleLogout}>
               <IonIcon icon={logOut} slot="start" />
               <IonLabel>Keluar</IonLabel>
             </IonButton>

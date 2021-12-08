@@ -11,15 +11,11 @@ type EmergencyServiceCardProps = {
 const EmergencyServiceCard: React.FC<EmergencyServiceCardProps> = ({
   name,
   image,
-  callNumber,
-}) => {
+  callNumber
+}: EmergencyServiceCardProps) => {
   return (
     <IonCard className={styles.emergencyServiceCard} href={'tel:' + callNumber}>
-      <img
-        src={image}
-        alt={name}
-        className={styles.emergencyServiceCardImage}
-      />
+      <img src={image} alt={name} className={styles.emergencyServiceCardImage} />
       <IonCardHeader color="primary">
         <IonCardSubtitle>{name}</IonCardSubtitle>
       </IonCardHeader>

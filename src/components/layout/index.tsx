@@ -8,7 +8,7 @@ type LayoutProps = {
   children: ReactNode;
 };
 
-const Layout: React.FC<LayoutProps> = ({ title, children }) => {
+const Layout: React.FC<LayoutProps> = ({ title, children }: LayoutProps) => {
   return (
     <IonPage>
       {title && <Header title={title} />}

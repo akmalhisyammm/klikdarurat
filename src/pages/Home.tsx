@@ -1,11 +1,4 @@
-import {
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonRouterLink,
-  IonRow,
-  IonText,
-} from '@ionic/react';
+import { IonCol, IonGrid, IonIcon, IonRouterLink, IonRow, IonText } from '@ionic/react';
 import { emergencyCall } from 'assets';
 import { openOutline } from 'ionicons/icons';
 
@@ -28,11 +21,7 @@ const Home: React.FC = () => {
 
         <IonRow className="ion-margin-vertical">
           <IonCol>
-            <img
-              src={emergencyCall}
-              alt="emergency call"
-              className={styles.illustration}
-            />
+            <img src={emergencyCall} alt="emergency call" className={styles.illustration} />
           </IonCol>
         </IonRow>
 

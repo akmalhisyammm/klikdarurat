@@ -15,7 +15,7 @@ import {
   IonRow,
   IonText,
   useIonLoading,
-  useIonToast,
+  useIonToast
 } from '@ionic/react';
 import { mailOutline, lockClosedOutline, eye, eyeOff } from 'ionicons/icons';
 import { klikDarurat } from 'assets';
@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       return presentToast({
         message: 'Email dan kata sandi wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -72,7 +72,7 @@ const Login: React.FC = () => {
           return presentToast({
             message: 'Harap verifikasi email Anda terlebih dahulu.',
             duration: 2000,
-            color: 'warning',
+            color: 'warning'
           });
         } else if (err.message === 'auth/user-not-found') {
           dismissLoading();
@@ -80,7 +80,7 @@ const Login: React.FC = () => {
           return presentToast({
             message: 'Email atau kata sandi salah.',
             duration: 2000,
-            color: 'danger',
+            color: 'danger'
           });
         } else if (err.message === 'auth/wrong-password') {
           dismissLoading();
@@ -88,7 +88,7 @@ const Login: React.FC = () => {
           return presentToast({
             message: 'Email atau kata sandi salah.',
             duration: 2000,
-            color: 'danger',
+            color: 'danger'
           });
         } else if (err.message === 'auth/invalid-email') {
           dismissLoading();
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
           return presentToast({
             message: 'Email tidak valid.',
             duration: 2000,
-            color: 'danger',
+            color: 'danger'
           });
         }
       }
@@ -104,7 +104,7 @@ const Login: React.FC = () => {
       presentToast({
         message: 'Gagal untuk masuk.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
     }
 
@@ -122,7 +122,7 @@ const Login: React.FC = () => {
       presentToast({
         message: 'Permintaan reset password berhasil, silakan cek email Anda.',
         duration: 4000,
-        color: 'success',
+        color: 'success'
       });
 
       setIsForgotPassword(false);
@@ -130,7 +130,7 @@ const Login: React.FC = () => {
       presentToast({
         message: 'Permintaan reset password gagal.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
 
       console.error(err);
@@ -176,11 +176,7 @@ const Login: React.FC = () => {
                       <IonCol>
                         <IonList className={styles.loginCardList}>
                           <IonItem className={styles.loginCardItem}>
-                            <IonIcon
-                              icon={mailOutline}
-                              color="primary"
-                              slot="start"
-                            />
+                            <IonIcon icon={mailOutline} color="primary" slot="start" />
                             <IonInput
                               type="email"
                               inputMode="email"
@@ -191,11 +187,7 @@ const Login: React.FC = () => {
                             />
                           </IonItem>
                           <IonItem className={styles.loginCardItem}>
-                            <IonIcon
-                              icon={lockClosedOutline}
-                              color="primary"
-                              slot="start"
-                            />
+                            <IonIcon icon={lockClosedOutline} color="primary" slot="start" />
                             <IonInput
                               type={isShowPassword ? 'text' : 'password'}
                               placeholder="Kata Sandi"
@@ -206,9 +198,7 @@ const Login: React.FC = () => {
                             <IonIcon
                               slot="end"
                               icon={isShowPassword ? eyeOff : eye}
-                              onClick={() =>
-                                setIsShowPassword(isShowPassword ? false : true)
-                              }
+                              onClick={() => setIsShowPassword(isShowPassword ? false : true)}
                               className={styles.toggleShowPassword}
                             />
                           </IonItem>
@@ -222,8 +212,7 @@ const Login: React.FC = () => {
                           color="primary"
                           expand="block"
                           shape="round"
-                          onClick={handleLogin}
-                        >
+                          onClick={handleLogin}>
                           Masuk
                         </IonButton>
                       </IonCol>
@@ -234,8 +223,7 @@ const Login: React.FC = () => {
                         <IonText
                           color="dark"
                           onClick={() => setIsForgotPassword(true)}
-                          className={styles.loginCardForgotPassword}
-                        >
+                          className={styles.loginCardForgotPassword}>
                           Lupa Kata Sandi?
                         </IonText>
                       </IonCol>
@@ -252,8 +240,7 @@ const Login: React.FC = () => {
                   <IonRouterLink
                     color="danger"
                     routerLink="/register"
-                    className={styles.registerLink}
-                  >
+                    className={styles.registerLink}>
                     Daftar
                   </IonRouterLink>
                 </IonText>
@@ -266,8 +253,7 @@ const Login: React.FC = () => {
       <ForgotPasswordModal
         isOpen={isForgotPassword}
         handleSendRequest={handleRequestPasswordReset}
-        onDismiss={setIsForgotPassword}
-      >
+        onDismiss={setIsForgotPassword}>
         <IonItem>
           <IonIcon icon={mailOutline} color="primary" slot="start" />
           <IonInput

@@ -1,15 +1,21 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, ReactNode } from 'react';
 import { PersonalContactData } from 'types/personalContact';
 import { PersonalContactContext } from './personalContact.context';
 import {
   getPersonalContacts,
   addPersonalContact,
   editPersonalContact,
-  deletePersonalContact,
+  deletePersonalContact
 } from 'services/firebase.service';
 import { AuthContext } from 'contexts/auth';
 
-export const PersonalContactProvider: React.FC = ({ children }) => {
+type PersonalContactProviderProps = {
+  children: ReactNode;
+};
+
+export const PersonalContactProvider: React.FC<PersonalContactProviderProps> = ({
+  children
+}: PersonalContactProviderProps) => {
   const [contacts, setContacts] = useState<PersonalContactData[]>([]);
   const { currentUser } = useContext(AuthContext);
 
@@ -31,11 +37,7 @@ export const PersonalContactProvider: React.FC = ({ children }) => {
 
   const addContact = async (name: string, phoneNumber: string) => {
     try {
-      const newContact = await addPersonalContact(
-        currentUser,
-        name,
-        phoneNumber
-      );
+      const newContact = await addPersonalContact(currentUser, name, phoneNumber);
 
       const updatedContacts = [...contacts, newContact];
 
@@ -46,18 +48,9 @@ export const PersonalContactProvider: React.FC = ({ children }) => {
     }
   };
 
-  const updateContact = async (
-    id: string,
-    name: string,
-    phoneNumber: string
-  ) => {
+  const updateContact = async (id: string, name: string, phoneNumber: string) => {
     try {
-      const updatedContacts = await editPersonalContact(
-        currentUser,
-        id,
-        name,
-        phoneNumber
-      );
+      const updatedContacts = await editPersonalContact(currentUser, id, name, phoneNumber);
 
       setContacts(updatedContacts);
     } catch (error) {
@@ -78,9 +71,7 @@ export const PersonalContactProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <PersonalContactContext.Provider
-      value={{ contacts, addContact, updateContact, deleteContact }}
-    >
+    <PersonalContactContext.Provider value={{ contacts, addContact, updateContact, deleteContact }}>
       {children}
     </PersonalContactContext.Provider>
   );

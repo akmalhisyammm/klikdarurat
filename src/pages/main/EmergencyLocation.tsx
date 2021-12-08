@@ -7,7 +7,7 @@ import {
   IonLabel,
   IonSelect,
   IonSelectOption,
-  IonToolbar,
+  IonToolbar
 } from '@ionic/react';
 import { locateOutline, navigateOutline } from 'ionicons/icons';
 import { Geolocation } from '@capacitor/geolocation';
@@ -25,20 +25,16 @@ type Coordinates = {
 // Initial Center: Multimedia Nusantara University
 const initialCenter: Coordinates = {
   lat: -6.257377926995551,
-  lng: 106.61829861017398,
+  lng: 106.61829861017398
 };
 
 const EmergencyLocation: React.FC = () => {
-  const [currentPosition, setCurrentPosition] =
-    useState<Coordinates>(initialCenter);
+  const [currentPosition, setCurrentPosition] = useState<Coordinates>(initialCenter);
   const [emergencyKeyword, setEmergencyKeyword] = useState<
     'hospital' | 'police' | 'fire_station'
   >();
-  const [nearbyPlaces, setNearbyPlaces] = useState<
-    google.maps.places.PlaceResult[] | null
-  >([]);
-  const [placeDetail, setPlaceDetail] =
-    useState<google.maps.places.PlaceResult | null>(null);
+  const [nearbyPlaces, setNearbyPlaces] = useState<google.maps.places.PlaceResult[] | null>([]);
+  const [placeDetail, setPlaceDetail] = useState<google.maps.places.PlaceResult | null>(null);
 
   const mapRef = useRef<google.maps.Map>();
 
@@ -47,14 +43,12 @@ const EmergencyLocation: React.FC = () => {
       const request = {
         location: currentPosition,
         radius: 5000,
-        type: emergencyKeyword,
+        type: emergencyKeyword
       };
 
       if (!mapRef.current) return;
 
-      const service = new window.google.maps.places.PlacesService(
-        mapRef.current
-      );
+      const service = new window.google.maps.places.PlacesService(mapRef.current);
 
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
@@ -68,12 +62,12 @@ const EmergencyLocation: React.FC = () => {
 
   const getCurrentPosition = async () => {
     const coordinates = await Geolocation.getCurrentPosition({
-      enableHighAccuracy: true,
+      enableHighAccuracy: true
     });
 
     setCurrentPosition({
       lat: coordinates.coords.latitude,
-      lng: coordinates.coords.longitude,
+      lng: coordinates.coords.longitude
     });
   };
 
@@ -90,13 +84,10 @@ const EmergencyLocation: React.FC = () => {
           <IonSelect
             value={emergencyKeyword}
             placeholder="Pilih Lokasi Layanan Darurat"
-            onIonChange={(e) => setEmergencyKeyword(e.detail.value)}
-          >
+            onIonChange={(e) => setEmergencyKeyword(e.detail.value)}>
             <IonSelectOption value="hospital">Rumah Sakit</IonSelectOption>
             <IonSelectOption value="police">Kantor Polisi</IonSelectOption>
-            <IonSelectOption value="fire_station">
-              Stasiun Damkar
-            </IonSelectOption>
+            <IonSelectOption value="fire_station">Stasiun Damkar</IonSelectOption>
           </IonSelect>
         </IonItem>
       </IonToolbar>
@@ -109,7 +100,7 @@ const EmergencyLocation: React.FC = () => {
         setPlaceDetail={setPlaceDetail}
       />
 
-      <IonFab horizontal="start" vertical="bottom" slot="fixed">
+      <IonFab horizontal="end" vertical="bottom" slot="fixed">
         {placeDetail && (
           <IonFabButton
             color="danger"
@@ -121,8 +112,7 @@ const EmergencyLocation: React.FC = () => {
                   placeDetail.geometry?.location?.lng()
               )
             }
-            className={styles.navigateButton}
-          >
+            className={styles.navigateButton}>
             <IonIcon icon={navigateOutline} />
           </IonFabButton>
         )}

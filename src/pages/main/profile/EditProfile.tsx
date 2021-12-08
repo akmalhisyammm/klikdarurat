@@ -11,7 +11,7 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
-  useIonToast,
+  useIonToast
 } from '@ionic/react';
 import { Camera, CameraResultType } from '@capacitor/camera';
 
@@ -40,7 +40,7 @@ const EditProfile: React.FC = () => {
       const photo = await Camera.getPhoto({
         quality: 80,
         allowEditing: false,
-        resultType: CameraResultType.Uri,
+        resultType: CameraResultType.Uri
       });
 
       if (!photo || !photo.webPath) {
@@ -69,7 +69,7 @@ const EditProfile: React.FC = () => {
       phoneNumber: phoneNumber ?? userData.phoneNumber,
       address: address ?? userData.address,
       bio: bio ?? userData.bio,
-      photoUrl: userData.photoUrl,
+      photoUrl: userData.photoUrl
     };
 
     try {
@@ -78,7 +78,7 @@ const EditProfile: React.FC = () => {
       presentToast({
         message: 'Profil berhasil diubah.',
         duration: 2000,
-        color: 'success',
+        color: 'success'
       });
 
       history.replace('/main/profile');
@@ -87,7 +87,7 @@ const EditProfile: React.FC = () => {
       presentToast({
         message: 'Profil gagal diubah.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
     }
   };
@@ -108,24 +108,14 @@ const EditProfile: React.FC = () => {
                 <IonLabel position="floating" color="primary">
                   Nama
                 </IonLabel>
-                <IonInput
-                  ref={fullNameRef}
-                  value={userData.fullName}
-                  inputMode="text"
-                  clearInput
-                />
+                <IonInput ref={fullNameRef} value={userData.fullName} inputMode="text" clearInput />
               </IonItem>
 
               <IonItem>
                 <IonLabel position="floating" color="primary">
                   Bio
                 </IonLabel>
-                <IonInput
-                  ref={bioRef}
-                  value={userData.bio}
-                  inputMode="text"
-                  clearInput
-                />
+                <IonInput ref={bioRef} value={userData.bio} inputMode="text" clearInput />
               </IonItem>
 
               <IonItem>
@@ -134,8 +124,7 @@ const EditProfile: React.FC = () => {
                 </IonLabel>
                 <IonSelect
                   value={gender ?? userData.gender}
-                  onIonChange={(e: CustomEvent) => setGender(e.detail.value)}
-                >
+                  onIonChange={(e: CustomEvent) => setGender(e.detail.value)}>
                   <IonSelectOption value="male">Laki-Laki</IonSelectOption>
                   <IonSelectOption value="female">Perempuan</IonSelectOption>
                 </IonSelect>
@@ -171,12 +160,7 @@ const EditProfile: React.FC = () => {
                 <IonLabel position="floating" color="primary">
                   Alamat
                 </IonLabel>
-                <IonInput
-                  ref={addressRef}
-                  value={userData.address}
-                  inputMode="text"
-                  clearInput
-                />
+                <IonInput ref={addressRef} value={userData.address} inputMode="text" clearInput />
               </IonItem>
             </IonList>
           </IonCol>
@@ -184,12 +168,7 @@ const EditProfile: React.FC = () => {
 
         <IonRow>
           <IonCol>
-            <IonButton
-              shape="round"
-              expand="block"
-              color="primary"
-              onClick={handleEditUserData}
-            >
+            <IonButton shape="round" expand="block" color="primary" onClick={handleEditUserData}>
               Simpan
             </IonButton>
           </IonCol>

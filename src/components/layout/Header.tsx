@@ -5,7 +5,7 @@ import {
   IonTitle,
   IonButtons,
   IonMenuButton,
-  IonBackButton,
+  IonBackButton
 } from '@ionic/react';
 
 type HeaderProps = {

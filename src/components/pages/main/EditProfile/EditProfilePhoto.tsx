@@ -14,8 +14,8 @@ type EditProfilePhotoProps = {
 
 const EditProfilePhoto: React.FC<EditProfilePhotoProps> = ({
   photo,
-  handleTakePhoto,
-}) => {
+  handleTakePhoto
+}: EditProfilePhotoProps) => {
   const { userData } = useContext(UserDataContext);
 
   return (
@@ -24,10 +24,7 @@ const EditProfilePhoto: React.FC<EditProfilePhotoProps> = ({
         {photo ? (
           <img src={photo} alt="avatar" />
         ) : (
-          <img
-            src={userData.photoUrl ? userData.photoUrl : avatarPlaceholder}
-            alt="avatar"
-          />
+          <img src={userData.photoUrl ? userData.photoUrl : avatarPlaceholder} alt="avatar" />
         )}
       </IonAvatar>
 

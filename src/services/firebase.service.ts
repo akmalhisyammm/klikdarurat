@@ -6,7 +6,7 @@ import {
   sendEmailVerification,
   signOut,
   User,
-  sendPasswordResetEmail,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import {
   getFirestore,
@@ -18,7 +18,7 @@ import {
   getDocs,
   deleteDoc,
   query,
-  where,
+  where
 } from 'firebase/firestore';
 import { getStorage, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
@@ -44,11 +44,7 @@ const registerUser = async (
   photoUrl: string
 ) => {
   try {
-    const { user } = await createUserWithEmailAndPassword(
-      firebaseAuth,
-      email,
-      password
-    );
+    const { user } = await createUserWithEmailAndPassword(firebaseAuth, email, password);
 
     await setDoc(doc(usersCollection, user.uid), {
       id: user.uid,
@@ -58,15 +54,12 @@ const registerUser = async (
       address,
       gender,
       bio,
-      photoUrl,
+      photoUrl
     });
 
-    await setDoc(
-      doc(firestore, 'users', user.uid, 'contacts', 'EMPTY_RESERVED'),
-      {
-        name: 'EMPTY_RESERVED',
-      }
-    );
+    await setDoc(doc(firestore, 'users', user.uid, 'contacts', 'EMPTY_RESERVED'), {
+      name: 'EMPTY_RESERVED'
+    });
 
     await sendEmailVerification(user);
   } catch (err) {
@@ -77,11 +70,7 @@ const registerUser = async (
 
 const loginUser = async (email: string, password: string) => {
   try {
-    const { user } = await signInWithEmailAndPassword(
-      firebaseAuth,
-      email,
-      password
-    );
+    const { user } = await signInWithEmailAndPassword(firebaseAuth, email, password);
 
     if (user.emailVerified) {
       return { status: true, message: 'login_success' };
@@ -176,17 +165,12 @@ const getPersonalContacts = async (currentUser: User | null) => {
   if (!currentUser) return;
 
   try {
-    const contactsSubColRef = collection(
-      firestore,
-      'users',
-      currentUser.uid,
-      'contacts'
-    );
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
     const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
     const qSnap = await getDocs(q);
 
     return qSnap.docs.map((doc) => ({
-      ...(doc.data() as PersonalContactData),
+      ...(doc.data() as PersonalContactData)
     }));
   } catch (error) {
     console.error(error);
@@ -194,21 +178,15 @@ const getPersonalContacts = async (currentUser: User | null) => {
   }
 };
 
-const addPersonalContact = async (
-  currentUser: User | null,
-  name: string,
-  phoneNumber: string
-) => {
+const addPersonalContact = async (currentUser: User | null, name: string, phoneNumber: string) => {
   if (!currentUser) throw new Error('Current user is null.');
 
   try {
-    const docRef = doc(
-      collection(firestore, 'users', currentUser.uid, 'contacts')
-    );
+    const docRef = doc(collection(firestore, 'users', currentUser.uid, 'contacts'));
     const newContact = {
       id: docRef.id,
       name,
-      phoneNumber,
+      phoneNumber
     };
 
     await setDoc(docRef, newContact);
@@ -232,26 +210,18 @@ const editPersonalContact = async (
     const updatedContact = {
       id,
       name,
-      phoneNumber,
+      phoneNumber
     };
 
-    await updateDoc(
-      doc(firestore, 'users', currentUser.uid, 'contacts', id),
-      updatedContact
-    );
+    await updateDoc(doc(firestore, 'users', currentUser.uid, 'contacts', id), updatedContact);
 
     // Get all documents from contacts subcollection
-    const contactsSubColRef = collection(
-      firestore,
-      'users',
-      currentUser.uid,
-      'contacts'
-    );
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
     const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
     const qSnap = await getDocs(q);
 
     return qSnap.docs.map((doc) => ({
-      ...(doc.data() as PersonalContactData),
+      ...(doc.data() as PersonalContactData)
     }));
   } catch (error) {
     console.error(error);
@@ -268,17 +238,12 @@ const deletePersonalContact = async (currentUser: User | null, id: string) => {
     await deleteDoc(docRef);
 
     // Get all documents from contacts subcollection
-    const contactsSubColRef = collection(
-      firestore,
-      'users',
-      currentUser.uid,
-      'contacts'
-    );
+    const contactsSubColRef = collection(firestore, 'users', currentUser.uid, 'contacts');
     const q = query(contactsSubColRef, where('name', '!=', 'EMPTY_RESERVED'));
     const qSnap = await getDocs(q);
 
     return qSnap.docs.map((doc) => ({
-      ...(doc.data() as PersonalContactData),
+      ...(doc.data() as PersonalContactData)
     }));
   } catch (error) {
     console.error(error);
@@ -297,5 +262,5 @@ export {
   getPersonalContacts,
   addPersonalContact,
   editPersonalContact,
-  deletePersonalContact,
+  deletePersonalContact
 };

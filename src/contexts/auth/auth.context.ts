@@ -19,7 +19,7 @@ interface Context {
 
 export const AuthContext = createContext<Context>({
   currentUser: null,
-  register: () => {},
-  login: () => {},
-  logout: () => {},
+  register: () => null,
+  login: () => null,
+  logout: () => null
 });

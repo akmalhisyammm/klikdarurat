@@ -1,9 +1,4 @@
-import {
-  GoogleMap,
-  InfoWindow,
-  Marker,
-  useLoadScript,
-} from '@react-google-maps/api';
+import { GoogleMap, InfoWindow, Marker, useLoadScript } from '@react-google-maps/api';
 import { klikDarurat } from 'assets';
 
 import googleMapConfig from 'config/googleMap.config';
@@ -17,16 +12,16 @@ type Coordinates = {
 
 const options: google.maps.MapOptions = {
   disableDefaultUI: true,
-  zoomControl: true,
+  zoomControl: false
 };
 
 const icon: any = {
   url: klikDarurat,
-  scaledSize: { width: 32, height: 32 },
+  scaledSize: { width: 32, height: 32 }
 };
 
 type MapProps = {
-  onLoad: (map: any) => void;
+  onLoad: (map: google.maps.Map) => void;
   currentPosition: Coordinates;
   nearbyPlaces: google.maps.places.PlaceResult[] | null;
   placeDetail: google.maps.places.PlaceResult | null;
@@ -38,8 +33,8 @@ const Map: React.FC<MapProps> = ({
   currentPosition,
   nearbyPlaces,
   placeDetail,
-  setPlaceDetail,
-}) => {
+  setPlaceDetail
+}: MapProps) => {
   const { isLoaded, loadError } = useLoadScript(googleMapConfig);
 
   return (
@@ -51,31 +46,27 @@ const Map: React.FC<MapProps> = ({
             onLoad={onLoad}
             mapContainerStyle={{
               width: '100%',
-              height: '100%',
+              height: '100%'
             }}
             center={currentPosition}
             zoom={15}
-            options={options}
-          >
+            options={options}>
             <Marker position={currentPosition} />
 
             {nearbyPlaces &&
-              nearbyPlaces.map(
-                (place: google.maps.places.PlaceResult, i: number) => (
-                  <Marker
-                    key={i}
-                    position={place.geometry?.location as google.maps.LatLng}
-                    icon={icon}
-                    onClick={() => setPlaceDetail(place)}
-                  />
-                )
-              )}
+              nearbyPlaces.map((place: google.maps.places.PlaceResult, i: number) => (
+                <Marker
+                  key={i}
+                  position={place.geometry?.location as google.maps.LatLng}
+                  icon={icon}
+                  onClick={() => setPlaceDetail(place)}
+                />
+              ))}
 
             {placeDetail && (
               <InfoWindow
                 position={placeDetail.geometry?.location}
-                onCloseClick={() => setPlaceDetail(null)}
-              >
+                onCloseClick={() => setPlaceDetail(null)}>
                 <div className={styles.infoWindow}>
                   <h2>{placeDetail.name}</h2>
                   <p>{placeDetail.vicinity}</p>

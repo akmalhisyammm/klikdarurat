@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   IonModal,
   IonHeader,
@@ -7,7 +8,7 @@ import {
   IonGrid,
   IonRow,
   IonCol,
-  IonButton,
+  IonButton
 } from '@ionic/react';
 
 type ContactModalProps = {
@@ -15,6 +16,7 @@ type ContactModalProps = {
   onDismiss: (dismiss: boolean) => void;
   type: boolean;
   handleSaveContact: () => void;
+  children: ReactNode;
 };
 
 const ContactModal: React.FC<ContactModalProps> = ({
@@ -22,8 +24,8 @@ const ContactModal: React.FC<ContactModalProps> = ({
   onDismiss,
   type,
   handleSaveContact,
-  children,
-}) => {
+  children
+}: ContactModalProps) => {
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader>
@@ -45,8 +47,7 @@ const ContactModal: React.FC<ContactModalProps> = ({
                 expand="block"
                 fill="solid"
                 shape="round"
-                onClick={handleSaveContact}
-              >
+                onClick={handleSaveContact}>
                 Simpan
               </IonButton>
             </IonCol>
@@ -56,8 +57,7 @@ const ContactModal: React.FC<ContactModalProps> = ({
                 expand="block"
                 fill="outline"
                 shape="round"
-                onClick={() => onDismiss(false)}
-              >
+                onClick={() => onDismiss(false)}>
                 Batalkan
               </IonButton>
             </IonCol>

@@ -4,7 +4,7 @@ import {
   IonCardTitle,
   IonCardContent,
   IonButton,
-  IonIcon,
+  IonIcon
 } from '@ionic/react';
 import { logoGithub } from 'ionicons/icons';
 
@@ -21,8 +21,8 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({
   name,
   nim,
   photo,
-  githubLink,
-}) => {
+  githubLink
+}: DeveloperCardProps) => {
   return (
     <IonCard color="secondary" className={styles.teamCard}>
       <img src={photo} alt={name} className={styles.teamCardImage} />
@@ -34,17 +34,8 @@ const DeveloperCard: React.FC<DeveloperCardProps> = ({
 
       <IonCardContent className={styles.teamCardContent}>
         <hr className={styles.teamCardContentDivider} />
-        <IonButton
-          fill="clear"
-          href={githubLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <IonIcon
-            icon={logoGithub}
-            color="danger"
-            className={styles.teamCardContentIcon}
-          />
+        <IonButton fill="clear" href={githubLink} target="_blank" rel="noopener noreferrer">
+          <IonIcon icon={logoGithub} color="danger" className={styles.teamCardContentIcon} />
         </IonButton>
       </IonCardContent>
     </IonCard>

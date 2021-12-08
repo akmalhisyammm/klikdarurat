@@ -11,7 +11,7 @@ import {
   IonItem,
   IonIcon,
   IonLabel,
-  useIonToast,
+  useIonToast
 } from '@ionic/react';
 import { informationCircle, logIn, logOut, personAdd } from 'ionicons/icons';
 import { AuthContext } from 'contexts/auth';
@@ -28,7 +28,7 @@ const SideMenu: React.FC = () => {
       presentToast({
         message: 'Anda telah keluar.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
 
       history.replace('/login');

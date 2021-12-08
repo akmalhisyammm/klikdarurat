@@ -1,11 +1,6 @@
 import { useContext } from 'react';
 import { IonList, IonItem, IonIcon, IonLabel } from '@ionic/react';
-import {
-  maleOutline,
-  mailOutline,
-  callOutline,
-  mapOutline,
-} from 'ionicons/icons';
+import { maleOutline, mailOutline, callOutline, mapOutline } from 'ionicons/icons';
 
 import { UserDataContext } from 'contexts/userData';
 
@@ -16,9 +11,7 @@ const ProfileDetail: React.FC = () => {
     <IonList>
       <IonItem>
         <IonIcon icon={maleOutline} slot="start" color="primary" />
-        <IonLabel>
-          {userData.gender === 'male' ? 'Laki-Laki' : 'Perempuan'}
-        </IonLabel>
+        <IonLabel>{userData.gender === 'male' ? 'Laki-Laki' : 'Perempuan'}</IonLabel>
       </IonItem>
 
       <IonItem>
@@ -29,9 +22,7 @@ const ProfileDetail: React.FC = () => {
       <IonItem>
         <IonIcon icon={callOutline} slot="start" color="primary" />
         <IonLabel color={userData.phoneNumber ? '' : 'medium'}>
-          {userData.phoneNumber
-            ? userData.phoneNumber
-            : 'Nomor telepon belum diisi'}
+          {userData.phoneNumber ? userData.phoneNumber : 'Nomor telepon belum diisi'}
         </IonLabel>
       </IonItem>
 

@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { AuthContext } from './auth.context';
 import { User } from 'firebase/auth';
-import {
-  firebaseAuth,
-  registerUser,
-  loginUser,
-  logoutUser,
-} from 'services/firebase.service';
+import { firebaseAuth, registerUser, loginUser, logoutUser } from 'services/firebase.service';
 import Loader from 'components/Loader';
 
-export const AuthProvider: React.FC = ({ children }) => {
+type AuthProviderProps = {
+  children: ReactNode;
+};
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -33,16 +32,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     photoUrl: string
   ) => {
     try {
-      await registerUser(
-        email,
-        password,
-        fullName,
-        phoneNumber,
-        address,
-        gender,
-        bio,
-        photoUrl
-      );
+      await registerUser(email, password, fullName, phoneNumber, address, gender, bio, photoUrl);
     } catch (err) {
       console.error(err);
       throw new Error('Oops! Something went wrong.');

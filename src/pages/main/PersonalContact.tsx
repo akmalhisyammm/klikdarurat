@@ -12,27 +12,21 @@ import {
   IonListHeader,
   IonToolbar,
   useIonActionSheet,
-  useIonToast,
+  useIonToast
 } from '@ionic/react';
 import { add, swapVerticalOutline, trash } from 'ionicons/icons';
 
 import { PersonalContactContext } from 'contexts/personalContact';
 import { PersonalContactData } from 'types/personalContact';
-import {
-  ContactModal,
-  ContactItem,
-} from 'components/pages/main/PersonalContact';
+import { ContactModal, ContactItem } from 'components/pages/main/PersonalContact';
 import Layout from 'components/layout';
 import SearchBar from 'components/SearchBar';
 
 const PersonalContact: React.FC = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [selectedContact, setSelectedContact] =
-    useState<PersonalContactData | null>();
+  const [selectedContact, setSelectedContact] = useState<PersonalContactData | null>();
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [filteredSearch, setFilteredSearch] = useState<PersonalContactData[]>(
-    []
-  );
+  const [filteredSearch, setFilteredSearch] = useState<PersonalContactData[]>([]);
   const [sortOrder, setSortOrder] = useState<boolean>(true);
 
   const [presentToast] = useIonToast();
@@ -66,7 +60,7 @@ const PersonalContact: React.FC = () => {
     presentToast({
       message: 'Kontak berhasil ditambahkan.',
       duration: 2000,
-      color: 'success',
+      color: 'success'
     });
   };
 
@@ -76,7 +70,7 @@ const PersonalContact: React.FC = () => {
       presentToast({
         message: 'Kontak berhasil diubah.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
   };
@@ -86,7 +80,7 @@ const PersonalContact: React.FC = () => {
     presentToast({
       message: 'Kontak telah dihapus.',
       duration: 2000,
-      color: 'danger',
+      color: 'danger'
     });
   };
 
@@ -98,9 +92,7 @@ const PersonalContact: React.FC = () => {
   const startEditContactHandler = (contactId: string) => {
     slidingOptionsRef.current?.closeOpened();
 
-    const contact = contactsCtx.contacts.find(
-      (contact) => contact.id === contactId
-    );
+    const contact = contactsCtx.contacts.find((contact) => contact.id === contactId);
 
     setSelectedContact(contact);
     setIsEditing(true);
@@ -109,9 +101,7 @@ const PersonalContact: React.FC = () => {
   const startDeleteContactHandler = (contactId: string) => {
     slidingOptionsRef.current?.closeOpened();
 
-    const contact = contactsCtx.contacts.find(
-      (contact) => contact.id === contactId
-    );
+    const contact = contactsCtx.contacts.find((contact) => contact.id === contactId);
 
     if (!contact) return;
 
@@ -122,15 +112,15 @@ const PersonalContact: React.FC = () => {
           text: 'Yakin',
           role: 'destructive',
           icon: trash,
-          handler: () => deleteContactHandler(contact),
+          handler: () => deleteContactHandler(contact)
         },
         {
           text: 'Batalkan',
           role: 'cancel',
           icon: 'close',
-          handler: dismissActionSheet,
-        },
-      ],
+          handler: dismissActionSheet
+        }
+      ]
     });
   };
 
@@ -158,10 +148,7 @@ const PersonalContact: React.FC = () => {
             <IonLabel color="primary">{sortOrder ? 'A-Z' : 'Z-A'}</IonLabel>
             <IonButton
               fill="clear"
-              onClick={() =>
-                sortOrder ? setSortOrder(false) : setSortOrder(true)
-              }
-            >
+              onClick={() => (sortOrder ? setSortOrder(false) : setSortOrder(true))}>
               <IonIcon icon={swapVerticalOutline} />
             </IonButton>
           </IonListHeader>
@@ -193,8 +180,7 @@ const PersonalContact: React.FC = () => {
         isOpen={isEditing}
         onDismiss={setIsEditing}
         type={!!selectedContact}
-        handleSaveContact={saveContactHandler}
-      >
+        handleSaveContact={saveContactHandler}>
         <IonItem>
           <IonLabel position="floating">Nama</IonLabel>
           <IonInput type="text" ref={nameRef} value={selectedContact?.name} />
@@ -202,11 +188,7 @@ const PersonalContact: React.FC = () => {
 
         <IonItem>
           <IonLabel position="floating">Nomor Telepon</IonLabel>
-          <IonInput
-            type="tel"
-            ref={phoneNumberRef}
-            value={selectedContact?.phoneNumber}
-          />
+          <IonInput type="tel" ref={phoneNumberRef} value={selectedContact?.phoneNumber} />
         </IonItem>
       </ContactModal>
     </>

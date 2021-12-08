@@ -18,7 +18,7 @@ import {
   IonSelectOption,
   IonText,
   useIonLoading,
-  useIonToast,
+  useIonToast
 } from '@ionic/react';
 import {
   personOutline,
@@ -28,7 +28,7 @@ import {
   transgenderOutline,
   keyOutline,
   eye,
-  eyeOff,
+  eyeOff
 } from 'ionicons/icons';
 import { klikDarurat } from 'assets';
 
@@ -43,8 +43,7 @@ const Register: React.FC = () => {
 
   const [selectedGender, setSelectedGender] = useState<'male' | 'female'>();
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
-  const [isShowConfirmPassword, setIsShowConfirmPassword] =
-    useState<boolean>(false);
+  const [isShowConfirmPassword, setIsShowConfirmPassword] = useState<boolean>(false);
 
   const fullNameRef = useRef<HTMLIonInputElement>(null);
   const emailRef = useRef<HTMLIonInputElement>(null);
@@ -74,7 +73,7 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Nama lengkap wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -82,7 +81,7 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Email wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -90,7 +89,7 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Nomor telepon wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -98,7 +97,7 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Jenis kelamin wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -106,7 +105,7 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Kata sandi wajib diisi.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -114,18 +113,15 @@ const Register: React.FC = () => {
       return presentToast({
         message: 'Kata sandi minimal 6 karakter.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
-    if (
-      !confirmPassword ||
-      password.toString() !== confirmPassword.toString()
-    ) {
+    if (!confirmPassword || password.toString() !== confirmPassword.toString()) {
       return presentToast({
         message: 'Kata sandi tidak sesuai.',
         duration: 2000,
-        color: 'warning',
+        color: 'warning'
       });
     }
 
@@ -146,7 +142,7 @@ const Register: React.FC = () => {
       presentToast({
         message: 'Berhasil membuat akun, silakan verifikasi email Anda.',
         duration: 4000,
-        color: 'success',
+        color: 'success'
       });
 
       history.replace('/login');
@@ -154,7 +150,7 @@ const Register: React.FC = () => {
       presentToast({
         message: 'Gagal membuat akun.',
         duration: 2000,
-        color: 'danger',
+        color: 'danger'
       });
     }
 
@@ -198,11 +194,7 @@ const Register: React.FC = () => {
                     <IonCol>
                       <IonList className={styles.registerCardList}>
                         <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={personOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={personOutline} color="secondary" slot="start" />
                           <IonInput
                             type="text"
                             inputMode="text"
@@ -213,11 +205,7 @@ const Register: React.FC = () => {
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={mailOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={mailOutline} color="secondary" slot="start" />
                           <IonInput
                             type="email"
                             inputMode="email"
@@ -228,11 +216,7 @@ const Register: React.FC = () => {
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={callOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={callOutline} color="secondary" slot="start" />
                           <IonInput
                             type="tel"
                             inputMode="tel"
@@ -246,36 +230,21 @@ const Register: React.FC = () => {
                           <IonLabel hidden color="primary">
                             Jenis Kelamin
                           </IonLabel>
-                          <IonIcon
-                            icon={transgenderOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={transgenderOutline} color="secondary" slot="start" />
                           <IonSelect
                             placeholder="Jenis Kelamin"
-                            onIonChange={(e) =>
-                              setSelectedGender(e.detail.value)
-                            }
+                            onIonChange={(e) => setSelectedGender(e.detail.value)}
                             interface="alert"
                             style={{
                               paddingLeft: 0,
-                              maxWidth: '100%',
-                            }}
-                          >
-                            <IonSelectOption value="male">
-                              Laki-laki
-                            </IonSelectOption>
-                            <IonSelectOption value="female">
-                              Perempuan
-                            </IonSelectOption>
+                              maxWidth: '100%'
+                            }}>
+                            <IonSelectOption value="male">Laki-laki</IonSelectOption>
+                            <IonSelectOption value="female">Perempuan</IonSelectOption>
                           </IonSelect>
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={lockClosedOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={lockClosedOutline} color="secondary" slot="start" />
                           <IonInput
                             type={isShowPassword ? 'text' : 'password'}
                             ref={passwordRef}
@@ -286,18 +255,12 @@ const Register: React.FC = () => {
                           <IonIcon
                             slot="end"
                             icon={isShowPassword ? eyeOff : eye}
-                            onClick={() =>
-                              setIsShowPassword(isShowPassword ? false : true)
-                            }
+                            onClick={() => setIsShowPassword(isShowPassword ? false : true)}
                             className={styles.toggleShowPassword}
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
-                          <IonIcon
-                            icon={keyOutline}
-                            color="secondary"
-                            slot="start"
-                          />
+                          <IonIcon icon={keyOutline} color="secondary" slot="start" />
                           <IonInput
                             type={isShowConfirmPassword ? 'text' : 'password'}
                             ref={confirmPasswordRef}
@@ -309,9 +272,7 @@ const Register: React.FC = () => {
                             slot="end"
                             icon={isShowConfirmPassword ? eyeOff : eye}
                             onClick={() =>
-                              setIsShowConfirmPassword(
-                                isShowConfirmPassword ? false : true
-                              )
+                              setIsShowConfirmPassword(isShowConfirmPassword ? false : true)
                             }
                             className={styles.toggleShowConfirmPassword}
                           />
@@ -326,8 +287,7 @@ const Register: React.FC = () => {
                         color="secondary"
                         expand="block"
                         shape="round"
-                        onClick={handleRegister}
-                      >
+                        onClick={handleRegister}>
                         Daftar
                       </IonButton>
                     </IonCol>
@@ -341,11 +301,7 @@ const Register: React.FC = () => {
             <IonCol>
               <IonText className={styles.contentFooter}>
                 Sudah memiliki akun?{' '}
-                <IonRouterLink
-                  color="danger"
-                  routerLink="/login"
-                  className={styles.loginLink}
-                >
+                <IonRouterLink color="danger" routerLink="/login" className={styles.loginLink}>
                   Masuk
                 </IonRouterLink>
               </IonText>
