@@ -146,7 +146,7 @@ const Register: React.FC = () => {
       });
 
       history.replace('/login');
-    } catch (error) {
+    } catch (err) {
       presentToast({
         message: 'Gagal membuat akun.',
         duration: 2000,

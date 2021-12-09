@@ -14,7 +14,6 @@ const Profile: React.FC = () => {
   const history = useHistory();
 
   const handleLogout = async () => {
-    console.log('start');
     try {
       await logout();
 
@@ -26,7 +25,7 @@ const Profile: React.FC = () => {
 
       history.replace('/login');
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 

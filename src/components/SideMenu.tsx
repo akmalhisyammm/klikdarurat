@@ -33,7 +33,7 @@ const SideMenu: React.FC = () => {
 
       history.replace('/login');
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 

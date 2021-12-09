@@ -40,7 +40,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 
         setUserData(data);
       } catch (err) {
-        console.log(err);
+        // console.error(err);
         throw new Error('Oops! Something went wrong.');
       }
     };
@@ -58,7 +58,7 @@ export const UserDataProvider: React.FC<UserDataProviderProps> = ({
 
       setStartFetchData(true);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       throw new Error('Oops! Something went wrong.');
     }
 

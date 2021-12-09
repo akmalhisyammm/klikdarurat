@@ -27,8 +27,8 @@ export const PersonalContactProvider: React.FC<PersonalContactProviderProps> = (
         if (!data) return;
 
         setContacts(data);
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        // console.error(err);
       }
     };
 
@@ -42,8 +42,8 @@ export const PersonalContactProvider: React.FC<PersonalContactProviderProps> = (
       const updatedContacts = [...contacts, newContact];
 
       setContacts(updatedContacts);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      // console.error(err);
       throw new Error('Failed to add new personal contact.');
     }
   };
@@ -53,8 +53,8 @@ export const PersonalContactProvider: React.FC<PersonalContactProviderProps> = (
       const updatedContacts = await editPersonalContact(currentUser, id, name, phoneNumber);
 
       setContacts(updatedContacts);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      // console.error(err);
       throw new Error('Failed to edit personal contact.');
     }
   };
@@ -64,8 +64,8 @@ export const PersonalContactProvider: React.FC<PersonalContactProviderProps> = (
       const updatedContacts = await deletePersonalContact(currentUser, id);
 
       setContacts(updatedContacts);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      // console.error(err);
       throw new Error('Failed to delete personal contact.');
     }
   };

@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
     try {
       await registerUser(email, password, fullName, phoneNumber, address, gender, bio, photoUrl);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       throw new Error('Oops! Something went wrong.');
     }
   };
@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
         throw new Error('email_not_verified');
       }
     } catch (err) {
-      console.error(err);
+      // console.error(err);
 
       if (err instanceof Error) {
         throw new Error(err.message);
@@ -61,7 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
     try {
       await logoutUser();
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 

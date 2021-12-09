@@ -48,8 +48,8 @@ const EditProfile: React.FC = () => {
       }
 
       setPhoto(photo.webPath);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      // console.error(err);
       setPhoto('');
     }
   };
@@ -83,7 +83,7 @@ const EditProfile: React.FC = () => {
 
       history.replace('/main/profile');
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       presentToast({
         message: 'Profil gagal diubah.',
         duration: 2000,

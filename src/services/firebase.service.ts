@@ -63,7 +63,7 @@ const registerUser = async (
 
     await sendEmailVerification(user);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -77,11 +77,11 @@ const loginUser = async (email: string, password: string) => {
     } else {
       return { status: false, message: 'email_not_verified' };
     }
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    // console.error(err);
 
-    if (error instanceof FirebaseError) {
-      throw new Error(error.code);
+    if (err instanceof FirebaseError) {
+      throw new Error(err.code);
     }
 
     throw new Error('Oops! Something went wrong.');
@@ -92,7 +92,7 @@ const logoutUser = async () => {
   try {
     await signOut(firebaseAuth);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -109,7 +109,7 @@ const getUserData = async (currentUser: User | null) => {
 
       return docSnap.data() as UserData;
     } catch (err) {
-      console.error(err);
+      // console.error(err);
       throw new Error('Oops! Something went wrong.');
     }
   }
@@ -147,7 +147,7 @@ const updateUserData = async (
     const usersDocRef = doc(firestore, 'users', currentUser.uid);
     await updateDoc(usersDocRef, updatedUser);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -156,7 +156,7 @@ const requestPasswordReset = async (email: string) => {
   try {
     await sendPasswordResetEmail(firebaseAuth, email);
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -172,8 +172,8 @@ const getPersonalContacts = async (currentUser: User | null) => {
     return qSnap.docs.map((doc) => ({
       ...(doc.data() as PersonalContactData)
     }));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -192,8 +192,8 @@ const addPersonalContact = async (currentUser: User | null, name: string, phoneN
     await setDoc(docRef, newContact);
 
     return newContact as PersonalContactData;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -223,8 +223,8 @@ const editPersonalContact = async (
     return qSnap.docs.map((doc) => ({
       ...(doc.data() as PersonalContactData)
     }));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
@@ -245,8 +245,8 @@ const deletePersonalContact = async (currentUser: User | null, id: string) => {
     return qSnap.docs.map((doc) => ({
       ...(doc.data() as PersonalContactData)
     }));
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    // console.error(err);
     throw new Error('Oops! Something went wrong.');
   }
 };
