@@ -35,6 +35,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
       await registerUser(email, password, fullName, phoneNumber, address, gender, bio, photoUrl);
     } catch (err) {
       // console.error(err);
+
+      if (err instanceof Error) {
+        throw new Error(err.message);
+      }
+
       throw new Error('Oops! Something went wrong.');
     }
   };
