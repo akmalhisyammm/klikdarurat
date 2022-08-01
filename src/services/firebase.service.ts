@@ -64,6 +64,11 @@ const registerUser = async (
     await sendEmailVerification(user);
   } catch (err) {
     // console.error(err);
+
+    if (err instanceof FirebaseError) {
+      throw new Error(err.code);
+    }
+
     throw new Error('Oops! Something went wrong.');
   }
 };
