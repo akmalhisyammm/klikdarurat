@@ -4,7 +4,7 @@ KlikDarurat is an application to assist Indonesian citizens in finding emergency
 
 ## Screenshots
 
-![Screenshot](https://github.com/akmalhisyammm/akmalhisyam.my.id/blob/main/public/projects/previews/klikdarurat_preview.png)
+![Screenshot](https://akmalhisyam.s3.ap-southeast-1.amazonaws.com/projects/previews/klikdarurat_preview.png)
 
 ## Authors
 
