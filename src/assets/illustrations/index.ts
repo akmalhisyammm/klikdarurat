@@ -1,1 +1,1 @@
-export { default as emergencyCall } from './emergency-call.svg';
+export { default as emergencyCall } from './emergency-call.png';

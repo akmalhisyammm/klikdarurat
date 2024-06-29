@@ -4,7 +4,6 @@ import {
   IonFabButton,
   IonIcon,
   IonItem,
-  IonLabel,
   IonSelect,
   IonSelectOption,
   IonToolbar
@@ -50,7 +49,7 @@ const EmergencyLocation: React.FC = () => {
 
       const service = new window.google.maps.places.PlacesService(mapRef.current);
 
-      service.nearbySearch(request, (results, status) => {
+      service.nearbySearch(request, (results: any, status: any) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
           setNearbyPlaces(results);
         } else {
@@ -71,7 +70,7 @@ const EmergencyLocation: React.FC = () => {
     });
   };
 
-  const onMapLoad = useCallback((map) => {
+  const onMapLoad = useCallback((map: any) => {
     getCurrentPosition();
     mapRef.current = map;
   }, []);
@@ -80,8 +79,8 @@ const EmergencyLocation: React.FC = () => {
     <Layout title="Lokasi Layanan Darurat">
       <IonToolbar color="primary">
         <IonItem className={styles.selectItem}>
-          <IonLabel>Lokasi</IonLabel>
           <IonSelect
+            label="Lokasi"
             value={emergencyKeyword}
             placeholder="Pilih Lokasi Layanan Darurat"
             onIonChange={(e) => setEmergencyKeyword(e.detail.value)}>

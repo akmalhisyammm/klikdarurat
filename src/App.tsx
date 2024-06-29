@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { IonApp, IonSplitPane } from '@ionic/react';
+import { IonApp, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { App as CapacitorApp } from '@capacitor/app';
@@ -26,6 +26,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import 'theme/variables.css';
 import 'theme/customTheme.css';
+
+setupIonicReact();
 
 CapacitorApp.addListener('backButton', ({ canGoBack }) => {
   !canGoBack ? CapacitorApp.exitApp() : window.history.back();

@@ -6,7 +6,6 @@ import {
   IonGrid,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
   IonRow,
   IonSelect,
@@ -105,24 +104,31 @@ const EditProfile: React.FC = () => {
           <IonCol>
             <IonList>
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  Nama
-                </IonLabel>
-                <IonInput ref={fullNameRef} value={userData.fullName} inputMode="text" clearInput />
+                <IonInput
+                  ref={fullNameRef}
+                  label="Nama"
+                  labelPlacement="floating"
+                  value={userData.fullName}
+                  inputMode="text"
+                  clearInput
+                />
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  Bio
-                </IonLabel>
-                <IonInput ref={bioRef} value={userData.bio} inputMode="text" clearInput />
+                <IonInput
+                  ref={bioRef}
+                  label="Bio"
+                  labelPlacement="floating"
+                  value={userData.bio}
+                  inputMode="text"
+                  clearInput
+                />
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  Jenis Kelamin
-                </IonLabel>
                 <IonSelect
+                  label="Jenis Kelamin"
+                  labelPlacement="floating"
                   value={gender ?? userData.gender}
                   onIonChange={(e: CustomEvent) => setGender(e.detail.value)}>
                   <IonSelectOption value="male">Laki-Laki</IonSelectOption>
@@ -131,11 +137,10 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  E-mail
-                </IonLabel>
                 <IonInput
                   ref={emailRef}
+                  label="Email"
+                  labelPlacement="floating"
                   value={userData.email}
                   inputMode="email"
                   clearInput
@@ -144,11 +149,10 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  Nomor Telepon
-                </IonLabel>
                 <IonInput
                   ref={phoneNumberRef}
+                  label="Nomor Telepon"
+                  labelPlacement="floating"
                   value={userData.phoneNumber}
                   inputMode="tel"
                   maxlength={12}
@@ -157,10 +161,14 @@ const EditProfile: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating" color="primary">
-                  Alamat
-                </IonLabel>
-                <IonInput ref={addressRef} value={userData.address} inputMode="text" clearInput />
+                <IonInput
+                  ref={addressRef}
+                  label="Alamat"
+                  labelPlacement="floating"
+                  value={userData.address}
+                  inputMode="text"
+                  clearInput
+                />
               </IonItem>
             </IonList>
           </IonCol>

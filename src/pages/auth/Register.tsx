@@ -10,7 +10,6 @@ import {
   IonIcon,
   IonInput,
   IonItem,
-  IonLabel,
   IonList,
   IonRouterLink,
   IonRow,
@@ -227,11 +226,9 @@ const Register: React.FC = () => {
                           />
                         </IonItem>
                         <IonItem className={styles.registerCardItem}>
-                          <IonLabel hidden color="primary">
-                            Jenis Kelamin
-                          </IonLabel>
                           <IonIcon icon={transgenderOutline} color="secondary" slot="start" />
                           <IonSelect
+                            label="Jenis Kelamin"
                             placeholder="Jenis Kelamin"
                             onIonChange={(e) => setSelectedGender(e.detail.value)}
                             interface="alert"
