@@ -146,6 +146,18 @@ const Register: React.FC = () => {
 
       history.replace('/login');
     } catch (err) {
+      if (err instanceof Error) {
+        if (err.message === 'auth/email-already-in-use') {
+          dismissLoading();
+
+          return presentToast({
+            message: 'Email sudah terdaftar.',
+            duration: 2000,
+            color: 'danger'
+          });
+        }
+      }
+
       presentToast({
         message: 'Gagal membuat akun.',
         duration: 2000,
